@@ -159,3 +159,79 @@ CREATE TABLE 3FG.CANCELACIONES (
 	MOTIVO_CANCELACION VARCHAR(250)
 );
 GO
+
+/* CREO LAS PRIMARY KEY COMPUESTAS  */
+alter table 3FG.ROLES_USUARIO add constraint PK_ROL_POR_USUARIO
+	primary key clustered (ID_ROL,ID_USUARIO);
+GO
+alter table 3FG.FUNCIONALIDADES_ROL add constraint PK_FUNC_POR_ROL
+	primary key clustered (ID_ROL,ID_FUNCIONALIDAD);
+GO
+
+/*CREO LA FOREIGN KEY COMPUESTA*/ --NO SE SI ESTO ESTA BIEN--
+alter table 3FG.AGENDA add constraint PK_AGENDA_ESPECIALIDAD_PROFESIONAL
+	foreign key clustered (ID_USUARIO,ID_ESPECIALIDAD) references 3FG.ESPECIALIDAD_PROFESIONAL (ID_USUARIO,ID_ESPECIALIDAD) ;
+GO
+
+/*CREO LAS FOREIGN KEY*/ 
+
+alter table 3FG.FUNCIONALIDADES_ROL add constraint FK1_FUNC_ROL
+	foreign key (ID_ROL) references 3FG.ROLES (ID_ROL);
+GO
+alter table 3FG.FUNCIONALIDADES_ROL add constraint FK2_FUNC_ROL
+	foreign key (ID_FUNCIONALIDAD) references 3FG.FUNCIONALIDADES (ID_FUNCIONALIDAD);
+GO	
+alter table 3FG.ROLES_USUARIO add constraint FK1_ROL_USUARIO
+	foreign key (ID_ROL) references 3FG.ROLES (ID_ROL);
+GO	
+alter table 3FG.ROLES_USUARIO add constraint FK2_ROL_USUARIO
+	foreign key (ID_USUARIO) references 3FG.USUARIOS (ID_USUARIO);
+GO
+alter table 3FG.AFILIADOS add constraint FK_AFILIADO_USUARIO
+	foreign key (ID_USUARIO) references 3FG.USUARIOS (ID_USUARIO);
+GO
+alter table 3FG.PROFESIONALES add constraint FK_PROFESIONAL_USUARIO
+	foreign key (ID_USUARIO) references 3FG.USUARIOS (ID_USUARIO);
+GO
+alter table 3FG.AFILIADO add constraint FK_AFILIADO_PLAN
+	foreign key (ID_PLAN) references 3FG.PLANES (ID_PLAN);
+GO
+alter table 3FG.HISTORIAL_CAMBIOS_PLAN add constraint FK_AFILIADO_PLAN
+	foreign key (ID_USUARIO) references 3FG.AFILIADOS (ID_USUARIO);
+GO
+alter table 3DF.ESPECIALIDAD_PROFESIONAL add constraint FK1_ESPECIALIDAD_POR_PROFESIONAL
+	foreign key (ID_USUARIO) references 3FG.PROFESIONALES (ID_USUARIO);
+GO
+alter table 3DF.ESPECIALIDAD_PROFESIONAL add constraint FK2_ESPECIALIDAD_POR_PROFESIONAL
+	foreign key (ID_ESPECIALIDAD) references 3FG.ESPECIALIDADES (ID_ESPECIALIDAD);
+GO
+alter table 3DF.ESPECIALIDADES add constraint FK_ESPECIALIDADES_TIPO_DE_ESPECIALIDAD
+	foreign key (ID_TIPO_ESPECIALIDAD) references 3FG.TIPO_ESPECIALIDAD (ID_TIPO_ESPECIALIDAD);
+GO
+alter table 3FG.BONOS add constraint FK_BONO_AFILIADO
+	foreign key (ID_USUARIO) references 3FG.AFILIADOS (ID_USUARIO);
+GO
+alter table 3FG.BONOS add constraint FK_BONO_PLAN
+	foreign key (ID_PLAN) references 3FG.PLANES (ID_PLAN);
+GO
+alter table 3FG.BONOS add constraint FK_BONO_COMPRAS
+	foreign key (ID_COMPRA) references 3FG.COMPRAS (ID_COMPRA);
+GO
+alter table 3FG.TURNOS add constraint FK_TURNO_AFILIADO
+	foreign key (ID_USUARIO) references 3FG.AFILIADOS (ID_USUARIO);
+GO
+alter table 3FG.TURNOS add constraint FK_TURNO_PROFESIONAL
+	foreign key (ID_USUARIO) references 3FG.PROFESIONALES (ID_USUARIO);
+GO
+alter table 3FG.RECEPCIONES add constraint FK_RECEPCIONES_TURNO
+	foreign key (ID_TURNO) references 3FG.TURNOS (ID_TURNO);
+GO
+alter table 3FG.RECEPCIONES add constraint FK_RECEPCIONES_BONO
+	foreign key (ID_BONO) references 3FG.BONOS (ID_BONOS);
+GO
+alter table 3FG.ATENCIONES_MEDICAS add constraint FK_ATENCIONES_MEDICAS_RECEPCION
+	foreign key (ID_RECEPCION) references 3FG.RECEPCIONES (ID_RECEPCIONES);
+GO
+alter table 3FG.CANCELACIONES add constraint FK_CANCELACIONES_TURNO
+	foreign key (ID_TURNO) references 3FG.TURNOS (ID_TURNO);
+GO

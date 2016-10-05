@@ -11,9 +11,10 @@ CREATE TABLE [3FG].USUARIOS (
 	CANT_INTENTOS TINYINT DEFAULT 0,
 	NOMBRE VARCHAR(100),
 	APELLIDO VARCHAR(100),
-	TIPO_DE_DOCUMENTO VARCHAR(100),
+	TIPO_DE_DOCUMENTO VARCHAR(100) DEFAULT 'D.N.I',
 	NUMERO_DOCUMENTO BIGINT,
 	TELEFONO BIGINT,
+	DIRECCION VARCHAR(100),
 	MAIL VARCHAR(100),
 	FECHA_NACIMIENTO DATETIME,
 	SEXO VARCHAR(20),
@@ -238,3 +239,54 @@ GO
 alter table [3FG].CANCELACIONES add constraint FK_CANCELACIONES_TURNO
 	foreign key (ID_TURNO) references [3FG].TURNOS (ID_TURNO);
 GO
+
+/* -- Migracion-- */
+	
+	CREATE PROCEDURE [3FG].MigrarPacientes
+AS
+BEGIN
+
+	--Se migran los pacientes de la tabla Maestra
+	INSERT INTO [3FG].USUARIOS(NOMBRE,APELLIDO,NUMERO_DOCUMENTO,DIRECCION,TELEFONO,MAIL,FECHA_NACIMIENTO)
+	SELECT DISTINCT Paciente_Nombre,Paciente_Apellido,Paciente_Dni,Paciente_Direccion,Paciente_Telefono,Paciente_Mail,Paciente_Fecha_Nac 
+	FROM gd_esquema.Maestra
+
+END;
+GO
+
+CREATE PROCEDURE [3FG].MigrarMedicos
+AS
+BEGIN
+
+	--Se migran los medicos de la tabla Maestra
+	INSERT INTO [3FG].USUARIOS(NOMBRE,APELLIDO,NUMERO_DOCUMENTO,DIRECCION,TELEFONO,MAIL,FECHA_NACIMIENTO)
+	SELECT DISTINCT Medico_Nombre,Medico_Apellido,Medico_Dni,Medico_Direccion,Medico_Telefono,Medico_Mail,Medico_Fecha_Nac 
+	FROM gd_esquema.Maestra
+
+END;
+GO
+
+CREATE PROCEDURE [3FG].MigrarPlanes
+AS
+BEGIN
+
+	--Se migran los planes de la tabla Maestra
+	INSERT INTO [3FG].PLANES(CODIGO_PLAN,DESCRIPCION_PLAN,PRECIO_BONO_CONSULTA,PRECIO_BONO_FARMACIA)
+	SELECT DISTINCT Plan_Med_Codigo,Plan_Med_Descripcion,Plan_Med_Precio_Bono_Consulta,Plan_Med_Precio_Bono_Farmacia
+	FROM gd_esquema.Maestra
+
+END;
+GO
+
+CREATE PROCEDURE [3FG].MigrarTiposDeEspecialidad
+AS
+BEGIN
+
+	--Se migran los tipos de especialidad de la tabla Maestra
+	INSERT INTO [3FG].TIPO_ESPECIALIDAD(CODIGO_TIPO_ESPECIALIDAD,DESCRIPCION_TIPO_ESPECIALIDAD)
+	SELECT DISTINCT Tipo_Especialidad_Codigo,Tipo_Especialidad_Descripcion
+	FROM gd_esquema.Maestra
+
+END;
+GO
+

@@ -290,14 +290,14 @@ BEGIN
 END;
 GO
 
-/*VER SI ESTO ESTA BIEN
+/*VER SI ESTO ESTA BIEN*/
 CREATE PROCEDURE [3FG].MigrarBonos
 AS
 BEGIN
 
 	--Se migran los bonos de la tabla Maestra
 	INSERT INTO [3FG].BONOS(ID_PLAN,ID_USUARIO)
-	SELECT DISTINCT p.ID_PLAN,u.ID_USUARIO
+	SELECT p.ID_PLAN,u.ID_USUARIO
 	FROM gd_esquema.Maestra m, PLANES p, USUARIOS u
 	WHERE m.Paciente_Dni = u.NUMERO_DOCUMENTO
 	AND m.Plan_Med_Codigo=p.CODIGO_PLAN
@@ -307,13 +307,14 @@ BEGIN
 END;
 GO
 
+/*
 CREATE PROCEDURE [3FG].CargarCompras
 AS
 BEGIN
 
 	--Se cargan las compras luego de migrar los bonos
 	INSERT INTO [3FG].COMPRAS(CANTIDAD_BONOS,MONTO_PAGADO)
-	SELECT DISTINCT COUNT(DISTINCT Bono_Consulta_Numero),(p.PRECIO_BONO_CONSULTA*COUNT(DISTINCT Bono_Consulta_Numero))
+	SELECT COUNT(Bono_Consulta_Numero),(p.PRECIO_BONO_CONSULTA*COUNT(Bono_Consulta_Numero))
 	FROM gd_esquema.Maestra m, PLANES p
 	WHERE m.Plan_Med_Codigo=p.CODIGO_PLAN
 	AND m.Compra_Bono_Fecha=m.Bono_Consulta_Fecha_Impresion
@@ -321,3 +322,58 @@ BEGIN
 END;
 GO
 */
+
+
+/*Tablas temporales para afiliados y medicos*/
+
+CREATE TABLE [3FG].#TMP_AFILIADOS (
+	ID_AFILIADO BIGINT,
+	NOMBRE VARCHAR(100),
+	APELLIDO VARCHAR(100),
+	NUMERO_DOCUMENTO BIGINT
+)
+GO
+
+CREATE TABLE [3FG].#TMP_PROFESIONALES (
+	ID_PROFESIONAL BIGINT,
+	NOMBRE VARCHAR(100),
+	APELLIDO VARCHAR(100),
+	NUMERO_DOCUMENTO BIGINT
+)
+GO
+
+CREATE PROCEDURE [3FG].Migrar_Afiliados_Profesionales_Temporales
+AS
+BEGIN
+
+	--Se migran los AFILIADOS de la usuarios a la temporal
+	INSERT INTO #TMP_AFILIADOS (ID_AFILIADO,NOMBRE,APELLIDO,NUMERO_DOCUMENTO)
+	SELECT DISTINCT u.ID_USUARIO, m.Paciente_Nombre, m.Paciente_Apellido, m.Paciente_Dni
+	FROM USUARIOS u JOIN gd_esquema.Maestra m ON (u.NUMERO_DOCUMENTO = m.Paciente_Dni)
+	
+	--Se migran los PROFESIONES de la usuarios a la temporal
+	INSERT INTO #TMP_PROFESIONALES (ID_PROFESIONAL,NOMBRE,APELLIDO,NUMERO_DOCUMENTO)
+	SELECT DISTINCT u.ID_USUARIO, m.Medico_Nombre, m.Medico_Apellido, m.Medico_Dni
+	FROM USUARIOS u JOIN gd_esquema.Maestra m ON (u.NUMERO_DOCUMENTO = m.Medico_Dni) 
+
+END;
+GO
+
+CREATE PROCEDURE [3FG].MigrarTurnos
+AS
+BEGIN
+
+	--Se migran los turnos de la tabla Maestra
+	INSERT INTO [3FG].TURNOS(ID_AFILIADO,ID_PROFESIONAL,FECHA_TURNO,FECHA_TURNO)
+	SELECT a.ID_AFILIADO,p.ID_PROFESIONAL,m.Turno_Fecha,m.Turno_Fecha
+	FROM gd_esquema.Maestra m, #TMP_AFILIADOS a, #TMP_PROFESIONALES p
+	WHERE m.Paciente_Dni = a.ID_AFILIADO
+	AND m.Medico_Dni = p.ID_PROFESIONAL
+	AND m.Compra_Bono_Fecha is NULL
+	AND m.Bono_Consulta_Fecha_Impresion is NULL
+	AND m.Consulta_Sintomas is NULL
+	AND m.Consulta_Enfermedades is NULL
+END;
+GO
+
+

@@ -24,7 +24,7 @@ GO
 /*CREO LA TABLA DE ROLES */
 CREATE TABLE [3FG].ROLES (
 	ID_ROL BIGINT IDENTITY(1,1) PRIMARY KEY,
-	ROL VARCHAR(100) UNIQUE,
+	NOMBRE_ROL VARCHAR(100) UNIQUE,
 	HABILITADO TINYINT DEFAULT 1
 );
 GO
@@ -254,11 +254,11 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE [3FG].MigrarMedicos
+CREATE PROCEDURE [3FG].MigrarProfesionales
 AS
 BEGIN
 
-	--Se migran los medicos de la tabla Maestra
+	--Se migran los profesionales de la tabla Maestra
 	INSERT INTO [3FG].USUARIOS(NOMBRE,APELLIDO,NUMERO_DOCUMENTO,DIRECCION,TELEFONO,MAIL,FECHA_NACIMIENTO)
 	SELECT DISTINCT Medico_Nombre,Medico_Apellido,Medico_Dni,Medico_Direccion,Medico_Telefono,Medico_Mail,Medico_Fecha_Nac 
 	FROM gd_esquema.Maestra
@@ -405,5 +405,13 @@ BEGIN
 
 END;
 GO
+
+/* -- Inserto los ROLES -- */
+
+INSERT INTO [3FG].ROLES(NOMBRE_ROL) VALUES('Administrativo');
+INSERT INTO [3FG].ROLES(NOMBRE_ROL) VALUES('Afiliado');
+INSERT INTO [3FG].ROLES(NOMBRE_ROL) VALUES('Profesional');
+INSERT INTO [3FG].ROLES(NOMBRE_ROL) VALUES('Administrador general'); /* Es quien va a tener
+																	todas las funcionalidades*/
 
 

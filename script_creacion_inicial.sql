@@ -4,9 +4,10 @@ GO
 /*CREO LAS TABLAS DEL DER*/
 
 /*CREO LA TABLA DE USUARIOS */
+
 CREATE TABLE [3FG].USUARIOS (
-	ID_USUARIO BIGINT IDENTITY(1,1) PRIMARY KEY,
-	USUARIO_NOMBRE VARCHAR(250) UNIQUE,
+	ID_USUARIO BIGINT PRIMARY KEY IDENTITY(1,1),
+	USUARIO_NOMBRE VARCHAR(250),
 	PASSWORD VARCHAR(250),
 	CANT_INTENTOS TINYINT DEFAULT 0,
 	NOMBRE VARCHAR(100),
@@ -241,6 +242,7 @@ alter table [3FG].CANCELACIONES add constraint FK_CANCELACIONES_TURNO
 GO
 
 /* -- Migracion-- */
+
 	
 	CREATE PROCEDURE [3FG].MigrarPacientes
 AS
@@ -252,6 +254,8 @@ BEGIN
 	FROM gd_esquema.Maestra
 
 END;
+
+
 GO
 
 CREATE PROCEDURE [3FG].MigrarProfesionales
@@ -394,7 +398,7 @@ BEGIN
 
 	--Se migran los turnos de la tabla Maestra
 	INSERT INTO [3FG].TURNOS(ID_AFILIADO,ID_PROFESIONAL,FECHA_TURNO)
-	SELECT a.ID_AFILIADO,p.ID_PROFESIONAL,m.Turno_Fecha,m.Turno_Fecha
+	SELECT a.ID_AFILIADO,p.ID_PROFESIONAL,m.Turno_Fecha
 	FROM gd_esquema.Maestra m, #TMP_AFILIADOS a, #TMP_PROFESIONALES p
 	WHERE m.Paciente_Dni = a.NUMERO_DOCUMENTO
 	AND m.Medico_Dni = p.NUMERO_DOCUMENTO
@@ -413,5 +417,37 @@ INSERT INTO [3FG].ROLES(NOMBRE_ROL) VALUES('Afiliado');
 INSERT INTO [3FG].ROLES(NOMBRE_ROL) VALUES('Profesional');
 INSERT INTO [3FG].ROLES(NOMBRE_ROL) VALUES('Administrador general'); /* Es quien va a tener
 																	todas las funcionalidades*/
+select * from  [3FG].ROLES;
+go
 
 
+
+select *from [3FG].USUARIOS
+go
+/*estos procedures rompian por el unique del USURARIO_NOMBE de la tabla [3FG].USUARIOS*/
+exec [3FG].MigrarPacientes
+exec [3FG].MigrarProfesionales
+
+
+/*estos migran bien*/
+exec [3FG].MigrarPlanes
+exec [3FG].MigrarTiposDeEspecialida
+exec [3FG].MigrarEspecialidades
+exec [3FG].MigrarEspecialidadPorProfesional
+exec [3FG].Migrar_Afiliados_Profesionales_Temporales
+exec [3FG].MigrarTurnos
+go
+
+
+
+
+/*no migra nada [3FG].MigrarBonos*/
+exec [3FG].MigrarBonos
+go
+
+select *from [3FG].ESPECIALIDAD_PROFESIONAL
+select *from [3FG].TURNOS
+select *from [3FG].PLANES
+select *from [3FG].TIPO_ESPECIALIDAD
+select *from [3FG].ESPECIALIDADES
+go

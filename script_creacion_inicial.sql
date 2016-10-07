@@ -131,7 +131,7 @@ CREATE TABLE [3FG].COMPRAS (
 GO
 /*CREO LA TABLA DE TURNOS*/
 CREATE TABLE [3FG].TURNOS (
-	ID_TURNO BIGINT IDENTITY(1,1) PRIMARY KEY,
+	ID_TURNO BIGINT IDENTITY(56565,1) PRIMARY KEY,
 	ID_AFILIADO BIGINT,
 	ID_PROFESIONAL BIGINT,
 	FECHA_TURNO DATETIME
@@ -399,8 +399,8 @@ AS
 BEGIN
 
 	--Se migran los turnos de la tabla Maestra
-	INSERT INTO [3FG].TURNOS(ID_AFILIADO,ID_PROFESIONAL,FECHA_TURNO)
-	SELECT a.ID_AFILIADO,p.ID_PROFESIONAL,m.Turno_Fecha
+	INSERT INTO [3FG].TURNOS(ID_TURNO,ID_PROFESIONAL,FECHA_TURNO)
+	SELECT m.Turno_Numero,a.ID_AFILIADO,p.ID_PROFESIONAL,m.Turno_Fecha
 	FROM gd_esquema.Maestra m, #TMP_AFILIADOS a, #TMP_PROFESIONALES p
 	WHERE m.Paciente_Dni = a.NUMERO_DOCUMENTO
 	AND m.Medico_Dni = p.NUMERO_DOCUMENTO
@@ -408,9 +408,30 @@ BEGIN
 	AND m.Bono_Consulta_Fecha_Impresion is NULL
 	AND m.Consulta_Sintomas is NULL
 	AND m.Consulta_Enfermedades is NULL
+	ORDER BY 1 ASC
 
 END;
 GO
+
+CREATE PROCEDURE [3FG].MigrarRecepciones
+AS
+BEGIN
+
+	--Se cargan las recepciones de la tabla maestra
+	INSERT INTO [3FG].RECEPCIONES(ID_TURNO,ID_BONO,FECHA_RECEPCIONES)
+	SELECT Turno_Numero,Bono_Consulta_Numero,Bono_Consulta_Fecha_Impresion
+	FROM gd_esquema.Maestra m, USUARIOS u
+	WHERE m.Paciente_Dni= u.NUMERO_DOCUMENTO
+	AND.Compra_Bono_Fecha is NULL
+	AND Bono_Consulta_Fecha_Impresion is NOT NULL
+	GROUP BY ID_USUARIO,Compra_Bono_Fecha,Plan_Med_Precio_Bono_Consulta
+
+END;
+GO
+
+/* Crear trigger que ante cada recepcion cree la consulta correspondiente */
+
+
 
 /* -- Inserto los ROLES -- */
 
@@ -433,7 +454,7 @@ exec [3FG].MigrarProfesionales
 
 /*estos migran bien*/
 exec [3FG].MigrarPlanes
-exec [3FG].MigrarTiposDeEspecialida
+exec [3FG].MigrarTiposDeEspecialidad
 exec [3FG].MigrarEspecialidades
 exec [3FG].MigrarEspecialidadPorProfesional
 exec [3FG].Migrar_Afiliados_Profesionales_Temporales

@@ -421,9 +421,8 @@ BEGIN
 	--Se cargan las recepciones de la tabla maestra
 	INSERT INTO [3FG].RECEPCIONES(ID_TURNO,ID_BONO,FECHA_RECEPCIONES)
 	SELECT Turno_Numero,Bono_Consulta_Numero,Bono_Consulta_Fecha_Impresion
-	FROM gd_esquema.Maestra m, USUARIOS u
-	WHERE m.Paciente_Dni= u.NUMERO_DOCUMENTO
-	AND.Compra_Bono_Fecha is NULL
+	FROM gd_esquema.Maestra
+	WHERE Compra_Bono_Fecha is NULL
 	AND Bono_Consulta_Fecha_Impresion is NOT NULL
 
 END;

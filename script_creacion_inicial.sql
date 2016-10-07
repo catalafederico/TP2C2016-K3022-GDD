@@ -425,7 +425,6 @@ BEGIN
 	WHERE m.Paciente_Dni= u.NUMERO_DOCUMENTO
 	AND.Compra_Bono_Fecha is NULL
 	AND Bono_Consulta_Fecha_Impresion is NOT NULL
-	GROUP BY ID_USUARIO,Compra_Bono_Fecha,Plan_Med_Precio_Bono_Consulta
 
 END;
 GO

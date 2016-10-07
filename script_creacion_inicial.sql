@@ -430,6 +430,19 @@ GO
 
 /* Crear trigger que ante cada recepcion cree la consulta correspondiente */
 
+CREATE TRIGGER [3FG].CargarAtencionesTrigger ON [3FG].RECEPCIONES
+AFTER INSERT
+AS
+BEGIN
+	INSERT INTO [3FG].ATENCIONES_MEDICAS(ID_RECEPCION,FECHA_ATENCION,DIAGNOSTICO,SINTOMAS)
+	SELECT r.ID_RECEPCION,Bono_Consulta_Fecha_Impresion,Consulta_Enfermedades,Consulta_Sintomas
+	FROM gd_esquema.Maestra m, RECEPCIONES r
+	WHERE m.Bono_Consulta_Numero = r.ID_TURNO
+	AND Compra_Bono_Fecha is NULL
+	AND Bono_Consulta_Fecha_Impresion is NOT NULL
+END;
+GO
+
 
 
 /* -- Inserto los ROLES -- */

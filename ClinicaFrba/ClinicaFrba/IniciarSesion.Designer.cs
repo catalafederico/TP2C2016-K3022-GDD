@@ -33,6 +33,7 @@
             this.txtContraseña = new System.Windows.Forms.TextBox();
             this.txtUsuario = new System.Windows.Forms.TextBox();
             this.btnIniciarSesion = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
@@ -59,6 +60,7 @@
             this.txtContraseña.Name = "txtContraseña";
             this.txtContraseña.Size = new System.Drawing.Size(129, 20);
             this.txtContraseña.TabIndex = 2;
+            this.txtContraseña.TextChanged += new System.EventHandler(this.txtContraseña_TextChanged);
             // 
             // txtUsuario
             // 
@@ -66,6 +68,7 @@
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.Size = new System.Drawing.Size(129, 20);
             this.txtUsuario.TabIndex = 3;
+            this.txtUsuario.TextChanged += new System.EventHandler(this.txtUsuario_TextChanged);
             // 
             // btnIniciarSesion
             // 
@@ -75,12 +78,22 @@
             this.btnIniciarSesion.TabIndex = 4;
             this.btnIniciarSesion.Text = "Iniciar sesion";
             this.btnIniciarSesion.UseVisualStyleBackColor = true;
+            this.btnIniciarSesion.Click += new System.EventHandler(this.btnIniciarSesion_Click);
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(99, 35);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(214, 21);
+            this.comboBox1.TabIndex = 5;
             // 
             // IniciarSesion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(407, 337);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.btnIniciarSesion);
             this.Controls.Add(this.txtUsuario);
             this.Controls.Add(this.txtContraseña);
@@ -88,6 +101,7 @@
             this.Controls.Add(this.label1);
             this.Name = "IniciarSesion";
             this.Text = "Iniciar sesion";
+            this.Load += new System.EventHandler(this.IniciarSesion_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -100,6 +114,7 @@
         private System.Windows.Forms.TextBox txtContraseña;
         private System.Windows.Forms.TextBox txtUsuario;
         private System.Windows.Forms.Button btnIniciarSesion;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
 

@@ -393,11 +393,11 @@ AS
 BEGIN
 
 	--Se migran los turnos de la tabla Maestra
-	INSERT INTO [3FG].TURNOS(ID_AFILIADO,ID_PROFESIONAL,FECHA_TURNO,FECHA_TURNO)
+	INSERT INTO [3FG].TURNOS(ID_AFILIADO,ID_PROFESIONAL,FECHA_TURNO)
 	SELECT a.ID_AFILIADO,p.ID_PROFESIONAL,m.Turno_Fecha,m.Turno_Fecha
 	FROM gd_esquema.Maestra m, #TMP_AFILIADOS a, #TMP_PROFESIONALES p
-	WHERE m.Paciente_Dni = a.ID_AFILIADO
-	AND m.Medico_Dni = p.ID_PROFESIONAL
+	WHERE m.Paciente_Dni = a.NUMERO_DOCUMENTO
+	AND m.Medico_Dni = p.NUMERO_DOCUMENTO
 	AND m.Compra_Bono_Fecha is NULL
 	AND m.Bono_Consulta_Fecha_Impresion is NULL
 	AND m.Consulta_Sintomas is NULL

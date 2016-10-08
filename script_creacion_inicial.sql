@@ -432,6 +432,9 @@ CREATE PROCEDURE [3FG].MigrarRecepciones
 AS
 BEGIN
 
+	alter TABLE [3FG].RECEPCIONES
+	NOCHECK CONSTRAINT FK_RECEPCIONES_BONO;
+
 	--Se cargan las recepciones de la tabla maestra
 	INSERT INTO [3FG].RECEPCIONES(ID_TURNO,ID_BONO,FECHA_RECEPCIONES)
 	SELECT Turno_Numero,Bono_Consulta_Numero,Bono_Consulta_Fecha_Impresion
@@ -449,9 +452,9 @@ AFTER INSERT
 AS
 BEGIN
 	INSERT INTO [3FG].ATENCIONES_MEDICAS(ID_RECEPCION,FECHA_ATENCION,DIAGNOSTICO,SINTOMAS)
-	SELECT r.ID_RECEPCION,Bono_Consulta_Fecha_Impresion,Consulta_Enfermedades,Consulta_Sintomas
-	FROM gd_esquema.Maestra m, RECEPCIONES r
-	WHERE m.Bono_Consulta_Numero = r.ID_TURNO
+	SELECT i.ID_RECEPCION,Bono_Consulta_Fecha_Impresion,Consulta_Enfermedades,Consulta_Sintomas
+	FROM gd_esquema.Maestra m, inserted i
+	WHERE m.Turno_Numero = i.ID_TURNO
 	AND Compra_Bono_Fecha is NULL
 	AND Bono_Consulta_Fecha_Impresion is NOT NULL
 END;
@@ -485,12 +488,7 @@ exec [3FG].MigrarEspecialidades
 exec [3FG].MigrarEspecialidadPorProfesional
 exec [3FG].Migrar_Afiliados_Profesionales_Temporales
 exec [3FG].MigrarTurnos
-go
-
-
-
-
-/*no migra nada [3FG].MigrarBonos*/
+exec [3FG].MigrarRecepciones
 exec [3FG].MigrarBonos
 go
 
@@ -503,5 +501,3 @@ select * from  [3FG].ROLES
 select * from [3FG].USUARIOS
 select * from [3FG].RECEPCIONES
 select * from [3FG].ATENCIONES_MEDICAS
-
-go

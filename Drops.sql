@@ -36,3 +36,18 @@ DROP TABLE [3FG].FUNCIONALIDADES;
 GO
 DROP TABLE [3FG].USUARIOS;
 GO
+DROP TABLE [3FG].#TMP_AFILIADOS;
+GO
+DROP TABLE [3FG].#TMP_PROFESIONALES;
+GO
+
+DROP PROCEDURE [3FG].MigrarPacientes;
+DROP PROCEDURE [3FG].MigrarProfesionales;
+DROP PROCEDURE [3FG].MigrarTiposDeEspecialidad;
+DROP PROCEDURE [3FG].MigrarEspecialidades;
+DROP PROCEDURE [3FG].MigrarEspecialidadPorProfesional;
+DROP PROCEDURE [3FG].Migrar_Afiliados_Profesionales_Temporales;
+DROP PROCEDURE [3FG].MigrarPlanes;
+DROP PROCEDURE [3FG].MigrarBonos;
+DROP PROCEDURE [3FG].MigrarRecepciones;
+DROP PROCEDURE [3FG].MigrarTurnos;

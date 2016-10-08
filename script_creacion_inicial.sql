@@ -277,8 +277,8 @@ AS
 BEGIN
 
 	--Se migran los planes de la tabla Maestra
-	INSERT INTO [3FG].PLANES(ID_PLAN,DESCRIPCION_PLAN,PRECIO_BONO_CONSULTA,PRECIO_BONO_FARMACIA)
-	SELECT DISTINCT Plan_Med_Codigo,Plan_Med_Descripcion,Plan_Med_Precio_Bono_Consulta,Plan_Med_Precio_Bono_Farmacia
+	INSERT INTO [3FG].PLANES(DESCRIPCION_PLAN,PRECIO_BONO_CONSULTA,PRECIO_BONO_FARMACIA)
+	SELECT DISTINCT Plan_Med_Descripcion,Plan_Med_Precio_Bono_Consulta,Plan_Med_Precio_Bono_Farmacia
 	FROM gd_esquema.Maestra
 	ORDER BY 1 ASC
 
@@ -316,12 +316,16 @@ GO
 CREATE PROCEDURE [3FG].MigrarEspecialidadPorProfesional
 AS
 BEGIN
+	
+	alter TABLE [3FG].ESPECIALIDAD_PROFESIONAL 
+	NOCHECK CONSTRAINT FK1_ESPECIALIDAD_POR_PROFESIONAL;
 
 	--Se migran las especialidades por profesional de la tabla Maestra
 	INSERT INTO [3FG].ESPECIALIDAD_PROFESIONAL(ID_USUARIO,ID_ESPECIALIDAD)
 	SELECT DISTINCT u.ID_USUARIO,m.Especialidad_Codigo
 	FROM gd_esquema.Maestra m, USUARIOS u
 	WHERE m.Medico_Dni = u.NUMERO_DOCUMENTO
+	
 
 END;
 GO
@@ -330,6 +334,9 @@ GO
 CREATE PROCEDURE [3FG].MigrarBonos
 AS
 BEGIN
+
+	alter TABLE [3FG].BONOS
+	NOCHECK CONSTRAINT FK_BONO_AFILIADO;
 
 	--Se migran los bonos de la tabla Maestra
 	INSERT INTO [3FG].BONOS(ID_PLAN,ID_USUARIO)
@@ -399,9 +406,16 @@ CREATE PROCEDURE [3FG].MigrarTurnos
 AS
 BEGIN
 
+	alter TABLE [3FG].TURNOS
+	NOCHECK CONSTRAINT FK_TURNO_AFILIADO;
+
+	alter TABLE [3FG].TURNOS
+	NOCHECK CONSTRAINT FK_TURNO_PROFESIONAL;
+
+
 	--Se migran los turnos de la tabla Maestra
-	INSERT INTO [3FG].TURNOS(ID_TURNO,ID_PROFESIONAL,FECHA_TURNO)
-	SELECT m.Turno_Numero,a.ID_AFILIADO,p.ID_PROFESIONAL,m.Turno_Fecha
+	INSERT INTO [3FG].TURNOS(ID_AFILIADO,ID_PROFESIONAL,FECHA_TURNO)
+	SELECT DISTINCT a.ID_AFILIADO,p.ID_PROFESIONAL,m.Turno_Fecha
 	FROM gd_esquema.Maestra m, #TMP_AFILIADOS a, #TMP_PROFESIONALES p
 	WHERE m.Paciente_Dni = a.NUMERO_DOCUMENTO
 	AND m.Medico_Dni = p.NUMERO_DOCUMENTO
@@ -480,9 +494,14 @@ go
 exec [3FG].MigrarBonos
 go
 
-select *from [3FG].ESPECIALIDAD_PROFESIONAL
-select *from [3FG].TURNOS
-select *from [3FG].PLANES
-select *from [3FG].TIPO_ESPECIALIDAD
-select *from [3FG].ESPECIALIDADES
+select * from [3FG].ESPECIALIDAD_PROFESIONAL
+select * from [3FG].TURNOS
+select * from [3FG].PLANES
+select * from [3FG].TIPO_ESPECIALIDAD
+select * from [3FG].ESPECIALIDADES
+select * from  [3FG].ROLES
+select * from [3FG].USUARIOS
+select * from [3FG].RECEPCIONES
+select * from [3FG].ATENCIONES_MEDICAS
+
 go

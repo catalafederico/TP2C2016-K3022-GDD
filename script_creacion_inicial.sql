@@ -476,6 +476,11 @@ INSERT INTO [3FG].USUARIOS(USUARIO_NOMBRE,CONTRASEÑA)
 VALUES ('admin',(SELECT SUBSTRING(master.dbo.fn_varbintohexstr(HASHBYTES('SHA2_256','w23e')),3,250) ))
 GO
 
+/*HARDCODEO ESTO A MODO DE PRUEBA*/
+INSERT INTO [3FG].ROLES_USUARIO(ID_USUARIO,ID_ROL)
+VALUES(1,4)
+
+
 /*estos procedures rompian por el unique del USURARIO_NOMBE de la tabla [3FG].USUARIOS*/
 exec [3FG].MigrarPacientes
 exec [3FG].MigrarProfesionales
@@ -500,3 +505,5 @@ select * from [3FG].RECEPCIONES
 select * from [3FG].ATENCIONES_MEDICAS
 select * from  [3FG].ROLES
 select * from [3FG].USUARIOS
+select * from [3FG].ROLES_USUARIO
+

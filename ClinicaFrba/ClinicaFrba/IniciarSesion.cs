@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Security.Cryptography;
 
 namespace ClinicaFrba
 {
@@ -19,9 +20,11 @@ namespace ClinicaFrba
 
         private void btnIniciarSesion_Click(object sender, EventArgs e)
         {
-            if (Usuario.loginUsuario(txtUsuario.Text, txtContraseña.Text) > 0)
+            if (Usuario.loginUsuario(txtUsuario.Text, getSha256(txtContraseña.Text)) > 0)
             {
-                if (comboBox1.Text.Equals("afiliado"))
+                MessageBox.Show("Se ha logueado correctamente.");
+
+                /*if (comboBox1.Text.Equals("afiliado"))
                 {
                     MessageBox.Show("usuario afiliado ingreso correctamente");
                     this.Hide();
@@ -38,12 +41,14 @@ namespace ClinicaFrba
                 {
                     MessageBox.Show("usuario administrador ingreso correctamente");
                     this.Hide();
-                }
+                }*/
 
             }
             else
-            {
-                MessageBox.Show("usuario incorrecto", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            {   
+            
+                MessageBox.Show("Usuario y/o contraseña invalidos.");
+                /*MessageBox.Show("usuario incorrecto", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);*/
 
             }
         }
@@ -60,9 +65,19 @@ namespace ClinicaFrba
 
         private void IniciarSesion_Load(object sender, EventArgs e)
         {
-            comboBox1.Items.Add("afiliado");
+            /*comboBox1.Items.Add("afiliado");
             comboBox1.Items.Add("profesional");
-            comboBox1.Items.Add("administrador");
+            comboBox1.Items.Add("administrador");*/
+        
+         }
+
+        public String getSha256(String input)
+        {
+            SHA256Managed encriptador = new SHA256Managed();
+            byte[] inputEnBytes = Encoding.UTF8.GetBytes(input);
+            byte[] inputHashBytes = encriptador.ComputeHash(inputEnBytes);
+            return BitConverter.ToString(inputHashBytes).Replace("-", String.Empty).ToLower();
         }
+
     }
 }

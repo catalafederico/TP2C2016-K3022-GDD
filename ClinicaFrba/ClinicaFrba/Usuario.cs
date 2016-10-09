@@ -11,14 +11,13 @@ namespace ClinicaFrba
     class Usuario
     {
 
-        public static int loginUsuario(String nombre, String contraseña)
+        public static int loginUsuario(String nombre, String contraseñaEncriptada)
         {
-            SqlConnection unaConexion;
             int resultado = -1;
-            unaConexion = new SqlConnection("Data Source=DESKTOP-T5SL9S1;Initial Catalog=GD2C2016;Integrated Security=True");
-            unaConexion.Open();
-            SqlCommand unaQuery = new SqlCommand(string.Format("select *from [3FG].USUARIOS where USUARIO_NOMBRE ='{0}' and PASSWORD ='{1}'", nombre, contraseña), unaConexion);
 
+            SqlConnection conexion = BDComun.obtenerConexion();
+
+            SqlCommand unaQuery = new SqlCommand(string.Format("SELECT * FROM [3FG].USUARIOS WHERE USUARIO_NOMBRE ='{0}' AND CONTRASEÑA = '{1}'", nombre, contraseñaEncriptada), conexion);
 
             SqlDataReader reader = unaQuery.ExecuteReader();
 
@@ -27,8 +26,12 @@ namespace ClinicaFrba
             {
                 resultado = 50;
             }
-            unaConexion.Close();
+
+            conexion.Close();
+
             return resultado;
+
         }
+
     }
 }

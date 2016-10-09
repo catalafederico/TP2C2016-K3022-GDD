@@ -12,3 +12,9 @@ C:\Users\ABM\Desktop\Trabajo practico de Gestion de Datos\Aplicacion Desktop\Cli
 C:\Users\ABM\Desktop\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\bin\Debug\ClinicaFrba.exe.config
 C:\Users\ABM\Desktop\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.exe
 C:\Users\ABM\Desktop\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.pdb
+C:\Users\ABM\Desktop\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.csprojResolveAssemblyReference.cache
+C:\Users\ABM\Desktop\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.IniciarSesion.resources
+C:\Users\ABM\Desktop\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Properties.Resources.resources
+C:\Users\ABM\Desktop\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.csproj.GenerateResource.Cache
+C:\Users\ABM\Desktop\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\bin\Debug\ClinicaFrba.exe
+C:\Users\ABM\Desktop\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\bin\Debug\ClinicaFrba.pdb

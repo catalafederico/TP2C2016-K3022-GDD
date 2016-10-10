@@ -25,28 +25,9 @@ namespace ClinicaFrba
                 MessageBox.Show("Se ha logueado correctamente.");
 
                 Elegir_Rol.EleccionRol rol = new Elegir_Rol.EleccionRol(txtUsuario.Text);
+                
                 rol.ShowDialog();
 
-
-
-                /*if (comboBox1.Text.Equals("afiliado"))
-                {
-                    MessageBox.Show("usuario afiliado ingreso correctamente");
-                    this.Hide();
-                    this.Close();
-                }
-
-                if (comboBox1.Text.Equals("profesional"))
-                {
-                    MessageBox.Show("usuario profesional ingreso correctamente");
-                    this.Hide();
-                }
-
-                if (comboBox1.Text.Equals("administrador"))
-                {
-                    MessageBox.Show("usuario administrador ingreso correctamente");
-                    this.Hide();
-                }*/
 
             }
             else

@@ -1,6 +1,6 @@
 ﻿namespace ClinicaFrba.Elegir_Rol
 {
-    partial class EleccionRol
+    partial class ElegirRol
     {
         /// <summary>
         /// Required designer variable.

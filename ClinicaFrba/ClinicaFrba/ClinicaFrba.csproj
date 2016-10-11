@@ -68,12 +68,19 @@
     <Compile Include="ABM Profesional\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="ABM Rol\Form1.cs">
+    <Compile Include="ABM Rol\ABMRol.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABM Rol\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ABM Rol\ABMRol.Designer.cs">
+      <DependentUpon>ABMRol.cs</DependentUpon>
     </Compile>
+    <Compile Include="ABM Rol\CrearRol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM Rol\CrearRol.Designer.cs">
+      <DependentUpon>CrearRol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ABM Rol\CRol.cs" />
     <Compile Include="BDComun.cs" />
     <Compile Include="Cancelar Atencion\Form1.cs">
       <SubType>Form</SubType>
@@ -81,18 +88,27 @@
     <Compile Include="Cancelar Atencion\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="ComboBox.cs" />
+    <Compile Include="ComboBoxGeneral.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ComboBoxGeneral.Designer.cs">
+      <DependentUpon>ComboBoxGeneral.cs</DependentUpon>
+    </Compile>
     <Compile Include="Compra Bono\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Compra Bono\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConexionSQL.cs" />
+    <Compile Include="Dominio\Funcionalidades.cs" />
     <Compile Include="Elegir Rol\Rol.cs" />
-    <Compile Include="Elegir Rol\EleccionRol.cs">
+    <Compile Include="Elegir Rol\ElegirRol.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Elegir Rol\EleccionRol.Designer.cs">
-      <DependentUpon>EleccionRol.cs</DependentUpon>
+    <Compile Include="Elegir Rol\ElegirRol.Designer.cs">
+      <DependentUpon>ElegirRol.cs</DependentUpon>
     </Compile>
     <Compile Include="IniciarSesion.cs">
       <SubType>Form</SubType>
@@ -133,11 +149,8 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Usuario.cs" />
-    <EmbeddedResource Include="ABM Rol\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Elegir Rol\EleccionRol.resx">
-      <DependentUpon>EleccionRol.cs</DependentUpon>
+    <EmbeddedResource Include="Elegir Rol\ElegirRol.resx">
+      <DependentUpon>ElegirRol.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IniciarSesion.resx">
       <DependentUpon>IniciarSesion.cs</DependentUpon>
@@ -164,7 +177,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Elegir Funcionalidad\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

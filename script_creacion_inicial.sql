@@ -480,6 +480,9 @@ GO
 INSERT INTO [3FG].ROLES_USUARIO(ID_USUARIO,ID_ROL)
 VALUES(1,4)
 
+/*INSERT INTO [3FG].FUNCIONALIDADES_ROL(ID_FUNCIONALIDAD,ID_ROL)
+VALUES(1,4)*/
+
 
 /*estos procedures rompian por el unique del USURARIO_NOMBE de la tabla [3FG].USUARIOS*/
 exec [3FG].MigrarPacientes
@@ -506,4 +509,5 @@ select * from [3FG].ATENCIONES_MEDICAS
 select * from  [3FG].ROLES
 select * from [3FG].USUARIOS
 select * from [3FG].ROLES_USUARIO
+select * from [3FG].FUNCIONALIDADES
 

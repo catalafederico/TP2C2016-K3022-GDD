@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace ClinicaFrba.Elegir_Rol
 {
-    public partial class EleccionRol : Form
+    public partial class ElegirRol : Form
     {
-        public EleccionRol(String usuario)
+        public ElegirRol(String usuario)
         {
             InitializeComponent();
 
@@ -24,8 +24,11 @@ namespace ClinicaFrba.Elegir_Rol
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+             /*rol = comboBoxRoles.Text;
+             Funcionalidades funcionalidades = new Elegir_Funcionalidad.EleccionFuncionalidad(rol,nombreUsuario);
+             funcionalidades.ShowDialog();*/
 
-            if (comboBoxRoles.Text.Equals("Afiliado"))
+            /*if (comboBoxRoles.Text.Equals("Afiliado"))
             {
               
                 ComboBoxGeneral unC = new ComboBoxGeneral(2);
@@ -54,8 +57,8 @@ namespace ClinicaFrba.Elegir_Rol
                 ComboBoxGeneral unC = new ComboBoxGeneral(4);
                 unC.ShowDialog();
                 this.Hide();
-            }
-
+            }*/
+            
 
         }
 

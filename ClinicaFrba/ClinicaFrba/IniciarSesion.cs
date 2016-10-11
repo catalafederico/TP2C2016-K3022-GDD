@@ -24,7 +24,7 @@ namespace ClinicaFrba
             {
                 MessageBox.Show("Se ha logueado correctamente.");
 
-                Elegir_Rol.EleccionRol rol = new Elegir_Rol.EleccionRol(txtUsuario.Text);
+                Elegir_Rol.ElegirRol rol = new Elegir_Rol.ElegirRol(txtUsuario.Text);
                 
                 rol.ShowDialog();
 
@@ -51,10 +51,7 @@ namespace ClinicaFrba
 
         private void IniciarSesion_Load(object sender, EventArgs e)
         {
-            /*comboBox1.Items.Add("afiliado");
-            comboBox1.Items.Add("profesional");
-            comboBox1.Items.Add("administrador");*/
-        
+
          }
 
         public String getSha256(String input)

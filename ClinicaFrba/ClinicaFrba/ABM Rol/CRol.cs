@@ -22,7 +22,7 @@ namespace ClinicaFrba.ABM_Rol
 
             using (SqlConnection conexion = BDComun.obtenerConexion())
             {
-
+                
                 SqlCommand comando = new SqlCommand(string.Format("SELECT NOMBRE FROM [3FG].FUNCIONALIDADES"), conexion);
 
                 /*SqlDataReader reader = comando.ExecuteReader();*/

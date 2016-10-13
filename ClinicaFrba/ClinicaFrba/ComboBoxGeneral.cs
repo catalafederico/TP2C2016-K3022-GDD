@@ -26,9 +26,10 @@ namespace ClinicaFrba
         {
             if (checkedListBox1.Text == "AbmRoles")
             {
+                /*
                 AbmRol.ABMROL abm = new AbmRol.ABMROL();
                 abm.ShowDialog();
-                this.Hide();
+                this.Hide();*/
 
             }
         }
@@ -39,6 +40,11 @@ namespace ClinicaFrba
         }
 
         private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }

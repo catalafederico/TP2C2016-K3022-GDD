@@ -60,6 +60,7 @@
             this.label1.Size = new System.Drawing.Size(105, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "¿que desea realizar?";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // ComboBoxGeneral
             // 

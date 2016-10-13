@@ -61,6 +61,7 @@
             this.button_modificar.TabIndex = 2;
             this.button_modificar.Text = "Modificar";
             this.button_modificar.UseVisualStyleBackColor = true;
+            this.button_modificar.Click += new System.EventHandler(this.button_modificar_Click);
             // 
             // button_eliminar
             // 
@@ -70,6 +71,7 @@
             this.button_eliminar.TabIndex = 3;
             this.button_eliminar.Text = "Eliminar";
             this.button_eliminar.UseVisualStyleBackColor = true;
+            this.button_eliminar.Click += new System.EventHandler(this.button_eliminar_Click);
             // 
             // ABMROL
             // 

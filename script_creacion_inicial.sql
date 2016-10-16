@@ -351,6 +351,9 @@ CREATE PROCEDURE [3FG].MigrarCompras
 AS
 BEGIN
 
+	alter TABLE [3FG].COMPRAS
+	NOCHECK CONSTRAINT FK_COMPRA_AFILIADO;
+
 	--Se cargan las compras luego de migrar los bonos
 	INSERT INTO [3FG].COMPRAS(ID_USUARIO,FECHA_COMPRA,CANTIDAD_BONOS,MONTO_PAGADO)
 	SELECT ID_USUARIO,Compra_Bono_Fecha,COUNT(*) CANTIDAD_BONOS,(COUNT(*)*Plan_Med_Precio_Bono_Consulta) TOTAL_PAGADO
@@ -432,6 +435,9 @@ BEGIN
 	alter TABLE [3FG].RECEPCIONES
 	NOCHECK CONSTRAINT FK_RECEPCIONES_BONO;
 
+	alter TABLE [3FG].RECEPCIONES
+	NOCHECK CONSTRAINT FK_RECEPCIONES_TURNO;
+
 	--Se cargan las recepciones de la tabla maestra
 	INSERT INTO [3FG].RECEPCIONES(ID_TURNO,ID_BONO,FECHA_RECEPCIONES)
 	SELECT Turno_Numero,Bono_Consulta_Numero,Bono_Consulta_Fecha_Impresion
@@ -480,20 +486,29 @@ VALUES(1,4)
 /*INSERT INTO [3FG].FUNCIONALIDADES_ROL(ID_FUNCIONALIDAD,ID_ROL)
 VALUES(1,4)*/
 
+-- INICIO DE LA MIGRACION --
 
 /*estos procedures rompian por el unique del USURARIO_NOMBE de la tabla [3FG].USUARIOS*/
-exec [3FG].MigrarPacientes
-exec [3FG].MigrarProfesionales
-exec [3FG].MigrarPlanes
-exec [3FG].MigrarTiposDeEspecialidad
-exec [3FG].MigrarEspecialidades
-exec [3FG].MigrarEspecialidadPorProfesional
-exec [3FG].Migrar_Afiliados_Profesionales_Temporales
-exec [3FG].MigrarTurnos
-exec [3FG].MigrarRecepciones
-exec [3FG].MigrarBonos
-exec [3FG].MigrarCompras
-go
+EXEC [3FG].MigrarPacientes
+EXEC [3FG].MigrarProfesionales
+EXEC [3FG].MigrarPlanes
+EXEC [3FG].MigrarTiposDeEspecialidad
+EXEC [3FG].MigrarEspecialidades
+EXEC [3FG].MigrarEspecialidadPorProfesional
+EXEC [3FG].Migrar_Afiliados_Profesionales_Temporales
+--EXEC [3FG].MigrarTurnos
+EXEC [3FG].MigrarRecepciones
+EXEC [3FG].MigrarBonos
+EXEC [3FG].MigrarCompras
+GO
+
+-- FIN DE LA MIGRACION--
+
+-- ELIMINO LAS TMP QUE UTILIZAMOS PARA LA MIGRACIÓN--
+DROP TABLE dbo.#TMP_AFILIADOS;
+GO
+DROP TABLE dbo.#TMP_PROFESIONALES;
+GO
 
 select * from [3FG].ESPECIALIDAD_PROFESIONAL
 select * from [3FG].TURNOS

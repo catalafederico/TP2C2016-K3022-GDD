@@ -58,6 +58,27 @@ namespace ClinicaFrba.ABM_Rol
         private void buttonGuardar_Click(object sender, EventArgs e)
         {
 
+            
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ElegirRol_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonGuardar_Click_1(object sender, EventArgs e)
+        {
             if (rol == comboBoxRol.Text)
             {
                 MessageBox.Show("No se puede modificar o eliminar el rol utilizado", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -87,7 +108,7 @@ namespace ClinicaFrba.ABM_Rol
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
         }

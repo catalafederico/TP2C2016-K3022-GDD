@@ -21,7 +21,7 @@ namespace ClinicaFrba.ABM_Rol
         public ModificarRol(String rol, ABM_Rol.ElegirRol formElegirRol)
         {
             InitializeComponent();
-                rolPasado = rol;
+            rolPasado = rol;
             form = formElegirRol;
 
             string comando = "SELECT * FROM [3FG].FUNCIONALIDADES";
@@ -39,15 +39,18 @@ namespace ClinicaFrba.ABM_Rol
             string query2 = "SELECT COUNT(*) FROM [3FG].ROLES WHERE NOMBRE_ROL = '" + rolPasado + "' AND HABILITADO = 1";
             DataTable dt2 = (new ConexionSQL()).cargarTablaSQL(query2);
             string habilitado = dt2.Rows[0][0].ToString();
-            if(habilitado == "1"){
+            if (habilitado == "1")
+            {
                 estadoAnterior = chkHabilitado.Checked = true;
                 chkHabilitado.Enabled = false;
-            }else{
+            }
+            else
+            {
                 estadoAnterior = chkHabilitado.Checked = false;
             }
 
             //cargo las funcionalidades del rol
-       
+
             string qfuncion = "SELECT F.NOMBRE FROM [3FG].FUNCIONALIDADES_ROL FR JOIN [3FG].ROLES R ON (R.ID_ROL = FR.ID_ROL) JOIN [3FG].FUNCIONALIDADES F ON (F.ID_FUNCIONALIDAD = FR.ID_FUNCIONALIDAD) WHERE R.NOMBRE_ROL = '" + rolPasado + "'";
             DataTable dtfunciones = (new ConexionSQL()).cargarTablaSQL(qfuncion);
 
@@ -81,38 +84,7 @@ namespace ClinicaFrba.ABM_Rol
 
         private void buttonGuardar_Click(object sender, EventArgs e)
         {
-            if (txtNombreRol.Text.Equals(string.Empty))
-            {
-                MessageBox.Show("Falta agregar nombre", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            if (chkListaFuncionalidades.CheckedIndices.Count == 0)
-            {
-                MessageBox.Show("Falta elegir funcionalidades", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            };
-
-            if (!txtNombreRol.Text.All(Char.IsLetter))
-            {
-                MessageBox.Show("Sólo se admiten letras en el nombre del rol", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (txtNombreRol.Text != rolPasado)
-            {
-                if (validacionNombreExistente())
-                {
-                    return;
-                }
-            }
-
-            if ((MessageBox.Show("¿Realmente desea modificar el rol " + rolPasado + "?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes))
-            {
-                modificarRol(rolPasado);
-                MessageBox.Show("Rol " + rolPasado + " modificado", this.Text, MessageBoxButtons.OK, MessageBoxIcon.None);
-                this.Close();
-                form.Close();
-            }
+            
         }
 
 
@@ -200,10 +172,71 @@ namespace ClinicaFrba.ABM_Rol
 
         private void button_seleccionarTodo_Click(object sender, EventArgs e)
         {
+           
+        }
+
+        private void button_seleccionarTodo_Click_1(object sender, EventArgs e)
+        {
             for (int i = 0; i <= chkListaFuncionalidades.Items.Count - 1; i++)
             {
                 chkListaFuncionalidades.SetItemCheckState(i, CheckState.Checked);
             }
+        }
+
+        private void txtNombreRol_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chkListaFuncionalidades_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonGuardar_Click_1(object sender, EventArgs e)
+        {
+            if (txtNombreRol.Text.Equals(string.Empty))
+            {
+                MessageBox.Show("Falta agregar nombre", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (chkListaFuncionalidades.CheckedIndices.Count == 0)
+            {
+                MessageBox.Show("Falta elegir funcionalidades", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            };
+
+            if (!txtNombreRol.Text.All(Char.IsLetter))
+            {
+                MessageBox.Show("Sólo se admiten letras en el nombre del rol", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (txtNombreRol.Text != rolPasado)
+            {
+                if (validacionNombreExistente())
+                {
+                    return;
+                }
+            }
+
+            if ((MessageBox.Show("¿Realmente desea modificar el rol " + rolPasado + "?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes))
+            {
+                modificarRol(rolPasado);
+                MessageBox.Show("Rol " + rolPasado + " modificado", this.Text, MessageBoxButtons.OK, MessageBoxIcon.None);
+                this.Close();
+                form.Close();
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void chkHabilitado_CheckedChanged_1(object sender, EventArgs e)
+        {
+
         }
 
 

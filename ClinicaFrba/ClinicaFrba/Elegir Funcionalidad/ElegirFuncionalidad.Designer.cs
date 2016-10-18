@@ -36,35 +36,36 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(34, 30);
+            this.label1.Location = new System.Drawing.Point(29, 41);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.Size = new System.Drawing.Size(102, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "label1";
+            this.label1.Text = "Elegir Funcionalidad";
             // 
             // comboBox_funcionalidades
             // 
             this.comboBox_funcionalidades.FormattingEnabled = true;
-            this.comboBox_funcionalidades.Location = new System.Drawing.Point(162, 30);
+            this.comboBox_funcionalidades.Location = new System.Drawing.Point(197, 41);
             this.comboBox_funcionalidades.Name = "comboBox_funcionalidades";
-            this.comboBox_funcionalidades.Size = new System.Drawing.Size(172, 21);
+            this.comboBox_funcionalidades.Size = new System.Drawing.Size(228, 21);
             this.comboBox_funcionalidades.TabIndex = 1;
+            this.comboBox_funcionalidades.SelectedIndexChanged += new System.EventHandler(this.comboBox_funcionalidades_SelectedIndexChanged);
             // 
             // button_seleccionar_funcionalidad
             // 
-            this.button_seleccionar_funcionalidad.Location = new System.Drawing.Point(138, 196);
+            this.button_seleccionar_funcionalidad.Location = new System.Drawing.Point(197, 173);
             this.button_seleccionar_funcionalidad.Name = "button_seleccionar_funcionalidad";
-            this.button_seleccionar_funcionalidad.Size = new System.Drawing.Size(196, 23);
+            this.button_seleccionar_funcionalidad.Size = new System.Drawing.Size(214, 23);
             this.button_seleccionar_funcionalidad.TabIndex = 2;
-            this.button_seleccionar_funcionalidad.Text = "seleccionar funcionalidad";
+            this.button_seleccionar_funcionalidad.Text = "Seleccionar Funcionalidad";
             this.button_seleccionar_funcionalidad.UseVisualStyleBackColor = true;
-            this.button_seleccionar_funcionalidad.Click += new System.EventHandler(this.button_seleccionar_funcionalidad_Click_1);
+            this.button_seleccionar_funcionalidad.Click += new System.EventHandler(this.button_seleccionar_funcionalidad_Click);
             // 
             // ElegirFuncionalidad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(402, 261);
+            this.ClientSize = new System.Drawing.Size(517, 261);
             this.Controls.Add(this.button_seleccionar_funcionalidad);
             this.Controls.Add(this.comboBox_funcionalidades);
             this.Controls.Add(this.label1);

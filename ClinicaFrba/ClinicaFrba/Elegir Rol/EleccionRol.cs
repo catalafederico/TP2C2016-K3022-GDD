@@ -11,6 +11,7 @@ using ClinicaFrba.Eleccion_Funcionalidad;
 
 
 namespace ClinicaFrba.Elegir_Rol
+
 {
     public partial class EleccionRol : Form
     {

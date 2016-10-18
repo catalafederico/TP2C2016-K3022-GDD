@@ -81,6 +81,18 @@
       <DependentUpon>CrearRol.cs</DependentUpon>
     </Compile>
     <Compile Include="ABM Rol\CRol.cs" />
+    <Compile Include="ABM Rol\ElegirRol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM Rol\ElegirRol.Designer.cs">
+      <DependentUpon>ElegirRol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ABM Rol\ModificarRol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM Rol\ModificarRol.Designer.cs">
+      <DependentUpon>ModificarRol.cs</DependentUpon>
+    </Compile>
     <Compile Include="BDComun.cs" />
     <Compile Include="Cancelar Atencion\Form1.cs">
       <SubType>Form</SubType>
@@ -103,13 +115,19 @@
     </Compile>
     <Compile Include="ConexionSQL.cs" />
     <Compile Include="Dominio\Funcionalidades.cs" />
-    <Compile Include="Elegir Rol\Rol.cs" />
-    <Compile Include="Elegir Rol\ElegirRol.cs">
+    <Compile Include="Elegir Funcionalidad\ElegirFuncionalidad.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Elegir Rol\ElegirRol.Designer.cs">
-      <DependentUpon>ElegirRol.cs</DependentUpon>
+    <Compile Include="Elegir Funcionalidad\ElegirFuncionalidad.Designer.cs">
+      <DependentUpon>ElegirFuncionalidad.cs</DependentUpon>
     </Compile>
+    <Compile Include="Elegir Rol\EleccionRol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Elegir Rol\EleccionRol.Designer.cs">
+      <DependentUpon>EleccionRol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Elegir Rol\Rol.cs" />
     <Compile Include="IniciarSesion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -149,8 +167,11 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Usuario.cs" />
-    <EmbeddedResource Include="Elegir Rol\ElegirRol.resx">
-      <DependentUpon>ElegirRol.cs</DependentUpon>
+    <EmbeddedResource Include="Elegir Funcionalidad\ElegirFuncionalidad.resx">
+      <DependentUpon>ElegirFuncionalidad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Elegir Rol\EleccionRol.resx">
+      <DependentUpon>EleccionRol.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IniciarSesion.resx">
       <DependentUpon>IniciarSesion.cs</DependentUpon>
@@ -177,9 +198,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Elegir Funcionalidad\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

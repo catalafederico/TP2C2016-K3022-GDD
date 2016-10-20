@@ -385,6 +385,7 @@ CREATE TABLE [3FG].#TMP_PROFESIONALES (
 )
 GO
 
+
 CREATE PROCEDURE [3FG].Migrar_Afiliados_Profesionales_Temporales
 AS
 BEGIN
@@ -446,6 +447,21 @@ BEGIN
 	AND Bono_Consulta_Fecha_Impresion is NOT NULL
 
 END;
+GO
+
+create procedure agregarEntablasUsuarioYAfiliado @usuario varchar(250), @contraseña varchar(250),@id_plan bigint
+as
+begin 
+
+INSERT INTO [3FG].USUARIOS(USUARIO_NOMBRE,CONTRASEÑA)
+VALUES (@usuario,(SELECT SUBSTRING(master.dbo.fn_varbintohexstr(HASHBYTES('SHA2_256',@contraseña)),3,250) ))
+
+ select ID_USUARIO from [3FG].USUARIOS where USUARIO_NOMBRE= @usuario
+
+ insert into [3FG].AFILIADOS(ID_USUARIO,ID_PLAN,ESTADO_CIVIL,CANT_FAMILIARES,RAIZ_AFILIADO,NUMERO_FAMILIA)
+ values((select ID_USUARIO from [3FG].USUARIOS where USUARIO_NOMBRE= @usuario),@id_plan,'soltero',2,12313,01)
+
+end
 GO
 
 /* Crear trigger que ante cada recepcion cree la consulta correspondiente */

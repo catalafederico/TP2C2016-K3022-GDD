@@ -11,7 +11,7 @@ namespace ClinicaFrba
     {
         public static SqlConnection obtenerConexion()
         {
-            SqlConnection conexion = new SqlConnection("Data Source=.\\SQLSERVER2012;Initial Catalog=GD2C2016;Persist Security Info=True;User ID=gd;Password=gd2016");
+            SqlConnection conexion = new SqlConnection("Data Source=FEDE-PC\\SQLSERVER2012;Initial Catalog=GD2C2016;Integrated Security=True");
             conexion.Open();
             return conexion;
 

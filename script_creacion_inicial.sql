@@ -245,7 +245,7 @@ GO
 /* -- Migracion-- */
 
 	
-	CREATE PROCEDURE [3FG].MigrarPacientes
+CREATE PROCEDURE [3FG].MigrarAfiliadosAUsuarios
 AS
 BEGIN
 
@@ -257,7 +257,20 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE [3FG].MigrarProfesionales
+/* FALTA VER COMO RELACIONAMOS LOS PACIENTES DE LA TABLA MAESTRA CON SUS FAMILIARES*/
+CREATE PROCEDURE [3FG].MigrarAfiliados
+AS
+BEGIN
+
+	--Se migran los pacientes de la tabla Maestra
+	INSERT INTO [3FG].AFILIADOS(ID_USUARIO,ID_PLAN)
+	SELECT DISTINCT ID_USUARIO,Plan_Med_Codigo 
+	FROM gd_esquema.Maestra M JOIN [3FG].USUARIOS U ON (M.Paciente_Dni = U.NUMERO_DOCUMENTO)
+
+END;
+GO
+
+CREATE PROCEDURE [3FG].MigrarProfesionalesAUsuarios
 AS
 BEGIN
 
@@ -265,6 +278,18 @@ BEGIN
 	INSERT INTO [3FG].USUARIOS(NOMBRE,APELLIDO,NUMERO_DOCUMENTO,DIRECCION,TELEFONO,MAIL,FECHA_NACIMIENTO)
 	SELECT DISTINCT Medico_Nombre,Medico_Apellido,Medico_Dni,Medico_Direccion,Medico_Telefono,Medico_Mail,Medico_Fecha_Nac 
 	FROM gd_esquema.Maestra
+
+END;
+GO
+
+CREATE PROCEDURE [3FG].MigrarProfesionales
+AS
+BEGIN
+
+	--Se migran los profesionales de la tabla Maestra
+	INSERT INTO [3FG].PROFESIONALES(ID_USUARIO)
+	SELECT DISTINCT ID_USUARIO
+	FROM gd_esquema.Maestra M JOIN [3FG].USUARIOS U ON (M.Medico_Dni = U.NUMERO_DOCUMENTO)
 
 END;
 GO
@@ -323,7 +348,6 @@ BEGIN
 	FROM gd_esquema.Maestra m, USUARIOS u
 	WHERE m.Medico_Dni = u.NUMERO_DOCUMENTO
 	
-
 END;
 GO
 
@@ -449,21 +473,6 @@ BEGIN
 END;
 GO
 
-create procedure agregarEntablasUsuarioYAfiliado @usuario varchar(250), @contraseña varchar(250),@id_plan bigint
-as
-begin 
-
-INSERT INTO [3FG].USUARIOS(USUARIO_NOMBRE,CONTRASEÑA)
-VALUES (@usuario,(SELECT SUBSTRING(master.dbo.fn_varbintohexstr(HASHBYTES('SHA2_256',@contraseña)),3,250) ))
-
- select ID_USUARIO from [3FG].USUARIOS where USUARIO_NOMBRE= @usuario
-
- insert into [3FG].AFILIADOS(ID_USUARIO,ID_PLAN,ESTADO_CIVIL,CANT_FAMILIARES,RAIZ_AFILIADO,NUMERO_FAMILIA)
- values((select ID_USUARIO from [3FG].USUARIOS where USUARIO_NOMBRE= @usuario),@id_plan,'soltero',2,12313,01)
-
-end
-GO
-
 /* Crear trigger que ante cada recepcion cree la consulta correspondiente */
 
 CREATE TRIGGER [3FG].CargarAtencionDespuesDeLaRecepcionTrigger ON [3FG].RECEPCIONES
@@ -478,8 +487,6 @@ BEGIN
 	AND Bono_Consulta_Fecha_Impresion is NOT NULL
 END;
 GO
-
-
 
 /* -- Inserto los ROLES -- */
 
@@ -502,10 +509,45 @@ VALUES(1,4)
 /*INSERT INTO [3FG].FUNCIONALIDADES_ROL(ID_FUNCIONALIDAD,ID_ROL)
 VALUES(1,4)*/
 
+/*FUNCIONES RELACIONADAS CON LA FECHA*/
+
+CREATE FUNCTION [3FG].obtenerDia(@FECHA DATETIME)
+RETURNS VARCHAR(20)
+AS
+BEGIN
+	DECLARE @DIA TINYINT, @NOMBREDIA VARCHAR(20);
+	SET @DIA = DATEPART(WEEKDAY,@FECHA);
+	SET @NOMBREDIA = (
+	CASE @DIA
+	WHEN 1 THEN 'DOMINGO'
+	WHEN 2 THEN 'LUNES'
+	WHEN 3 THEN 'MARTES'
+	WHEN 4 THEN 'MIERCOLES'
+	WHEN 5 THEN 'JUEVES'
+	WHEN 6 THEN 'VIERNES'
+	WHEN 7 THEN 'SABADO'
+	END
+	)
+	RETURN @NOMBREDIA;
+END
+GO
+
+CREATE FUNCTION [3FG].obtenerHora(@FECHA DATETIME)
+RETURNS CHAR(8)
+AS
+BEGIN
+DECLARE @HORA CHAR(8)
+SET @HORA = CONVERT(CHAR(8), @FECHA, 108)
+	RETURN @HORA;
+END
+GO
+
 -- INICIO DE LA MIGRACION --
 
 /*estos procedures rompian por el unique del USURARIO_NOMBE de la tabla [3FG].USUARIOS*/
-EXEC [3FG].MigrarPacientes
+EXEC [3FG].MigrarAfiliadosAUsuarios
+EXEC [3FG].MigrarAfiliados
+EXEC [3FG].MigrarProfesionalesAUsuarios
 EXEC [3FG].MigrarProfesionales
 EXEC [3FG].MigrarPlanes
 EXEC [3FG].MigrarTiposDeEspecialidad
@@ -526,6 +568,28 @@ GO
 DROP TABLE dbo.#TMP_PROFESIONALES;
 GO
 
+-- ELIMINO EL TRIGGER UTILIZADO PARA LA MIGRACION
+DROP TRIGGER [3FG].CargarAtencionDespuesDeLaRecepcionTrigger
+GO
+
+/* PROCEDURES DE LA APLICACION*/
+
+create procedure agregarEntablasUsuarioYAfiliado @usuario varchar(250), @contraseña varchar(250),@id_plan bigint
+as
+begin 
+
+INSERT INTO [3FG].USUARIOS(USUARIO_NOMBRE,CONTRASEÑA)
+VALUES (@usuario,(SELECT SUBSTRING(master.dbo.fn_varbintohexstr(HASHBYTES('SHA2_256',@contraseña)),3,250) ))
+
+ select ID_USUARIO from [3FG].USUARIOS where USUARIO_NOMBRE= @usuario
+
+ insert into [3FG].AFILIADOS(ID_USUARIO,ID_PLAN,ESTADO_CIVIL,CANT_FAMILIARES,RAIZ_AFILIADO,NUMERO_FAMILIA)
+ values((select ID_USUARIO from [3FG].USUARIOS where USUARIO_NOMBRE= @usuario),@id_plan,'soltero',2,12313,01)
+
+end
+GO
+
+-- CONSULTAS PARA VERIFICAR QUE LA MIGRACION SE REALIZA CORRECTAMENTE
 select * from [3FG].ESPECIALIDAD_PROFESIONAL
 select * from [3FG].TURNOS
 select * from [3FG].PLANES
@@ -536,7 +600,6 @@ select * from [3FG].USUARIOS
 select * from [3FG].RECEPCIONES
 select * from [3FG].ATENCIONES_MEDICAS
 select * from  [3FG].ROLES
-select * from [3FG].USUARIOS
 select * from [3FG].ROLES_USUARIO
 select * from [3FG].FUNCIONALIDADES
 

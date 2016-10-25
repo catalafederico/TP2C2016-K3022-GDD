@@ -37,7 +37,9 @@ GO
 DROP TABLE [3FG].USUARIOS;
 GO
 
-DROP PROCEDURE [3FG].MigrarPacientes;
+DROP PROCEDURE [3FG].MigrarAfiliadosAUsuarios;
+DROP PROCEDURE [3FG].MigrarProfesionalesAUsuarios;
+DROP PROCEDURE [3FG].MigrarAfiliados;
 DROP PROCEDURE [3FG].MigrarProfesionales;
 DROP PROCEDURE [3FG].MigrarTiposDeEspecialidad;
 DROP PROCEDURE [3FG].MigrarEspecialidades;
@@ -48,3 +50,8 @@ DROP PROCEDURE [3FG].MigrarBonos;
 DROP PROCEDURE [3FG].MigrarRecepciones;
 DROP PROCEDURE [3FG].MigrarCompras;
 --DROP PROCEDURE [3FG].MigrarTurnos;
+DROP PROCEDURE [3FG].MigrarAgenda;
+
+DROP FUNCTION [3FG].obtenerDia;
+DROP FUNCTION [3FG].obtenerHora;
+DROP FUNCTION [3FG].agregarEntablasUsuarioYAfiliado;

@@ -465,16 +465,12 @@ GO
 
 CREATE TABLE [3FG].#TMP_AFILIADOS (
 	ID_AFILIADO BIGINT,
-	NOMBRE VARCHAR(100),
-	APELLIDO VARCHAR(100),
 	NUMERO_DOCUMENTO BIGINT
 )
 GO
 
 CREATE TABLE [3FG].#TMP_PROFESIONALES (
 	ID_PROFESIONAL BIGINT,
-	NOMBRE VARCHAR(100),
-	APELLIDO VARCHAR(100),
 	NUMERO_DOCUMENTO BIGINT
 )
 GO
@@ -485,19 +481,19 @@ AS
 BEGIN
 
 	--Se migran los AFILIADOS de la usuarios a la temporal
-	INSERT INTO #TMP_AFILIADOS (ID_AFILIADO,NOMBRE,APELLIDO,NUMERO_DOCUMENTO)
-	SELECT DISTINCT u.ID_USUARIO, m.Paciente_Nombre, m.Paciente_Apellido, m.Paciente_Dni
+	INSERT INTO #TMP_AFILIADOS (ID_AFILIADO,NUMERO_DOCUMENTO)
+	SELECT DISTINCT u.ID_USUARIO,m.Paciente_Dni
 	FROM USUARIOS u JOIN gd_esquema.Maestra m ON (u.NUMERO_DOCUMENTO = m.Paciente_Dni)
 	
 	--Se migran los PROFESIONES de la usuarios a la temporal
-	INSERT INTO #TMP_PROFESIONALES (ID_PROFESIONAL,NOMBRE,APELLIDO,NUMERO_DOCUMENTO)
-	SELECT DISTINCT u.ID_USUARIO, m.Medico_Nombre, m.Medico_Apellido, m.Medico_Dni
+	INSERT INTO #TMP_PROFESIONALES (ID_PROFESIONAL,NUMERO_DOCUMENTO)
+	SELECT DISTINCT u.ID_USUARIO,m.Medico_Dni
 	FROM USUARIOS u JOIN gd_esquema.Maestra m ON (u.NUMERO_DOCUMENTO = m.Medico_Dni) 
 
 END;
 GO
 
-/*CREATE PROCEDURE [3FG].MigrarTurnos
+CREATE PROCEDURE [3FG].MigrarTurnos
 AS
 BEGIN
 
@@ -509,11 +505,14 @@ BEGIN
 
 
 	--Se migran los turnos de la tabla Maestra
-	INSERT INTO [3FG].TURNOS(ID_AFILIADO,ID_PROFESIONAL,FECHA_TURNO)
-	SELECT DISTINCT a.ID_AFILIADO,p.ID_PROFESIONAL,m.Turno_Fecha
-	FROM gd_esquema.Maestra m, #TMP_AFILIADOS a, #TMP_PROFESIONALES p
+	INSERT INTO [3FG].TURNOS(ID_AFILIADO,ID_AGENDA,FECHA_TURNO)
+	SELECT DISTINCT a.ID_AFILIADO,ag.ID_AGENDA,m.Turno_Fecha
+	FROM gd_esquema.Maestra m, #TMP_AFILIADOS a, #TMP_PROFESIONALES p, [3FG].Agenda ag
 	WHERE m.Paciente_Dni = a.NUMERO_DOCUMENTO
 	AND m.Medico_Dni = p.NUMERO_DOCUMENTO
+	AND p.ID_PROFESIONAL = ag.ID_USUARIO
+	AND m.Especialidad_Codigo = ag.ID_ESPECIALIDAD
+	AND [3FG].obtenerDia(m.Turno_Fecha) = ag.DIA_ATENCION
 	AND m.Compra_Bono_Fecha is NULL
 	AND m.Bono_Consulta_Fecha_Impresion is NULL
 	AND m.Consulta_Sintomas is NULL
@@ -521,7 +520,7 @@ BEGIN
 	ORDER BY 1 ASC
 
 END;
-GO*/
+GO
 
 CREATE PROCEDURE [3FG].MigrarRecepciones
 AS
@@ -577,7 +576,7 @@ EXEC [3FG].MigrarTiposDeEspecialidad
 EXEC [3FG].MigrarEspecialidades
 EXEC [3FG].MigrarEspecialidadPorProfesional
 EXEC [3FG].Migrar_Afiliados_Profesionales_Temporales
---EXEC [3FG].MigrarTurnos
+EXEC [3FG].MigrarTurnos
 EXEC [3FG].MigrarRecepciones
 EXEC [3FG].MigrarBonos
 EXEC [3FG].MigrarCompras

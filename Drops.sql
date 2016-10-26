@@ -49,9 +49,9 @@ DROP PROCEDURE [3FG].MigrarPlanes;
 DROP PROCEDURE [3FG].MigrarBonos;
 DROP PROCEDURE [3FG].MigrarRecepciones;
 DROP PROCEDURE [3FG].MigrarCompras;
---DROP PROCEDURE [3FG].MigrarTurnos;
+DROP PROCEDURE [3FG].MigrarTurnos;
 DROP PROCEDURE [3FG].MigrarAgenda;
 
 DROP FUNCTION [3FG].obtenerDia;
 DROP FUNCTION [3FG].obtenerHora;
-DROP FUNCTION [3FG].agregarEntablasUsuarioYAfiliado;
+DROP PROCEDURE agregarEntablasUsuarioYAfiliado;

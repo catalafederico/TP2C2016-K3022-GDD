@@ -21,6 +21,7 @@ namespace ClinicaFrba.Eleccion_Funcionalidad
         AbmRol.ABMROL abmRol;
         ABM_Afiliado.ABMafiliados abmAfiliado;
         ABMTurnos unTurno;
+        Registrar_Agenda_Medico.RegistrarAgenda agenda;
         /*
         ABM_Rol.ABMRol abmRol;
         ABM_Visibilidad.ABMVisibilidad abmVis;
@@ -102,6 +103,10 @@ namespace ClinicaFrba.Eleccion_Funcionalidad
                 case"PEDIR TURNO":
                     unTurno = new ABMTurnos();
                     unTurno.ShowDialog();
+                    break;
+                case "Registrar agenda del profesional":
+                    agenda = new Registrar_Agenda_Medico.RegistrarAgenda();
+                    agenda.ShowDialog();
                     break;
                     /*
                 case "ABM de Usuarios":

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClinicaFrba.ABM_Rol;
+using ClinicaFrba.Pedir_Turno;
 
 namespace ClinicaFrba.Eleccion_Funcionalidad
 {
@@ -18,6 +19,8 @@ namespace ClinicaFrba.Eleccion_Funcionalidad
         string nombreUsuario;
         string rol;
         AbmRol.ABMROL abmRol;
+        ABM_Afiliado.ABMafiliados abmAfiliado;
+        ABMTurnos unTurno;
         /*
         ABM_Rol.ABMRol abmRol;
         ABM_Visibilidad.ABMVisibilidad abmVis;
@@ -82,6 +85,23 @@ namespace ClinicaFrba.Eleccion_Funcionalidad
                 case "AbmRoles":
                     abmRol = new AbmRol.ABMROL(rol);
                     abmRol.ShowDialog();
+                    break;
+
+                case "AbmAfiliado":
+                    if (rol == "Administrativo" || rol == "Administrador general")
+                    {
+                        abmAfiliado = new ABM_Afiliado.ABMafiliados();
+                        abmAfiliado.ShowDialog();
+                    }
+
+                    else
+                    {
+                        MessageBox.Show("No se puede modificar un Afiliado con el rol: " + rol);
+                    }
+                    break;
+                case"PEDIR TURNO":
+                    unTurno = new ABMTurnos();
+                    unTurno.ShowDialog();
                     break;
                     /*
                 case "ABM de Usuarios":

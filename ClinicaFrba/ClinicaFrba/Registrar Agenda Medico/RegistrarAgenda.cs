@@ -26,18 +26,23 @@ namespace ClinicaFrba.Registrar_Agenda_Medico
             string idProf = dt2.Rows[0][0].ToString();
             idPro = Convert.ToInt64(idProf);*/
 
-            DataTable dt = (new ConexionSQL()).cargarTablaSQL("SELECT DESCRIPCION_ESPECIALIDAD FROM [3FG].ESPECIALIDAD_PROFESIONAL EP JOIN [3FG].ESPECIALIDADES E ON (E.ID_ESPECIALIDAD = EP.ID_ESPECIALIDAD) WHERE EP.ID_USUARIO = '" + idPro + "'");
-            comboBoxLunes.DataSource = dt.DefaultView;
+            DataTable dt1 = (new ConexionSQL()).cargarTablaSQL("SELECT DESCRIPCION_ESPECIALIDAD FROM [3FG].ESPECIALIDAD_PROFESIONAL EP JOIN [3FG].ESPECIALIDADES E ON (E.ID_ESPECIALIDAD = EP.ID_ESPECIALIDAD) WHERE EP.ID_USUARIO = '" + idPro + "'");
+            comboBoxLunes.DataSource = dt1.DefaultView;
             comboBoxLunes.ValueMember = "DESCRIPCION_ESPECIALIDAD";
-            comboBoxMartes.DataSource = dt.DefaultView;
+            DataTable dt2 = (new ConexionSQL()).cargarTablaSQL("SELECT DESCRIPCION_ESPECIALIDAD FROM [3FG].ESPECIALIDAD_PROFESIONAL EP JOIN [3FG].ESPECIALIDADES E ON (E.ID_ESPECIALIDAD = EP.ID_ESPECIALIDAD) WHERE EP.ID_USUARIO = '" + idPro + "'");
+            comboBoxMartes.DataSource = dt2.DefaultView;
             comboBoxMartes.ValueMember = "DESCRIPCION_ESPECIALIDAD";
-            comboBoxMiercoles.DataSource = dt.DefaultView;
+            DataTable dt3 = (new ConexionSQL()).cargarTablaSQL("SELECT DESCRIPCION_ESPECIALIDAD FROM [3FG].ESPECIALIDAD_PROFESIONAL EP JOIN [3FG].ESPECIALIDADES E ON (E.ID_ESPECIALIDAD = EP.ID_ESPECIALIDAD) WHERE EP.ID_USUARIO = '" + idPro + "'");
+            comboBoxMiercoles.DataSource = dt3.DefaultView;
             comboBoxMiercoles.ValueMember = "DESCRIPCION_ESPECIALIDAD";
-            comboBoxJueves.DataSource = dt.DefaultView;
+            DataTable dt4 = (new ConexionSQL()).cargarTablaSQL("SELECT DESCRIPCION_ESPECIALIDAD FROM [3FG].ESPECIALIDAD_PROFESIONAL EP JOIN [3FG].ESPECIALIDADES E ON (E.ID_ESPECIALIDAD = EP.ID_ESPECIALIDAD) WHERE EP.ID_USUARIO = '" + idPro + "'");
+            comboBoxJueves.DataSource = dt4.DefaultView;
             comboBoxJueves.ValueMember = "DESCRIPCION_ESPECIALIDAD";
-            comboBoxViernes.DataSource = dt.DefaultView;
+            DataTable dt5 = (new ConexionSQL()).cargarTablaSQL("SELECT DESCRIPCION_ESPECIALIDAD FROM [3FG].ESPECIALIDAD_PROFESIONAL EP JOIN [3FG].ESPECIALIDADES E ON (E.ID_ESPECIALIDAD = EP.ID_ESPECIALIDAD) WHERE EP.ID_USUARIO = '" + idPro + "'");
+            comboBoxViernes.DataSource = dt5.DefaultView;
             comboBoxViernes.ValueMember = "DESCRIPCION_ESPECIALIDAD";
-            comboBoxSabado.DataSource = dt.DefaultView;
+            DataTable dt6 = (new ConexionSQL()).cargarTablaSQL("SELECT DESCRIPCION_ESPECIALIDAD FROM [3FG].ESPECIALIDAD_PROFESIONAL EP JOIN [3FG].ESPECIALIDADES E ON (E.ID_ESPECIALIDAD = EP.ID_ESPECIALIDAD) WHERE EP.ID_USUARIO = '" + idPro + "'");
+            comboBoxSabado.DataSource = dt6.DefaultView;
             comboBoxSabado.ValueMember = "DESCRIPCION_ESPECIALIDAD";
            
         }
@@ -53,7 +58,7 @@ namespace ClinicaFrba.Registrar_Agenda_Medico
 
                 Agenda agenda = new Agenda();
                 agenda.idProfesional = idPro;
-                string query2 = "SELECT ID_ESPECIALIDAD FROM [3FG].ESPECIALIDADES WHERE DESCRIPCION_ESPECIALIDAD = '" + comboBoxLunes.Text + "'";
+                string query2 = "SELECT DISTINCT ID_ESPECIALIDAD FROM [3FG].ESPECIALIDADES WHERE DESCRIPCION_ESPECIALIDAD = '" + comboBoxLunes.Text + "'";
                 DataTable dt2 = (new ConexionSQL()).cargarTablaSQL(query2);
                 string idCliente = dt2.Rows[0][0].ToString();
                 Int64 idEspe = Convert.ToInt64(idCliente);
@@ -70,7 +75,7 @@ namespace ClinicaFrba.Registrar_Agenda_Medico
 
                 Agenda agenda = new Agenda();
                 agenda.idProfesional = idPro;
-                string query2 = "SELECT ID_ESPECIALIDAD FROM [3FG].ESPECIALIDADES WHERE DESCRIPCION_ESPECIALIDAD = '" + comboBoxMartes.Text + "'";
+                string query2 = "SELECT DISTINCT ID_ESPECIALIDAD FROM [3FG].ESPECIALIDADES WHERE DESCRIPCION_ESPECIALIDAD = '" + comboBoxMartes.Text + "'";
                 DataTable dt2 = (new ConexionSQL()).cargarTablaSQL(query2);
                 string idCliente = dt2.Rows[0][0].ToString();
                 Int64 idEspe = Convert.ToInt64(idCliente);
@@ -87,7 +92,7 @@ namespace ClinicaFrba.Registrar_Agenda_Medico
 
                 Agenda agenda = new Agenda();
                 agenda.idProfesional = idPro;
-                string query2 = "SELECT ID_ESPECIALIDAD FROM [3FG].ESPECIALIDADES WHERE DESCRIPCION_ESPECIALIDAD = '" + comboBoxMiercoles.Text + "'";
+                string query2 = "SELECT DISTINCT ID_ESPECIALIDAD FROM [3FG].ESPECIALIDADES WHERE DESCRIPCION_ESPECIALIDAD = '" + comboBoxMiercoles.Text + "'";
                 DataTable dt2 = (new ConexionSQL()).cargarTablaSQL(query2);
                 string idCliente = dt2.Rows[0][0].ToString();
                 Int64 idEspe = Convert.ToInt64(idCliente);
@@ -104,7 +109,7 @@ namespace ClinicaFrba.Registrar_Agenda_Medico
 
                 Agenda agenda = new Agenda();
                 agenda.idProfesional = idPro;
-                string query2 = "SELECT ID_ESPECIALIDAD FROM [3FG].ESPECIALIDADES WHERE DESCRIPCION_ESPECIALIDAD = '" + comboBoxJueves.Text + "'";
+                string query2 = "SELECT DISTINCT ID_ESPECIALIDAD FROM [3FG].ESPECIALIDADES WHERE DESCRIPCION_ESPECIALIDAD = '" + comboBoxJueves.Text + "'";
                 DataTable dt2 = (new ConexionSQL()).cargarTablaSQL(query2);
                 string idCliente = dt2.Rows[0][0].ToString();
                 Int64 idEspe = Convert.ToInt64(idCliente);
@@ -121,7 +126,7 @@ namespace ClinicaFrba.Registrar_Agenda_Medico
 
                 Agenda agenda = new Agenda();
                 agenda.idProfesional = idPro;
-                string query2 = "SELECT ID_ESPECIALIDAD FROM [3FG].ESPECIALIDADES WHERE DESCRIPCION_ESPECIALIDAD = '" + comboBoxViernes.Text + "'";
+                string query2 = "SELECT DISTINCT ID_ESPECIALIDAD FROM [3FG].ESPECIALIDADES WHERE DESCRIPCION_ESPECIALIDAD = '" + comboBoxViernes.Text + "'";
                 DataTable dt2 = (new ConexionSQL()).cargarTablaSQL(query2);
                 string idCliente = dt2.Rows[0][0].ToString();
                 Int64 idEspe = Convert.ToInt64(idCliente);
@@ -138,7 +143,7 @@ namespace ClinicaFrba.Registrar_Agenda_Medico
 
                 Agenda agenda = new Agenda();
                 agenda.idProfesional = idPro;
-                string query2 = "SELECT ID_ESPECIALIDAD FROM [3FG].ESPECIALIDADES WHERE DESCRIPCION_ESPECIALIDAD = '" + comboBoxSabado.Text + "'";
+                string query2 = "SELECT DISTINCT ID_ESPECIALIDAD FROM [3FG].ESPECIALIDADES WHERE DESCRIPCION_ESPECIALIDAD = '" + comboBoxSabado.Text + "'";
                 DataTable dt2 = (new ConexionSQL()).cargarTablaSQL(query2);
                 string idCliente = dt2.Rows[0][0].ToString();
                 Int64 idEspe = Convert.ToInt64(idCliente);

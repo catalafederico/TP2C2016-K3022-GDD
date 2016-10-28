@@ -385,7 +385,7 @@ BEGIN
 
 	--Se migran las especialidades de la tabla Maestra
 	INSERT INTO [3FG].ESPECIALIDADES(ID_ESPECIALIDAD,ID_TIPO_ESPECIALIDAD,DESCRIPCION_ESPECIALIDAD)
-	SELECT DISTINCT Especialidad_Codigo,Tipo_Especialidad_Codigo,Tipo_Especialidad_Descripcion
+	SELECT DISTINCT Especialidad_Codigo,Tipo_Especialidad_Codigo,Especialidad_Descripcion
 	FROM gd_esquema.Maestra
 	WHERE Especialidad_Codigo is NOT NULL
 	ORDER BY 1 asc
@@ -619,6 +619,13 @@ INSERT INTO [3FG].FUNCIONALIDADES(NOMBRE) VALUES('ABM de Rol');
 INSERT INTO [3FG].FUNCIONALIDADES(NOMBRE) VALUES('ABM de Afiliado');
 INSERT INTO [3FG].FUNCIONALIDADES(NOMBRE) VALUES('Solicitar turno');
 INSERT INTO [3FG].FUNCIONALIDADES(NOMBRE) VALUES('Registrar agenda del profesional');
+
+/*Se agregan funcionalidades al rol Profesional*/
+
+INSERT INTO [3FG].FUNCIONALIDADES_ROL(ID_ROL, ID_FUNCIONALIDAD)
+SELECT tablaRol.ID_ROL,tablaFuncionalidad.ID_FUNCIONALIDAD FROM [3FG].ROLES  tablaRol, [3FG].FUNCIONALIDADES tablaFuncionalidad
+WHERE tablaRol.NOMBRE_ROL = 'Profesional' AND tablaFuncionalidad.NOMBRE IN ('Registrar agenda del profesional');
+GO
 
 /*HARDCODEO ESTO A MODO DE PRUEBA*/
 INSERT INTO [3FG].ROLES_USUARIO(ID_USUARIO,ID_ROL)

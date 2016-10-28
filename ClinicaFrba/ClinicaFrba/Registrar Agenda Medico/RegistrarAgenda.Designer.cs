@@ -347,16 +347,20 @@
             // txtInicioDisponibilidad
             // 
             this.txtInicioDisponibilidad.Location = new System.Drawing.Point(142, 231);
+            this.txtInicioDisponibilidad.Mask = "00/00/0000";
             this.txtInicioDisponibilidad.Name = "txtInicioDisponibilidad";
-            this.txtInicioDisponibilidad.Size = new System.Drawing.Size(100, 20);
+            this.txtInicioDisponibilidad.Size = new System.Drawing.Size(66, 20);
             this.txtInicioDisponibilidad.TabIndex = 38;
+            this.txtInicioDisponibilidad.ValidatingType = typeof(System.DateTime);
             // 
             // txtFinDisponibilidad
             // 
             this.txtFinDisponibilidad.Location = new System.Drawing.Point(142, 266);
+            this.txtFinDisponibilidad.Mask = "00/00/0000";
             this.txtFinDisponibilidad.Name = "txtFinDisponibilidad";
-            this.txtFinDisponibilidad.Size = new System.Drawing.Size(100, 20);
+            this.txtFinDisponibilidad.Size = new System.Drawing.Size(66, 20);
             this.txtFinDisponibilidad.TabIndex = 39;
+            this.txtFinDisponibilidad.ValidatingType = typeof(System.DateTime);
             // 
             // RegistrarAgenda
             // 

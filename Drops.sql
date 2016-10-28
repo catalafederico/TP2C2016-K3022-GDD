@@ -51,6 +51,7 @@ DROP PROCEDURE [3FG].MigrarRecepciones;
 DROP PROCEDURE [3FG].MigrarCompras;
 DROP PROCEDURE [3FG].MigrarTurnos;
 DROP PROCEDURE [3FG].MigrarAgenda;
+DROP PROCEDURE [3FG].EsteblecerUsuarioYContraseñaPorDefault;
 
 DROP FUNCTION [3FG].obtenerDia;
 DROP FUNCTION [3FG].obtenerHora;

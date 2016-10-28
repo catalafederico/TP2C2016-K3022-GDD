@@ -83,12 +83,12 @@ namespace ClinicaFrba.Eleccion_Funcionalidad
 
             switch (funcionalidad)
             {
-                case "AbmRoles":
+                case "ABM de Rol":
                     abmRol = new AbmRol.ABMROL(rol);
                     abmRol.ShowDialog();
                     break;
 
-                case "AbmAfiliado":
+                case "ABM de Afiliado":
                     if (rol == "Administrativo" || rol == "Administrador general")
                     {
                         abmAfiliado = new ABM_Afiliado.ABMafiliados();
@@ -100,12 +100,12 @@ namespace ClinicaFrba.Eleccion_Funcionalidad
                         MessageBox.Show("No se puede modificar un Afiliado con el rol: " + rol);
                     }
                     break;
-                case"PEDIR TURNO":
+                case"Solicitar turno":
                     unTurno = new ABMTurnos();
                     unTurno.ShowDialog();
                     break;
                 case "Registrar agenda del profesional":
-                    agenda = new Registrar_Agenda_Medico.RegistrarAgenda();
+                    agenda = new Registrar_Agenda_Medico.RegistrarAgenda(nombreUsuario,idCli);
                     agenda.ShowDialog();
                     break;
                     /*

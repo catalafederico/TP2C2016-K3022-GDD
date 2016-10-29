@@ -74,3 +74,4 @@ C:\Users\Fede\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.A
 C:\Users\Fede\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.ABM_Afiliado.ModificarAfiliado.resources
 C:\Users\Fede\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.ABM_Afiliado.ModificarPlan.resources
 C:\Users\Fede\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Registrar_Agenda_Medico.RegistrarAgenda.resources
+C:\Users\Fede\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Cancelar_Atencion.CancelarAtencion.resources

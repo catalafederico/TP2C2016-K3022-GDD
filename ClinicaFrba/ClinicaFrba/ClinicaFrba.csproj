@@ -137,11 +137,11 @@
       <DependentUpon>ModificarRol.cs</DependentUpon>
     </Compile>
     <Compile Include="BDComun.cs" />
-    <Compile Include="Cancelar Atencion\Form1.cs">
+    <Compile Include="Cancelar Atencion\Cancelar Turno Usuario.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Cancelar Atencion\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Cancelar Atencion\Cancelar Turno Usuario.Designer.cs">
+      <DependentUpon>Cancelar Turno Usuario.cs</DependentUpon>
     </Compile>
     <Compile Include="ComboBox.cs" />
     <Compile Include="ComboBoxGeneral.cs">
@@ -173,6 +173,11 @@
       <DependentUpon>EleccionRol.cs</DependentUpon>
     </Compile>
     <Compile Include="Elegir Rol\Rol.cs" />
+    <Compile Include="GD2C2016DataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GD2C2016DataSet1.xsd</DependentUpon>
+    </Compile>
     <Compile Include="IniciarSesion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -244,6 +249,9 @@
     <EmbeddedResource Include="ABM Afiliado\ModificarPlan.resx">
       <DependentUpon>ModificarPlan.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Cancelar Atencion\Cancelar Turno Usuario.resx">
+      <DependentUpon>Cancelar Turno Usuario.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Elegir Funcionalidad\ElegirFuncionalidad.resx">
       <DependentUpon>ElegirFuncionalidad.cs</DependentUpon>
     </EmbeddedResource>
@@ -271,6 +279,17 @@
     <EmbeddedResource Include="Registrar Agenda Medico\RegistrarAgenda.resx">
       <DependentUpon>RegistrarAgenda.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="GD2C2016DataSet1.xsc">
+      <DependentUpon>GD2C2016DataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="GD2C2016DataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GD2C2016DataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="GD2C2016DataSet1.xss">
+      <DependentUpon>GD2C2016DataSet1.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

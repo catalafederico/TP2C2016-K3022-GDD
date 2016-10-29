@@ -36,8 +36,10 @@ namespace ClinicaFrba.Pedir_Turno
         {
             if (dateTimePicker1.Value < this.fechaTemprana || dateTimePicker1.Value > this.fechaTardia)
             {
-                MessageBox.Show("La fecha seleccionada no se encuentra dentro de las disponibles", "Error");
+                MessageBox.Show("La fecha seleccionada no se encuentra dentro de las disponibles","Error",MessageBoxButtons.OK);
             }
+
+
             else
             {
                 this.fechaElegida = dateTimePicker1.Value;
@@ -49,28 +51,26 @@ namespace ClinicaFrba.Pedir_Turno
         {
             using (SqlConnection conexion = BDComun.obtenerConexion())
             {
-                string crearTurno = "INSERT INTO [3FG].TURNOS(ID_AFILIADO,FECHA_TURNO) VALUES((Select ID_USUARIO from [3FG].USUARIOS where ID_USUARIO = "+ idAfiliado +"),@fechaTurno)";
+                string crearTurno = "INSERT INTO [3FG].TURNOS(ID_AFILIADO,FECHA_TURNO) VALUES(@idAfiliado,@fechaTurno)";
 
                 using (SqlCommand queryCrearTurno = new SqlCommand(crearTurno))
                 {
                     queryCrearTurno.Connection = BDComun.obtenerConexion();
+                    //Esta mal le pasa el del medico, no el del afiliado. Despues lo arreglo
+                    queryCrearTurno.Parameters.Add("@idAfiliado", SqlDbType.BigInt, 8).Value = idAfiliado;
                     queryCrearTurno.Parameters.Add("@fechaTurno", SqlDbType.DateTime, 8).Value = fechaElegida;
                     try
                     {
                         queryCrearTurno.ExecuteNonQuery();
                         MessageBox.Show("Turno creado correctamente");
                         //Agrego esto para que no se llene de turnos basura mientras pruebo
-                        using (SqlCommand command = new SqlCommand("DELETE FROM [3FG].TURNOS WHERE ID_AFILIADO = '" + idAfiliado + "'", conexion))
-                        {
-                            command.ExecuteNonQuery();
-                        }
-                        conexion.Close();
+                        //using (SqlCommand command = new SqlCommand("DELETE FROM [3FG].TURNOS WHERE ID_AFILIADO = '" + idAfiliado + "'", conexion)) command.ExecuteNonQuery();
                     }
                     catch
                     {
-                        MessageBox.Show("Error al tratar de guardar en database");
-                        conexion.Close();
+                        MessageBox.Show("Error al tratar de guardar en database", "Error", MessageBoxButtons.OK);
                     }
+                    conexion.Close();
                 }
             }
             

@@ -18,7 +18,7 @@ namespace ClinicaFrba.Pedir_Turno
         private Boolean searchName;
         private Boolean searchSurname;
         private Boolean searchSpecialty;
-        private string queryDeLoadTable ="SELECT U.NOMBRE AS Profesional, U.APELLIDO AS Apellido, U.ID_USUARIO, E.DESCRIPCION_ESPECIALIDAD AS Especialidad FROM [3FG].USUARIOS U, [3FG].PROFESIONALES P, [3FG].ESPECIALIDAD_PROFESIONAL EP, [3FG].ESPECIALIDADES E WHERE (U.ID_USUARIO = P.ID_USUARIO) AND (P.ID_USUARIO = EP.ID_USUARIO) AND (EP.ID_ESPECIALIDAD = E.ID_ESPECIALIDAD)";
+        private string queryDeLoadTable = "SELECT U.APELLIDO AS Apellido, U.NOMBRE AS Profesional, U.ID_USUARIO, E.DESCRIPCION_ESPECIALIDAD AS Especialidad FROM [3FG].USUARIOS U, [3FG].PROFESIONALES P, [3FG].ESPECIALIDAD_PROFESIONAL EP, [3FG].ESPECIALIDADES E WHERE (U.ID_USUARIO = P.ID_USUARIO) AND (P.ID_USUARIO = EP.ID_USUARIO) AND (EP.ID_ESPECIALIDAD = E.ID_ESPECIALIDAD)";
 
         public ABMTurnos()
         {
@@ -60,21 +60,31 @@ namespace ClinicaFrba.Pedir_Turno
 
             if (doctorElegido == null)
             {
-                MessageBox.Show("No ha seleccionado un profesional", "Error");
+                MessageBox.Show("No ha seleccionado un profesional", "Error", MessageBoxButtons.OK);
             }
             
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if(e.RowIndex >= 0 && e.ColumnIndex < 1)
+            if(e.RowIndex >= 0 && e.ColumnIndex < 2)
             {
-                object click = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
-                object idClick = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex+2].Value;
-                doctorElegido = click.ToString();
-                this.id = Int32.Parse(idClick.ToString());
-                label1.Text = "Profesional Elegido: " + doctorElegido;
+                object apellido = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+                object nombre = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex+1].Value;
+                object id = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex+2].Value;
+                doctorElegido = apellido.ToString();
+                this.id = Int32.Parse(id.ToString());
+                label1.Text = "Profesional Elegido: " + doctorElegido + ", " + nombreBienEscrito(nombre) ;
             }
+        }
+
+        private string nombreBienEscrito(object nombre)
+        {
+            string nombreString = nombre.ToString();
+            char primerLetra = nombreString[0];
+            string elResto = nombreString.Remove(0, 1).ToLower();
+            string todoJunto = primerLetra + elResto;
+            return todoJunto;
         }
 
         private void button1_Click(object sender, EventArgs e)

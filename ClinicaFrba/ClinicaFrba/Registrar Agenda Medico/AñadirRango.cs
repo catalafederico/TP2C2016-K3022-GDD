@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace ClinicaFrba.Registrar_Agenda_Medico
 {
-    public partial class RegistrarAgenda : Form
+    public partial class AñadirRango : Form
     {
-        public RegistrarAgenda()
+        public AñadirRango()
         {
             InitializeComponent();
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
     }
 }

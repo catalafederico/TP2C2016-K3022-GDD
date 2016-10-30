@@ -101,7 +101,7 @@ namespace ClinicaFrba.Eleccion_Funcionalidad
                     }
                     break;
                 case"Solicitar turno":
-                    unTurno = new ABMTurnos();
+                    unTurno = new ABMTurnos((int) idCli);
                     unTurno.ShowDialog();
                     break;
                 case "Registrar agenda del profesional":

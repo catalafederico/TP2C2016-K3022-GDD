@@ -14,14 +14,16 @@ namespace ClinicaFrba.Pedir_Turno
     public partial class ABMTurnos : Form
     {
         private string doctorElegido;
-        private int id;
+        private int idDoctor;
+        private int idAfiliado;
         private Boolean searchName;
         private Boolean searchSurname;
         private Boolean searchSpecialty;
         private string queryDeLoadTable = "SELECT U.APELLIDO AS Apellido, U.NOMBRE AS Profesional, U.ID_USUARIO, E.DESCRIPCION_ESPECIALIDAD AS Especialidad FROM [3FG].USUARIOS U, [3FG].PROFESIONALES P, [3FG].ESPECIALIDAD_PROFESIONAL EP, [3FG].ESPECIALIDADES E WHERE (U.ID_USUARIO = P.ID_USUARIO) AND (P.ID_USUARIO = EP.ID_USUARIO) AND (EP.ID_ESPECIALIDAD = E.ID_ESPECIALIDAD)";
 
-        public ABMTurnos()
+        public ABMTurnos(int id)
         {
+            this.idAfiliado = id;
             InitializeComponent();
             loadTable(queryDeLoadTable);
         }
@@ -52,7 +54,7 @@ namespace ClinicaFrba.Pedir_Turno
         {
             if (doctorElegido != null)
             {
-                Elegir_Horario eh = new Elegir_Horario(this, doctorElegido, id);
+                Elegir_Horario eh = new Elegir_Horario(this, doctorElegido, idDoctor, idAfiliado);
                 this.Hide();
                 eh.Closed += (s, args) => this.Close();
                 eh.Show();
@@ -73,7 +75,7 @@ namespace ClinicaFrba.Pedir_Turno
                 object nombre = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex+1].Value;
                 object id = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex+2].Value;
                 doctorElegido = apellido.ToString();
-                this.id = Int32.Parse(id.ToString());
+                this.idDoctor = Int32.Parse(id.ToString());
                 label1.Text = "Profesional Elegido: " + doctorElegido + ", " + nombreBienEscrito(nombre) ;
             }
         }

@@ -49,12 +49,17 @@ namespace ClinicaFrba.Registrar_Agenda_Medico
                 if(diasCargados.Contains(comboBoxDias.Text)){
                     MessageBox.Show("Ya se encuentra cargado un rango horario en ese dia.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }else{
+
                 string horaInicio = comboBoxHoraInicio.Text + ":" + comboBoxMinutosInicio.Text;
                 string horaFin = comboBoxHoraFin.Text + ":" + comboBoxMinutosFin.Text;
                 int horaI = Int32.Parse(comboBoxHoraInicio.Text);
                 int horaF = Int32.Parse(comboBoxHoraFin.Text);
                 int minutosI = Int32.Parse(comboBoxMinutosInicio.Text);
                 int minutosF = Int32.Parse(comboBoxMinutosFin.Text);
+                if ((comboBoxDias.Text == "SABADO" && (horaI < 10 || horaF > 15)) || (comboBoxDias.Text == "SABADO" && horaF == 15 && minutosF == 30) || (horaF == 20 && minutosF == 30) )
+                {
+                    MessageBox.Show("El horario elegido no se encuentra dentro del rango de atencion de la clinica.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }else{
                 if (horaI > horaF)
                 {
                     MessageBox.Show("La hora de inicio es menor que la de fin.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -82,7 +87,8 @@ namespace ClinicaFrba.Registrar_Agenda_Medico
                 }                
              }
                    }
-         }
+        }
+}
 
 
         private void RegistrarAgenda_Load(object sender, EventArgs e)
@@ -131,7 +137,9 @@ namespace ClinicaFrba.Registrar_Agenda_Medico
                     }
                     else
                     {
-               
+                        if(sumarHorasCargadas() > 48){
+                            MessageBox.Show("Las horas cargadas superan las 48hs permitidas por la clinica.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }else{
                         AgendaDAL.cargarDisponibilidad(idPro, dateTimePickerInicioDisp.Value.Date, dateTimePickerFinDisp.Value.Date);
                         int resultado = AgendaDAL.agregarAgenda(agenda);
                         filasAgregadasCorrectamente = filasAgregadasCorrectamente + resultado;
@@ -144,6 +152,7 @@ namespace ClinicaFrba.Registrar_Agenda_Medico
                         {
                             MessageBox.Show("No se pudo guardar la agenda.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
+                        }
                     }
                 }
              }
@@ -154,6 +163,15 @@ namespace ClinicaFrba.Registrar_Agenda_Medico
             }
             
          }
+
+        private int sumarHorasCargadas(){
+
+            int totalDeHoras = 0;
+
+
+            return totalDeHoras;
+            
+        }
 
         private void cargarEspecialidades()
         {

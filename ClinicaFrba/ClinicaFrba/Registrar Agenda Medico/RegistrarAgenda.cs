@@ -47,7 +47,7 @@ namespace ClinicaFrba.Registrar_Agenda_Medico
                 }
                 ListViewItem lista = new ListViewItem(comboBoxDias.Text);
                 if(diasCargados.Contains(comboBoxDias.Text)){
-                    MessageBox.Show("Ya se encuentra cargado un rango en ese dia.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Ya se encuentra cargado un rango horario en ese dia.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }else{
                 string horaInicio = comboBoxHoraInicio.Text + ":" + comboBoxMinutosInicio.Text;
                 string horaFin = comboBoxHoraFin.Text + ":" + comboBoxMinutosFin.Text;
@@ -99,7 +99,8 @@ namespace ClinicaFrba.Registrar_Agenda_Medico
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
-        {
+        {   
+
             List<Agenda> listaAgenda = new List<Agenda>();
             int filasAgregadasCorrectamente = 0;
 
@@ -119,15 +120,32 @@ namespace ClinicaFrba.Registrar_Agenda_Medico
                 agenda.horaInicio = itemRow.SubItems[1].Text;
                 agenda.horaFin = itemRow.SubItems[2].Text;
 
-                int resultado = AgendaDAL.agregarAgenda(agenda);
-                filasAgregadasCorrectamente = filasAgregadasCorrectamente + resultado;
-
-                if (filasAgregadasCorrectamente == listViewRangos.Items.Count) {
-                    MessageBox.Show("Se agrego la agenda correctamente.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                } else {
-                    MessageBox.Show("No se pudo agregar la agenda.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);                
+                if (dateTimePickerInicioDisp.Value > dateTimePickerFinDisp.Value || dateTimePickerInicioDisp.Value == dateTimePickerFinDisp.Value)
+                {
+                    MessageBox.Show("La fecha inicio de disponibilidad es menor o igual que la fecha fin disponibilidad.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
+                else
+                {
+                    if (dateTimePickerInicioDisp.Value < DateTime.Today) {
+                        MessageBox.Show("La fecha inicio de disponibilidad es menor que la fecha de hoy.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    else
+                    {
                
+                        AgendaDAL.cargarDisponibilidad(idPro, dateTimePickerInicioDisp.Value.Date, dateTimePickerFinDisp.Value.Date);
+                        int resultado = AgendaDAL.agregarAgenda(agenda);
+                        filasAgregadasCorrectamente = filasAgregadasCorrectamente + resultado;
+
+                        if (filasAgregadasCorrectamente == listViewRangos.Items.Count)
+                        {
+                            MessageBox.Show("Se agrego la agenda correctamente.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("No se pudo guardar la agenda.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+                }
              }
 
             if (listViewRangos.Items.Count == 0)

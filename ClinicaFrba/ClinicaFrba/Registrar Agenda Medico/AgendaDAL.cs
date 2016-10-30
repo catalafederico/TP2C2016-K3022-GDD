@@ -22,5 +22,21 @@ namespace ClinicaFrba.Registrar_Agenda_Medico
 
             return retorno;
         }
+
+        public static int cargarDisponibilidad(Int64 idProfesional,DateTime inicioDisponibilidad,DateTime finDisponibilidad) {
+            
+            int retorno = 0;
+            using (SqlConnection conexion = BDComun.obtenerConexion())
+            {
+                SqlCommand comando = new SqlCommand(string.Format("UPDATE [3FG].PROFESIONALES SET INICIO_DISPONIBILIDAD = '{0}', FIN_DISPONIBILIDAD = '{1}' WHERE ID_USUARIO = '{2}'",
+                    inicioDisponibilidad,finDisponibilidad,idProfesional), conexion);
+
+                retorno = comando.ExecuteNonQuery();
+
+            }
+
+            return retorno;
+
+        }
     }
 }

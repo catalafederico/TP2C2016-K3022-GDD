@@ -38,8 +38,8 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerInicioDisp = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerFinDisp = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
             this.comboBoxDias = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -140,19 +140,22 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "Fin de disponibilidad:";
             // 
-            // dateTimePicker1
+            // dateTimePickerInicioDisp
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(191, 9);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePicker1.TabIndex = 6;
+            this.dateTimePickerInicioDisp.Checked = false;
+            this.dateTimePickerInicioDisp.Location = new System.Drawing.Point(191, 9);
+            this.dateTimePickerInicioDisp.Name = "dateTimePickerInicioDisp";
+            this.dateTimePickerInicioDisp.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePickerInicioDisp.TabIndex = 6;
+            this.dateTimePickerInicioDisp.Value = new System.DateTime(2016, 10, 30, 0, 0, 0, 0);
             // 
-            // dateTimePicker2
+            // dateTimePickerFinDisp
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(191, 49);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePicker2.TabIndex = 7;
+            this.dateTimePickerFinDisp.Location = new System.Drawing.Point(191, 49);
+            this.dateTimePickerFinDisp.Name = "dateTimePickerFinDisp";
+            this.dateTimePickerFinDisp.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePickerFinDisp.TabIndex = 7;
+            this.dateTimePickerFinDisp.Value = new System.DateTime(2016, 10, 30, 0, 0, 0, 0);
             // 
             // label3
             // 
@@ -290,8 +293,8 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.comboBoxDias);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.dateTimePicker2);
-            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.dateTimePickerFinDisp);
+            this.Controls.Add(this.dateTimePickerInicioDisp);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnCancelar);
@@ -314,8 +317,8 @@
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.DateTimePicker dateTimePickerInicioDisp;
+        private System.Windows.Forms.DateTimePicker dateTimePickerFinDisp;
         private System.Windows.Forms.ColumnHeader columnDia;
         private System.Windows.Forms.ColumnHeader ColumnHoraInicio;
         private System.Windows.Forms.ColumnHeader columnHoraFin;

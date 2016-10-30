@@ -52,7 +52,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.comboBoxMinutosInicio = new System.Windows.Forms.ComboBox();
             this.comboBoxMinutosFin = new System.Windows.Forms.ComboBox();
-            this.btnBorrarRango = new System.Windows.Forms.Button();
+            this.btnEliminarRango = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listViewRangos
@@ -104,7 +104,7 @@
             // 
             // btnAgregarRango
             // 
-            this.btnAgregarRango.Location = new System.Drawing.Point(523, 105);
+            this.btnAgregarRango.Location = new System.Drawing.Point(523, 109);
             this.btnAgregarRango.Name = "btnAgregarRango";
             this.btnAgregarRango.Size = new System.Drawing.Size(90, 23);
             this.btnAgregarRango.TabIndex = 2;
@@ -212,7 +212,7 @@
             // 
             this.comboBoxHoraFin.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxHoraFin.FormattingEnabled = true;
-            this.comboBoxHoraFin.Location = new System.Drawing.Point(372, 124);
+            this.comboBoxHoraFin.Location = new System.Drawing.Point(372, 129);
             this.comboBoxHoraFin.Name = "comboBoxHoraFin";
             this.comboBoxHoraFin.Size = new System.Drawing.Size(48, 21);
             this.comboBoxHoraFin.TabIndex = 20;
@@ -220,7 +220,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(291, 127);
+            this.label6.Location = new System.Drawing.Point(285, 132);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(62, 13);
             this.label6.TabIndex = 21;
@@ -257,27 +257,27 @@
             // 
             this.comboBoxMinutosFin.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxMinutosFin.FormattingEnabled = true;
-            this.comboBoxMinutosFin.Location = new System.Drawing.Point(442, 124);
+            this.comboBoxMinutosFin.Location = new System.Drawing.Point(442, 129);
             this.comboBoxMinutosFin.Name = "comboBoxMinutosFin";
             this.comboBoxMinutosFin.Size = new System.Drawing.Size(48, 21);
             this.comboBoxMinutosFin.TabIndex = 25;
             // 
-            // btnBorrarRango
+            // btnEliminarRango
             // 
-            this.btnBorrarRango.Location = new System.Drawing.Point(601, 241);
-            this.btnBorrarRango.Name = "btnBorrarRango";
-            this.btnBorrarRango.Size = new System.Drawing.Size(75, 23);
-            this.btnBorrarRango.TabIndex = 26;
-            this.btnBorrarRango.Text = "Borrar rango";
-            this.btnBorrarRango.UseVisualStyleBackColor = true;
-            this.btnBorrarRango.Click += new System.EventHandler(this.btnBorrar_Click);
+            this.btnEliminarRango.Location = new System.Drawing.Point(591, 241);
+            this.btnEliminarRango.Name = "btnEliminarRango";
+            this.btnEliminarRango.Size = new System.Drawing.Size(85, 23);
+            this.btnEliminarRango.TabIndex = 26;
+            this.btnEliminarRango.Text = "Eliminar rango";
+            this.btnEliminarRango.UseVisualStyleBackColor = true;
+            this.btnEliminarRango.Click += new System.EventHandler(this.btnBorrar_Click);
             // 
             // RegistrarAgenda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(724, 401);
-            this.Controls.Add(this.btnBorrarRango);
+            this.Controls.Add(this.btnEliminarRango);
             this.Controls.Add(this.comboBoxMinutosFin);
             this.Controls.Add(this.comboBoxMinutosInicio);
             this.Controls.Add(this.label8);
@@ -332,6 +332,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox comboBoxMinutosInicio;
         private System.Windows.Forms.ComboBox comboBoxMinutosFin;
-        private System.Windows.Forms.Button btnBorrarRango;
+        private System.Windows.Forms.Button btnEliminarRango;
     }
 }

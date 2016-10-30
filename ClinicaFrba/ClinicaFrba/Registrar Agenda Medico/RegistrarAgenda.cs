@@ -32,14 +32,21 @@ namespace ClinicaFrba.Registrar_Agenda_Medico
 
         private void btnAñadirRango_Click(object sender, EventArgs e)
         {
-            //Faltan las validaciones
-            ListViewItem lista = new ListViewItem(comboBoxDias.Text);
-            string horaInicio = comboBoxHoraInicio.Text + ":" + comboBoxMinutosInicio.Text;
-            string horaFin = comboBoxHoraFin.Text + ":" + comboBoxMinutosFin.Text;
-            lista.SubItems.Add(horaInicio);
-            lista.SubItems.Add(horaFin);
-            lista.SubItems.Add(comboBoxEspecialidades.Text);
-            listViewRangos.Items.Add(lista);
+            if (String.IsNullOrEmpty(comboBoxDias.Text) || String.IsNullOrEmpty(comboBoxHoraInicio.Text) || String.IsNullOrEmpty(comboBoxMinutosInicio.Text)
+              || String.IsNullOrEmpty(comboBoxHoraFin.Text) || String.IsNullOrEmpty(comboBoxMinutosFin.Text))
+            {
+                MessageBox.Show("No se completaron todos los campos.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                ListViewItem lista = new ListViewItem(comboBoxDias.Text);
+                string horaInicio = comboBoxHoraInicio.Text + ":" + comboBoxMinutosInicio.Text;
+                string horaFin = comboBoxHoraFin.Text + ":" + comboBoxMinutosFin.Text;
+                lista.SubItems.Add(horaInicio);
+                lista.SubItems.Add(horaFin);
+                lista.SubItems.Add(comboBoxEspecialidades.Text);
+                listViewRangos.Items.Add(lista);
+            }
 
         }
 
@@ -59,6 +66,7 @@ namespace ClinicaFrba.Registrar_Agenda_Medico
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             List<Agenda> listaAgenda = new List<Agenda>();
+            int filasAgregadasCorrectamente = 0;
 
             foreach (ListViewItem itemRow in listViewRangos.Items)
             {
@@ -76,9 +84,21 @@ namespace ClinicaFrba.Registrar_Agenda_Medico
                 agenda.horaInicio = itemRow.SubItems[1].Text;
                 agenda.horaFin = itemRow.SubItems[2].Text;
 
-                AgendaDAL.agregarAgenda(agenda);
+                int resultado = AgendaDAL.agregarAgenda(agenda);
+                filasAgregadasCorrectamente = filasAgregadasCorrectamente + resultado;
+
+                if (filasAgregadasCorrectamente == listViewRangos.Items.Count) {
+                    MessageBox.Show("Se agrego la agenda correctamente.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                } else {
+                    MessageBox.Show("No se pudo agregar la agenda.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);                
+                }
                
              }
+
+            if (listViewRangos.Items.Count == 0)
+            {
+                MessageBox.Show("No se agrego ningun rango horario.", this.Text , MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
             
          }
 

@@ -105,7 +105,7 @@ namespace ClinicaFrba.Eleccion_Funcionalidad
                     unTurno.ShowDialog();
                     break;
                 case "Registrar agenda del profesional":
-                    agenda = new Registrar_Agenda_Medico.RegistrarAgenda(nombreUsuario,idCli);
+                    agenda = new Registrar_Agenda_Medico.RegistrarAgenda(idCli);
                     agenda.ShowDialog();
                     break;
                     /*

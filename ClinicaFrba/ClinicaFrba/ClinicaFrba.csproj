@@ -206,6 +206,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Registrar Agenda Medico\Agenda.cs" />
     <Compile Include="Registrar Agenda Medico\AgendaDAL.cs" />
+    <Compile Include="Registrar Agenda Medico\AñadirRango.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registrar Agenda Medico\AñadirRango.Designer.cs">
+      <DependentUpon>AñadirRango.cs</DependentUpon>
+    </Compile>
     <Compile Include="Registrar Agenda Medico\RegistrarAgenda.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -276,6 +282,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Registrar Agenda Medico\AñadirRango.resx">
+      <DependentUpon>AñadirRango.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Registrar Agenda Medico\RegistrarAgenda.resx">
       <DependentUpon>RegistrarAgenda.cs</DependentUpon>
     </EmbeddedResource>

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.listViewRangos = new System.Windows.Forms.ListView();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.btnAñadirRango = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
@@ -38,13 +38,13 @@
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
-            // listView1
+            // listViewRangos
             // 
-            this.listView1.Location = new System.Drawing.Point(35, 89);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(652, 171);
-            this.listView1.TabIndex = 0;
-            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listViewRangos.Location = new System.Drawing.Point(35, 89);
+            this.listViewRangos.Name = "listViewRangos";
+            this.listViewRangos.Size = new System.Drawing.Size(652, 171);
+            this.listViewRangos.TabIndex = 0;
+            this.listViewRangos.UseCompatibleStateImageBehavior = false;
             // 
             // btnGuardar
             // 
@@ -63,6 +63,7 @@
             this.btnAñadirRango.TabIndex = 2;
             this.btnAñadirRango.Text = "Añadir rango";
             this.btnAñadirRango.UseVisualStyleBackColor = true;
+            this.btnAñadirRango.Click += new System.EventHandler(this.btnAñadirRango_Click);
             // 
             // btnCancelar
             // 
@@ -118,7 +119,7 @@
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnAñadirRango);
             this.Controls.Add(this.btnGuardar);
-            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.listViewRangos);
             this.Name = "RegistrarAgenda";
             this.Text = "Registrar agenda";
             this.ResumeLayout(false);
@@ -128,7 +129,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView listViewRangos;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.Button btnAñadirRango;
         private System.Windows.Forms.Button btnCancelar;

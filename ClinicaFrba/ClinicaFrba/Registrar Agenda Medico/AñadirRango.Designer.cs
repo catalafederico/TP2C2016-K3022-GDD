@@ -34,14 +34,14 @@
             this.label4 = new System.Windows.Forms.Label();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
-            this.comboBox5 = new System.Windows.Forms.ComboBox();
+            this.comboBoxHoraInicio = new System.Windows.Forms.ComboBox();
+            this.comboBoxEspecialidades = new System.Windows.Forms.ComboBox();
+            this.comboBoxMinutosInicio = new System.Windows.Forms.ComboBox();
+            this.comboBoxHoraFin = new System.Windows.Forms.ComboBox();
+            this.comboBoxMinutosFin = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.comboBox6 = new System.Windows.Forms.ComboBox();
+            this.comboBoxDias = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
@@ -97,46 +97,47 @@
             this.btnCancelar.TabIndex = 5;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
-            // comboBox1
+            // comboBoxHoraInicio
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(104, 67);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(48, 21);
-            this.comboBox1.TabIndex = 6;
+            this.comboBoxHoraInicio.FormattingEnabled = true;
+            this.comboBoxHoraInicio.Location = new System.Drawing.Point(104, 67);
+            this.comboBoxHoraInicio.Name = "comboBoxHoraInicio";
+            this.comboBoxHoraInicio.Size = new System.Drawing.Size(48, 21);
+            this.comboBoxHoraInicio.TabIndex = 6;
             // 
-            // comboBox2
+            // comboBoxEspecialidades
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(108, 141);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 21);
-            this.comboBox2.TabIndex = 7;
+            this.comboBoxEspecialidades.FormattingEnabled = true;
+            this.comboBoxEspecialidades.Location = new System.Drawing.Point(108, 141);
+            this.comboBoxEspecialidades.Name = "comboBoxEspecialidades";
+            this.comboBoxEspecialidades.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxEspecialidades.TabIndex = 7;
             // 
-            // comboBox3
+            // comboBoxMinutosInicio
             // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(174, 67);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(48, 21);
-            this.comboBox3.TabIndex = 8;
+            this.comboBoxMinutosInicio.FormattingEnabled = true;
+            this.comboBoxMinutosInicio.Location = new System.Drawing.Point(174, 67);
+            this.comboBoxMinutosInicio.Name = "comboBoxMinutosInicio";
+            this.comboBoxMinutosInicio.Size = new System.Drawing.Size(48, 21);
+            this.comboBoxMinutosInicio.TabIndex = 8;
             // 
-            // comboBox4
+            // comboBoxHoraFin
             // 
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Location = new System.Drawing.Point(104, 104);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(48, 21);
-            this.comboBox4.TabIndex = 9;
+            this.comboBoxHoraFin.FormattingEnabled = true;
+            this.comboBoxHoraFin.Location = new System.Drawing.Point(104, 104);
+            this.comboBoxHoraFin.Name = "comboBoxHoraFin";
+            this.comboBoxHoraFin.Size = new System.Drawing.Size(48, 21);
+            this.comboBoxHoraFin.TabIndex = 9;
             // 
-            // comboBox5
+            // comboBoxMinutosFin
             // 
-            this.comboBox5.FormattingEnabled = true;
-            this.comboBox5.Location = new System.Drawing.Point(174, 104);
-            this.comboBox5.Name = "comboBox5";
-            this.comboBox5.Size = new System.Drawing.Size(48, 21);
-            this.comboBox5.TabIndex = 10;
+            this.comboBoxMinutosFin.FormattingEnabled = true;
+            this.comboBoxMinutosFin.Location = new System.Drawing.Point(174, 104);
+            this.comboBoxMinutosFin.Name = "comboBoxMinutosFin";
+            this.comboBoxMinutosFin.Size = new System.Drawing.Size(48, 21);
+            this.comboBoxMinutosFin.TabIndex = 10;
             // 
             // label6
             // 
@@ -156,27 +157,27 @@
             this.label5.TabIndex = 13;
             this.label5.Text = ":";
             // 
-            // comboBox6
+            // comboBoxDias
             // 
-            this.comboBox6.FormattingEnabled = true;
-            this.comboBox6.Location = new System.Drawing.Point(55, 30);
-            this.comboBox6.Name = "comboBox6";
-            this.comboBox6.Size = new System.Drawing.Size(121, 21);
-            this.comboBox6.TabIndex = 14;
+            this.comboBoxDias.FormattingEnabled = true;
+            this.comboBoxDias.Location = new System.Drawing.Point(55, 30);
+            this.comboBoxDias.Name = "comboBoxDias";
+            this.comboBoxDias.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxDias.TabIndex = 14;
             // 
             // AñadirRango
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
-            this.Controls.Add(this.comboBox6);
+            this.Controls.Add(this.comboBoxDias);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.comboBox5);
-            this.Controls.Add(this.comboBox4);
-            this.Controls.Add(this.comboBox3);
-            this.Controls.Add(this.comboBox2);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.comboBoxMinutosFin);
+            this.Controls.Add(this.comboBoxHoraFin);
+            this.Controls.Add(this.comboBoxMinutosInicio);
+            this.Controls.Add(this.comboBoxEspecialidades);
+            this.Controls.Add(this.comboBoxHoraInicio);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.label4);
@@ -198,13 +199,13 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Button btnCancelar;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.ComboBox comboBox3;
-        private System.Windows.Forms.ComboBox comboBox4;
-        private System.Windows.Forms.ComboBox comboBox5;
+        private System.Windows.Forms.ComboBox comboBoxHoraInicio;
+        private System.Windows.Forms.ComboBox comboBoxEspecialidades;
+        private System.Windows.Forms.ComboBox comboBoxMinutosInicio;
+        private System.Windows.Forms.ComboBox comboBoxHoraFin;
+        private System.Windows.Forms.ComboBox comboBoxMinutosFin;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox comboBox6;
+        private System.Windows.Forms.ComboBox comboBoxDias;
     }
 }

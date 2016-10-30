@@ -39,16 +39,51 @@ namespace ClinicaFrba.Registrar_Agenda_Medico
             }
             else
             {
+                List<String> diasCargados = new List<String>();
+                foreach (ListViewItem itemRow in listViewRangos.Items)
+                {
+                        string dia = itemRow.Text;
+                        diasCargados.Add(dia);                    
+                }
                 ListViewItem lista = new ListViewItem(comboBoxDias.Text);
+                if(diasCargados.Contains(comboBoxDias.Text)){
+                    MessageBox.Show("Ya se encuentra cargado un rango en ese dia.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }else{
                 string horaInicio = comboBoxHoraInicio.Text + ":" + comboBoxMinutosInicio.Text;
                 string horaFin = comboBoxHoraFin.Text + ":" + comboBoxMinutosFin.Text;
-                lista.SubItems.Add(horaInicio);
-                lista.SubItems.Add(horaFin);
-                lista.SubItems.Add(comboBoxEspecialidades.Text);
-                listViewRangos.Items.Add(lista);
-            }
+                int horaI = Int32.Parse(comboBoxHoraInicio.Text);
+                int horaF = Int32.Parse(comboBoxHoraFin.Text);
+                int minutosI = Int32.Parse(comboBoxMinutosInicio.Text);
+                int minutosF = Int32.Parse(comboBoxMinutosFin.Text);
+                if (horaI > horaF)
+                {
+                    MessageBox.Show("La hora de inicio es menor que la de fin.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    if (horaI == horaF && minutosI > minutosF)
+                    {
+                        MessageBox.Show("La hora de inicio es menor que la de fin.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    else
+                    {
+                        if (horaI == horaF && minutosI == minutosF)
+                        {
+                            MessageBox.Show("La hora de inicio es igual a la de fin.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        else
+                        {
+                            lista.SubItems.Add(horaInicio);
+                            lista.SubItems.Add(horaFin);
+                            lista.SubItems.Add(comboBoxEspecialidades.Text);
+                            listViewRangos.Items.Add(lista);
+                        }
+                    }
+                }                
+             }
+                   }
+         }
 
-        }
 
         private void RegistrarAgenda_Load(object sender, EventArgs e)
         {

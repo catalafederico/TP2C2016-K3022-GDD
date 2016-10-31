@@ -112,52 +112,65 @@ namespace ClinicaFrba.Registrar_Agenda_Medico
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
-        {   
-
-            List<Agenda> listaAgenda = new List<Agenda>();
-            int filasAgregadasCorrectamente = 0;
-
-            if (dateTimePickerInicioDisp.Value > dateTimePickerFinDisp.Value || dateTimePickerInicioDisp.Value == dateTimePickerFinDisp.Value)
-            {
-                MessageBox.Show("La fecha inicio de disponibilidad es menor o igual que la fecha fin disponibilidad.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            else
-            {
-                if (dateTimePickerInicioDisp.Value < DateTime.Today)
-                {
-                    MessageBox.Show("La fecha inicio de disponibilidad es menor que la fecha de hoy.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }else{
-            
-                foreach (ListViewItem itemRow in listViewRangos.Items){
-
-                        Agenda agenda = new Agenda();
-                        agenda.dia = itemRow.SubItems[0].Text;
-                        agenda.idProfesional = idPro;
-
-                        string query2 = "SELECT DISTINCT ID_ESPECIALIDAD FROM [3FG].ESPECIALIDADES WHERE DESCRIPCION_ESPECIALIDAD = '" + itemRow.SubItems[3].Text + "'";
-                        DataTable dt2 = (new ConexionSQL()).cargarTablaSQL(query2);
-                        string idEsp = dt2.Rows[0][0].ToString();
-                        Int64 idEspe = Convert.ToInt64(idEsp);
-                        agenda.idEspecialidad = idEspe;
-
-                        agenda.dia = itemRow.SubItems[0].Text;
-                        agenda.horaInicio = itemRow.SubItems[1].Text;
-                        agenda.horaFin = itemRow.SubItems[2].Text;
-
-                        AgendaDAL.cargarDisponibilidad(idPro, dateTimePickerInicioDisp.Value.Date, dateTimePickerFinDisp.Value.Date);
-                        int resultado = AgendaDAL.agregarAgenda(agenda);
-                        filasAgregadasCorrectamente = filasAgregadasCorrectamente + resultado;                        
-                    }
-                        MessageBox.Show("Se agrego la agenda correctamente.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-             }
-
+        {
             if (listViewRangos.Items.Count == 0)
             {
-                MessageBox.Show("No se agrego ningun rango horario.", this.Text , MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("No se agrego ningun rango horario.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            
-         }
+            else
+            {                
+                    List<Agenda> listaAgenda = new List<Agenda>();
+                    int filasAgregadasCorrectamente = 0;
+
+                    if (dateTimePickerInicioDisp.Value > dateTimePickerFinDisp.Value || dateTimePickerInicioDisp.Value == dateTimePickerFinDisp.Value)
+                    {
+                        MessageBox.Show("La fecha inicio de disponibilidad es menor o igual que la fecha fin disponibilidad.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    else
+                    {
+                        if (dateTimePickerInicioDisp.Value < DateTime.Today)
+                        {
+                            MessageBox.Show("La fecha inicio de disponibilidad es menor que la fecha de hoy.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        else
+                        {
+                            if (AgendaDAL.getFinDisponibilidadActual(idPro) > dateTimePickerInicioDisp.Value)
+                            {
+                                MessageBox.Show("El profesional ya tiene una agenda cargada en en periodo solicitado.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            else
+                            {
+
+                            foreach (ListViewItem itemRow in listViewRangos.Items)
+                            {
+
+                                Agenda agenda = new Agenda();
+                                agenda.dia = itemRow.SubItems[0].Text;
+                                agenda.idProfesional = idPro;
+
+                                string query2 = "SELECT DISTINCT ID_ESPECIALIDAD FROM [3FG].ESPECIALIDADES WHERE DESCRIPCION_ESPECIALIDAD = '" + itemRow.SubItems[3].Text + "'";
+                                DataTable dt2 = (new ConexionSQL()).cargarTablaSQL(query2);
+                                string idEsp = dt2.Rows[0][0].ToString();
+                                Int64 idEspe = Convert.ToInt64(idEsp);
+                                agenda.idEspecialidad = idEspe;
+
+                                agenda.dia = itemRow.SubItems[0].Text;
+                                agenda.horaInicio = itemRow.SubItems[1].Text;
+                                agenda.horaFin = itemRow.SubItems[2].Text;
+
+                                AgendaDAL.cargarDisponibilidad(idPro, dateTimePickerInicioDisp.Value.Date, dateTimePickerFinDisp.Value.Date);
+                                int resultado = AgendaDAL.agregarAgenda(agenda);
+                                filasAgregadasCorrectamente = filasAgregadasCorrectamente + resultado;
+                            }
+                            if (filasAgregadasCorrectamente == listViewRangos.Items.Count)
+                            {
+                                MessageBox.Show("Se agrego la agenda correctamente.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                        }
+                    }
+                }
+            } 
+       }
 
         private double sumarHorasCargadas(string horaInicio,string horaFin){
             double totalDeHoras = 0;

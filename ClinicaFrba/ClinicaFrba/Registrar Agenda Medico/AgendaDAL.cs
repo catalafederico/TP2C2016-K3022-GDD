@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace ClinicaFrba.Registrar_Agenda_Medico
@@ -38,5 +39,15 @@ namespace ClinicaFrba.Registrar_Agenda_Medico
             return retorno;
 
         }
-    }
+
+        public static DateTime getFinDisponibilidadActual(Int64 idProfesional)
+        {
+            string query = "SELECT FIN_DISPONIBILIDAD FROM [3FG].PROFESIONALES WHERE ID_USUARIO = '" + idProfesional + "'";
+            DataTable dt = (new ConexionSQL()).cargarTablaSQL(query);
+            String finDis = dt.Rows[0][0].ToString();
+            DateTime finDispo = Convert.ToDateTime(finDis);
+            return finDispo;
+        }
+
+     }
 }

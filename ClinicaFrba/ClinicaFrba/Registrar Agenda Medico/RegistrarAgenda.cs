@@ -78,17 +78,24 @@ namespace ClinicaFrba.Registrar_Agenda_Medico
                         }
                         else
                         {
-                            lista.SubItems.Add(horaInicio);
-                            lista.SubItems.Add(horaFin);
-                            lista.SubItems.Add(comboBoxEspecialidades.Text);
-                            listViewRangos.Items.Add(lista);
+                            if (sumarHorasCargadas(horaInicio,horaFin) > 48)
+                            {
+                                MessageBox.Show("Las horas cargadas superan las 48 horas de trabajo permitidas por la clinica.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                            else
+                            {
+                                lista.SubItems.Add(horaInicio);
+                                lista.SubItems.Add(horaFin);
+                                lista.SubItems.Add(comboBoxEspecialidades.Text);
+                                listViewRangos.Items.Add(lista);
+                            }
                         }
                     }
                 }                
              }
-                   }
+           }
         }
-}
+    }
 
 
         private void RegistrarAgenda_Load(object sender, EventArgs e)
@@ -110,50 +117,38 @@ namespace ClinicaFrba.Registrar_Agenda_Medico
             List<Agenda> listaAgenda = new List<Agenda>();
             int filasAgregadasCorrectamente = 0;
 
-            foreach (ListViewItem itemRow in listViewRangos.Items)
+            if (dateTimePickerInicioDisp.Value > dateTimePickerFinDisp.Value || dateTimePickerInicioDisp.Value == dateTimePickerFinDisp.Value)
             {
-                Agenda agenda = new Agenda();
-                agenda.dia = itemRow.SubItems[0].Text;
-                agenda.idProfesional = idPro;
-
-                string query2 = "SELECT DISTINCT ID_ESPECIALIDAD FROM [3FG].ESPECIALIDADES WHERE DESCRIPCION_ESPECIALIDAD = '" + itemRow.SubItems[3].Text + "'";
-                DataTable dt2 = (new ConexionSQL()).cargarTablaSQL(query2);
-                string idEsp = dt2.Rows[0][0].ToString();
-                Int64 idEspe = Convert.ToInt64(idEsp);
-                agenda.idEspecialidad = idEspe;
-
-                agenda.dia = itemRow.SubItems[0].Text;
-                agenda.horaInicio = itemRow.SubItems[1].Text;
-                agenda.horaFin = itemRow.SubItems[2].Text;
-
-                if (dateTimePickerInicioDisp.Value > dateTimePickerFinDisp.Value || dateTimePickerInicioDisp.Value == dateTimePickerFinDisp.Value)
+                MessageBox.Show("La fecha inicio de disponibilidad es menor o igual que la fecha fin disponibilidad.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                if (dateTimePickerInicioDisp.Value < DateTime.Today)
                 {
-                    MessageBox.Show("La fecha inicio de disponibilidad es menor o igual que la fecha fin disponibilidad.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                else
-                {
-                    if (dateTimePickerInicioDisp.Value < DateTime.Today) {
-                        MessageBox.Show("La fecha inicio de disponibilidad es menor que la fecha de hoy.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    else
-                    {
-                        if(sumarHorasCargadas() > 48){
-                            MessageBox.Show("Las horas cargadas superan las 48hs permitidas por la clinica.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }else{
+                    MessageBox.Show("La fecha inicio de disponibilidad es menor que la fecha de hoy.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }else{
+            
+                foreach (ListViewItem itemRow in listViewRangos.Items){
+
+                        Agenda agenda = new Agenda();
+                        agenda.dia = itemRow.SubItems[0].Text;
+                        agenda.idProfesional = idPro;
+
+                        string query2 = "SELECT DISTINCT ID_ESPECIALIDAD FROM [3FG].ESPECIALIDADES WHERE DESCRIPCION_ESPECIALIDAD = '" + itemRow.SubItems[3].Text + "'";
+                        DataTable dt2 = (new ConexionSQL()).cargarTablaSQL(query2);
+                        string idEsp = dt2.Rows[0][0].ToString();
+                        Int64 idEspe = Convert.ToInt64(idEsp);
+                        agenda.idEspecialidad = idEspe;
+
+                        agenda.dia = itemRow.SubItems[0].Text;
+                        agenda.horaInicio = itemRow.SubItems[1].Text;
+                        agenda.horaFin = itemRow.SubItems[2].Text;
+
                         AgendaDAL.cargarDisponibilidad(idPro, dateTimePickerInicioDisp.Value.Date, dateTimePickerFinDisp.Value.Date);
                         int resultado = AgendaDAL.agregarAgenda(agenda);
-                        filasAgregadasCorrectamente = filasAgregadasCorrectamente + resultado;
-
-                        if (filasAgregadasCorrectamente == listViewRangos.Items.Count)
-                        {
-                            MessageBox.Show("Se agrego la agenda correctamente.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else
-                        {
-                            MessageBox.Show("No se pudo guardar la agenda.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }
-                        }
+                        filasAgregadasCorrectamente = filasAgregadasCorrectamente + resultado;                        
                     }
+                        MessageBox.Show("Se agrego la agenda correctamente.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
              }
 
@@ -164,10 +159,36 @@ namespace ClinicaFrba.Registrar_Agenda_Medico
             
          }
 
-        private int sumarHorasCargadas(){
+        private double sumarHorasCargadas(string horaInicio,string horaFin){
+            double totalDeHoras = 0;
+            for (int i = 0; i < listViewRangos.Items.Count; i++)
+            {
+                totalDeHoras += int.Parse(listViewRangos.Items[i].SubItems[2].Text.Substring(0,2)) - int.Parse(listViewRangos.Items[i].SubItems[1].Text.Substring(0,2));
+                if(int.Parse(listViewRangos.Items[i].SubItems[1].Text.Substring(3,2)) < int.Parse(listViewRangos.Items[i].SubItems[2].Text.Substring(3,2))){
+                        totalDeHoras += 0.5;
+                } else {
 
-            int totalDeHoras = 0;
+                    if(int.Parse(listViewRangos.Items[i].SubItems[1].Text.Substring(3,2)) > int.Parse(listViewRangos.Items[i].SubItems[2].Text.Substring(3,2))){
+                        totalDeHoras -= 0.5;
+                    }
+                    
+                }
+            }
 
+            totalDeHoras += int.Parse(horaFin.Substring(0, 2)) - int.Parse(horaInicio.Substring(0, 2));
+            if (int.Parse(horaInicio.Substring(3, 2)) < int.Parse(horaFin.Substring(3, 2)))
+            {
+                totalDeHoras += 0.5;
+            }
+            else
+            {
+
+                if (int.Parse(horaInicio.Substring(3, 2)) > int.Parse(horaFin.Substring(3, 2)))
+                {
+                    totalDeHoras -= 0.5;
+                }
+
+            }
 
             return totalDeHoras;
             

@@ -143,6 +143,12 @@
     <Compile Include="Cancelar Atencion\Cancelar Turno Usuario.Designer.cs">
       <DependentUpon>Cancelar Turno Usuario.cs</DependentUpon>
     </Compile>
+    <Compile Include="Cancelar Atencion\Cancelar Turno Profesional.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cancelar Atencion\Cancelar Turno Profesional.Designer.cs">
+      <DependentUpon>Cancelar Turno Profesional.cs</DependentUpon>
+    </Compile>
     <Compile Include="ComboBox.cs" />
     <Compile Include="ComboBoxGeneral.cs">
       <SubType>Form</SubType>
@@ -248,6 +254,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ABM Afiliado\ModificarPlan.resx">
       <DependentUpon>ModificarPlan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cancelar Atencion\Cancelar Turno Profesional.resx">
+      <DependentUpon>Cancelar Turno Profesional.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Cancelar Atencion\Cancelar Turno Usuario.resx">
       <DependentUpon>Cancelar Turno Usuario.cs</DependentUpon>

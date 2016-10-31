@@ -28,7 +28,7 @@ namespace ClinicaFrba.Pedir_Turno
             this.Text = "Elegir turno para Dr." + doctorElegido.ToString();
             this.fechaTemprana = DateTime.Now;
             SqlCommand dateLate = new SqlCommand("SELECT P.FIN_DISPONIBILIDAD FROM [3FG].PROFESIONALES P WHERE P.ID_USUARIO LIKE '" + idDoc + "'", BDComun.obtenerConexion());
-            this.fechaTardia = (DateTime) dateLate.ExecuteScalar();
+            this.fechaTardia = (DateTime)dateLate.ExecuteScalar();
             label3.Text = "Primer turno disponible: " + fechaTemprana.ToString("MM/dd/yyyy HH:mm:ss");
             label4.Text = "Ultimo turno disponible: " + fechaTardia.ToString("MM/dd/yyyy HH:mm:ss");
             this.idAgenda = encontrarAgenda(idDoc);
@@ -44,7 +44,7 @@ namespace ClinicaFrba.Pedir_Turno
         {
             if (dateTimePicker1.Value < this.fechaTemprana || dateTimePicker1.Value > this.fechaTardia)
             {
-                MessageBox.Show("La fecha seleccionada no se encuentra dentro de las disponibles","Error",MessageBoxButtons.OK);
+                MessageBox.Show("La fecha seleccionada no se encuentra dentro de las disponibles", "Error", MessageBoxButtons.OK);
             }
             else
             {
@@ -62,7 +62,6 @@ namespace ClinicaFrba.Pedir_Turno
                 using (SqlCommand queryCrearTurno = new SqlCommand(crearTurno))
                 {
                     queryCrearTurno.Connection = BDComun.obtenerConexion();
-                    //Esta mal le pasa el del medico, no el del afiliado. Despues lo arreglo
                     queryCrearTurno.Parameters.Add("@idAfiliado", SqlDbType.BigInt, 8).Value = idAfiliado;
                     queryCrearTurno.Parameters.Add("@fechaTurno", SqlDbType.DateTime, 8).Value = fechaElegida;
                     queryCrearTurno.Parameters.Add("@idAgenda", SqlDbType.BigInt, 8).Value = idAgenda;
@@ -81,7 +80,7 @@ namespace ClinicaFrba.Pedir_Turno
                     conexion.Close();
                 }
             }
-            
+
         }
 
     }

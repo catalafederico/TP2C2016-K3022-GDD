@@ -12,15 +12,15 @@ using System.Data.SqlClient;
 namespace ClinicaFrba.Cancelar_Atencion
 {
 
-    public partial class CancelarAtencion : Form
+    public partial class CancelarAtencionUsuario : Form
     {
 
         private int idTurno=-1;
         private int idUsuario;
-        private string turnos = "SELECT T.ID_TURNO, T.FECHA_TURNO AS Fecha_Turno FROM [3FG].TURNOS T, [3FG].AFILIADOS A, [3FG].USUARIOS U WHERE T.ID_AGENDA IS NOT NULL AND (T.ID_AFILIADO = A.ID_USUARIO) AND (A.ID_USUARIO = U.ID_USUARIO) AND (T.ID_TURNO NOT IN (SELECT C.ID_TURNO FROM [3FG].CANCELACIONES C))";
+        private string turnos = "SELECT T.ID_TURNO, T.FECHA_TURNO AS 'Fecha Turno' FROM [3FG].TURNOS T, [3FG].AFILIADOS A, [3FG].USUARIOS U WHERE T.ID_AGENDA IS NOT NULL AND (T.ID_AFILIADO = A.ID_USUARIO) AND (A.ID_USUARIO = U.ID_USUARIO) AND (T.ID_TURNO NOT IN (SELECT C.ID_TURNO FROM [3FG].CANCELACIONES C))";
         private string profesionales = "SELECT T.ID_TURNO AS ID, U.NOMBRE AS Nombre, U.APELLIDO AS Apellido FROM [3FG].TURNOS T, [3FG].AGENDA A, [3FG].USUARIOS U, [3FG].PROFESIONALES P WHERE T.ID_AGENDA IS NOT NULL AND T.ID_AGENDA = A.ID_AGENDA AND A.ID_USUARIO = P.ID_USUARIO AND P.ID_USUARIO = U.ID_USUARIO AND (T.ID_TURNO NOT IN (SELECT C.ID_TURNO FROM [3FG].CANCELACIONES C))";
 
-        public CancelarAtencion(int idU)
+        public CancelarAtencionUsuario(int idU)
         {
             this.idUsuario = idU;
             InitializeComponent();

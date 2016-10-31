@@ -1,6 +1,6 @@
 ﻿namespace ClinicaFrba.Cancelar_Atencion
 {
-    partial class CancelarAtencion
+    partial class CancelarAtencionUsuario
     {
         /// <summary>
         /// Required designer variable.

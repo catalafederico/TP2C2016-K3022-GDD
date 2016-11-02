@@ -54,7 +54,7 @@ namespace ClinicaFrba.Pedir_Turno
         {
             if (doctorElegido != null)
             {
-                Elegir_Horario eh = new Elegir_Horario(this, doctorElegido, idDoctor, idAfiliado);
+                Elegir_Horario eh = new Elegir_Horario(doctorElegido, idDoctor, idAfiliado);
                 this.Hide();
                 eh.Closed += (s, args) => this.Close();
                 eh.Show();

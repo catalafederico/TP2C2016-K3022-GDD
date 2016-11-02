@@ -77,3 +77,4 @@ C:\Users\Fede\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.R
 C:\Users\ABM\Desktop\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Cancelar_Atencion.CancelarAtencion.resources
 C:\Users\Fede\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Cancelar_Atencion.CancelarAtencionUsuario.resources
 C:\Users\Fede\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Cancelar_Atencion.CancelarAtencionProfesional.resources
+C:\Users\Fede\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Pedir_Turno.ElegirHora.resources

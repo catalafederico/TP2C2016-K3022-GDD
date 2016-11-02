@@ -172,13 +172,13 @@
     <Compile Include="Elegir Funcionalidad\ElegirFuncionalidad.Designer.cs">
       <DependentUpon>ElegirFuncionalidad.cs</DependentUpon>
     </Compile>
-    <Compile Include="Elegir Rol\EleccionRol.cs">
+    <Compile Include="Pedir Turno\Elegir Rol\EleccionRol.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Elegir Rol\EleccionRol.Designer.cs">
+    <Compile Include="Pedir Turno\Elegir Rol\EleccionRol.Designer.cs">
       <DependentUpon>EleccionRol.cs</DependentUpon>
     </Compile>
-    <Compile Include="Elegir Rol\Rol.cs" />
+    <Compile Include="Pedir Turno\Elegir Rol\Rol.cs" />
     <Compile Include="GD2C2016DataSet1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -196,17 +196,23 @@
     <Compile Include="Listados\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pedir Turno\ElegirHora.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pedir Turno\ElegirHora.Designer.cs">
+      <DependentUpon>ElegirHora.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pedir Turno\Pedido Turnos.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pedir Turno\Pedido Turnos.Designer.cs">
       <DependentUpon>Pedido Turnos.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pedir Turno\Elegir Horario.cs">
+    <Compile Include="Pedir Turno\Elegir Fecha.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pedir Turno\Elegir Horario.Designer.cs">
-      <DependentUpon>Elegir Horario.cs</DependentUpon>
+    <Compile Include="Pedir Turno\Elegir Fecha.Designer.cs">
+      <DependentUpon>Elegir Fecha.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -264,17 +270,20 @@
     <EmbeddedResource Include="Elegir Funcionalidad\ElegirFuncionalidad.resx">
       <DependentUpon>ElegirFuncionalidad.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Elegir Rol\EleccionRol.resx">
+    <EmbeddedResource Include="Pedir Turno\Elegir Rol\EleccionRol.resx">
       <DependentUpon>EleccionRol.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IniciarSesion.resx">
       <DependentUpon>IniciarSesion.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pedir Turno\ElegirHora.resx">
+      <DependentUpon>ElegirHora.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pedir Turno\Pedido Turnos.resx">
       <DependentUpon>Pedido Turnos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pedir Turno\Elegir Horario.resx">
-      <DependentUpon>Elegir Horario.cs</DependentUpon>
+    <EmbeddedResource Include="Pedir Turno\Elegir Fecha.resx">
+      <DependentUpon>Elegir Fecha.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

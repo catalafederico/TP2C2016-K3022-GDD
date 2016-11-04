@@ -156,11 +156,17 @@
     <Compile Include="ComboBoxGeneral.Designer.cs">
       <DependentUpon>ComboBoxGeneral.cs</DependentUpon>
     </Compile>
-    <Compile Include="Compra Bono\Form1.cs">
+    <Compile Include="Compra Bono\Comprar Bonos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Compra Bono\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Compra Bono\Comprar Bonos.Designer.cs">
+      <DependentUpon>Comprar Bonos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Compra Bono\EfectivizarCompra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Compra Bono\EfectivizarCompra.Designer.cs">
+      <DependentUpon>EfectivizarCompra.cs</DependentUpon>
     </Compile>
     <Compile Include="ConexionSQL.cs" />
     <Compile Include="Dominio\CompletadorDeTablas.cs" />
@@ -266,6 +272,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Cancelar Atencion\Cancelar Turno Usuario.resx">
       <DependentUpon>Cancelar Turno Usuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compra Bono\Comprar Bonos.resx">
+      <DependentUpon>Comprar Bonos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compra Bono\EfectivizarCompra.resx">
+      <DependentUpon>EfectivizarCompra.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Elegir Funcionalidad\ElegirFuncionalidad.resx">
       <DependentUpon>ElegirFuncionalidad.cs</DependentUpon>

@@ -236,11 +236,11 @@
     <Compile Include="Registro Llegada\RegistroLlegada.Designer.cs">
       <DependentUpon>RegistroLlegada.cs</DependentUpon>
     </Compile>
-    <Compile Include="Registro Resultado\Form1.cs">
+    <Compile Include="Registro Resultado\Registro resultado.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Registro Resultado\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Registro Resultado\Registro resultado.Designer.cs">
+      <DependentUpon>Registro resultado.cs</DependentUpon>
     </Compile>
     <Compile Include="Usuario.cs" />
     <EmbeddedResource Include="ABM Afiliado\ABMafiliados.resx">
@@ -311,6 +311,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Registro Llegada\RegistroLlegada.resx">
       <DependentUpon>RegistroLlegada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Registro Resultado\Registro resultado.resx">
+      <DependentUpon>Registro resultado.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="GD2C2016DataSet1.xsc">
       <DependentUpon>GD2C2016DataSet1.xsd</DependentUpon>

@@ -10,9 +10,13 @@ using System.Windows.Forms;
 
 namespace ClinicaFrba.Registro_Resultado
 {
-    public partial class Form1 : Form
+    public partial class RegistroResultado : Form
     {
-        public Form1()
+        private DateTime fechaAtencion;
+        private TimeSpan horarioAtencion;
+        private string nombreAfiliado;
+
+        public RegistroResultado()
         {
             InitializeComponent();
         }

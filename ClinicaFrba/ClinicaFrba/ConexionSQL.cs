@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using System.Data.SqlClient;
 using System.Windows.Forms;
 using System.Data;
@@ -183,6 +182,23 @@ namespace ClinicaFrba
             SqlCommand coman2 = new SqlCommand(string.Format(query), miConexionSQL);
             coman2.Parameters.AddWithValue("@Parametro", Convert.ToDouble(parametro));
             this.ejecutarComando(coman2);
+        }
+
+        private void loadDataGrid(string query, DataGridView dgv)
+        {
+            using (SqlConnection conexion = BDComun.obtenerConexion())
+            {
+                SqlCommand comando = new SqlCommand(query, conexion);
+                DataTable dataTable = new DataTable();
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(comando);
+                dataAdapter.Fill(dataTable);
+                BindingSource bSource = new BindingSource();
+                bSource.DataSource = dataTable;
+                dgv.DataSource = bSource;
+                dgv.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+                dgv.Columns[2].Visible = false;
+                conexion.Close();
+            }
         }
 
         #endregion

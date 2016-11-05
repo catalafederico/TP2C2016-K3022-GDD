@@ -17,15 +17,16 @@ namespace ClinicaFrba.Cancelar_Atencion
 
         private int idTurno=-1;
         private int idUsuario;
-        private string turnos = "SELECT T.ID_TURNO, T.FECHA_TURNO AS 'Fecha Turno' FROM [3FG].TURNOS T, [3FG].AFILIADOS A, [3FG].USUARIOS U WHERE T.ID_AGENDA IS NOT NULL AND (T.ID_AFILIADO = A.ID_USUARIO) AND (A.ID_USUARIO = U.ID_USUARIO) AND (T.ID_TURNO NOT IN (SELECT C.ID_TURNO FROM [3FG].CANCELACIONES C))";
-        private string profesionales = "SELECT T.ID_TURNO AS ID, U.NOMBRE AS Nombre, U.APELLIDO AS Apellido FROM [3FG].TURNOS T, [3FG].AGENDA A, [3FG].USUARIOS U, [3FG].PROFESIONALES P WHERE T.ID_AGENDA IS NOT NULL AND T.ID_AGENDA = A.ID_AGENDA AND A.ID_USUARIO = P.ID_USUARIO AND P.ID_USUARIO = U.ID_USUARIO AND (T.ID_TURNO NOT IN (SELECT C.ID_TURNO FROM [3FG].CANCELACIONES C))";
+        private string turnos = "SELECT T.ID_TURNO, T.FECHA_TURNO AS 'Fecha Turno' FROM [3FG].TURNOS T, [3FG].AFILIADOS A, [3FG].USUARIOS U WHERE T.ID_AGENDA IS NOT NULL AND (T.ID_AFILIADO = A.ID_USUARIO) AND (A.ID_USUARIO = U.ID_USUARIO) AND (T.ID_TURNO NOT IN (SELECT C.ID_TURNO FROM [3FG].CANCELACIONES C)) AND (T.ID_TURNO NOT IN (SELECT R.ID_TURNO FROM [3FG].RECEPCIONES R))";
+        
 
         public CancelarAtencionUsuario(int idU)
         {
             this.idUsuario = idU;
             InitializeComponent();
-            loadTable(turnos, dataGridView1);
-            loadTable(profesionales, dataGridView2);
+            turnos += "AND A.ID_USUARIO = " + idUsuario.ToString();
+            BDComun.loadDataGrid(turnos, dataGridView1);
+            dataGridView1.Columns[0].Visible = false;
         }
 
         private void loadTable(string query, DataGridView dgv)
@@ -49,7 +50,7 @@ namespace ClinicaFrba.Cancelar_Atencion
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && e.ColumnIndex <= 2)
+            if (e.RowIndex >= 0 && e.ColumnIndex < 2)
             {
                 object fechaTurno = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
                 DateTime fecha = (DateTime)fechaTurno;
@@ -83,8 +84,7 @@ namespace ClinicaFrba.Cancelar_Atencion
                                 queryCrearCancelacion.ExecuteNonQuery();
                                 MessageBox.Show("Cancelacion creada correctamente");
                                 idTurno = -1;
-                                loadTable(turnos, dataGridView1);
-                                loadTable(profesionales, dataGridView2);
+                                BDComun.loadDataGrid(turnos, dataGridView1);
                                 label1.Text = "Turno a cancelar: ";
                             }
                             catch { MessageBox.Show("Error al tratar de guardar en database", "Error", MessageBoxButtons.OK); }

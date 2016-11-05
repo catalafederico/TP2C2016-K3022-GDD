@@ -230,11 +230,11 @@
     <Compile Include="Registrar Agenda Medico\RegistrarAgenda.Designer.cs">
       <DependentUpon>RegistrarAgenda.cs</DependentUpon>
     </Compile>
-    <Compile Include="Registro Llegada\Form1.cs">
+    <Compile Include="Registro Llegada\RegistroLlegada.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Registro Llegada\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Registro Llegada\RegistroLlegada.Designer.cs">
+      <DependentUpon>RegistroLlegada.cs</DependentUpon>
     </Compile>
     <Compile Include="Registro Resultado\Form1.cs">
       <SubType>Form</SubType>
@@ -308,6 +308,9 @@
     </Compile>
     <EmbeddedResource Include="Registrar Agenda Medico\RegistrarAgenda.resx">
       <DependentUpon>RegistrarAgenda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Registro Llegada\RegistroLlegada.resx">
+      <DependentUpon>RegistroLlegada.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="GD2C2016DataSet1.xsc">
       <DependentUpon>GD2C2016DataSet1.xsd</DependentUpon>

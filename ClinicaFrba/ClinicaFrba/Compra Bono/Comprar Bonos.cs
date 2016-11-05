@@ -41,10 +41,10 @@ namespace ClinicaFrba.Compra_Bono
                 }
                 else
                 {
-                    int precio = int.Parse(dt.Rows[0][0].ToString());
+                    /*int precio = int.Parse(dt.Rows[0][0].ToString());
                     int plan = int.Parse(dt.Rows[0]["ID_PLAN"].ToString());
-                    int numeroDeUsuario = int.Parse(dt.Rows[0]["ID_USUARIO"].ToString());
-                    EfectivizarCompra compra = new EfectivizarCompra(precio, plan, numeroDeUsuario);
+                    int numeroDeUsuario = int.Parse(dt.Rows[0]["ID_USUARIO"].ToString());*/
+                    EfectivizarCompra compra = new EfectivizarCompra(int.Parse(textBox1.Text));
                     this.Hide();
                     compra.Closed += (s, args) => this.Close();
                     compra.Show();

@@ -44,19 +44,19 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(121, 80);
+            this.label1.Location = new System.Drawing.Point(76, 80);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(49, 13);
+            this.label1.Size = new System.Drawing.Size(143, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Cantidad";
+            this.label1.Text = "Cantidad que desea comprar";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(165, 175);
+            this.button1.Location = new System.Drawing.Point(170, 156);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 2;
-            this.button1.Text = "button1";
+            this.button1.Text = "Comprar";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 

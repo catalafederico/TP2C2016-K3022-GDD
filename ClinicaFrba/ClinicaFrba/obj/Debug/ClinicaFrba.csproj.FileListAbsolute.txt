@@ -97,7 +97,6 @@ C:\Users\ABM\Desktop\TP\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\Cli
 C:\Users\ABM\Desktop\TP\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Eleccion_Funcionalidad.ElegirFuncionalidad.resources
 C:\Users\ABM\Desktop\TP\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Elegir_Rol.EleccionRol.resources
 C:\Users\ABM\Desktop\TP\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.IniciarSesion.resources
-C:\Users\ABM\Desktop\TP\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Pedir_Turno.ElegirHora.resources
 C:\Users\ABM\Desktop\TP\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Pedir_Turno.ABMTurnos.resources
 C:\Users\ABM\Desktop\TP\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Pedir_Turno.Elegir_Horario.resources
 C:\Users\ABM\Desktop\TP\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Properties.Resources.resources
@@ -110,3 +109,5 @@ C:\Users\Fede\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.C
 C:\Users\Fede\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Registro_Llegada.RegistroLlegada.resources
 C:\Users\Fede\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Registro_Resultado.RegistroResultado.resources
 C:\Users\Fede\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Registro_Resultado.IngresarSintomasYDiagnostico.resources
+C:\Users\ABM\Desktop\TP\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Registro_Resultado.IngresarSintomasYDiagnostico.resources
+C:\Users\ABM\Desktop\TP\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Registro_Resultado.RegistroResultado.resources

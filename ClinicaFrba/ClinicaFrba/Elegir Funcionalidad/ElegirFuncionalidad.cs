@@ -21,6 +21,9 @@ namespace ClinicaFrba.Eleccion_Funcionalidad
         AbmRol.ABMROL abmRol;
         ABM_Afiliado.ABMafiliados abmAfiliado;
         ABMTurnos unTurno;
+        Compra_Bono.EfectivizarCompra unaCompra;
+        Compra_Bono.Comprar_Bonos unaCompraAdmin;
+        
         Registrar_Agenda_Medico.RegistrarAgenda agenda;
         /*
         ABM_Rol.ABMRol abmRol;
@@ -108,6 +111,20 @@ namespace ClinicaFrba.Eleccion_Funcionalidad
                     agenda = new Registrar_Agenda_Medico.RegistrarAgenda(idCli);
                     agenda.ShowDialog();
                     break;
+               case "Comprar Bonos":
+                    if (rol == "Administrativo" || rol == "Administrador general")
+                    {
+                        unaCompraAdmin = new Compra_Bono.Comprar_Bonos();
+                        unaCompraAdmin.ShowDialog();
+                    }
+                    else
+                    {
+                        unaCompra = new Compra_Bono.EfectivizarCompra((int)idCli);
+                        unaCompra.ShowDialog();
+                    }
+                    break;
+
+               
                     /*
                 case "ABM de Usuarios":
                     if (rol == "Administrativo")

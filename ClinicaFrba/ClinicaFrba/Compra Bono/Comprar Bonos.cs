@@ -12,6 +12,8 @@ namespace ClinicaFrba.Compra_Bono
 {
     public partial class Comprar_Bonos : Form
     {
+        //AQUI SE DETALLA EL CODIGO DE ESTA VENTANA. DICHA VENTANA SOLO SE UTILIZA POR EL ADMINISTRADOR PARA INGRESAR EL NUMERO DE AFILIADO (AUNQUE POR EL MOMENTO ES SOLAMENTE EL ID_USUARIO)
+        //ASI QUE EN EL CASO DE QUE EL USUARIO LOGGEADO SEA AFILIADO, DIRECTAMENTE PASARA A LA VENTANA EFECTIVIZAR COMPRA
         private string queryParaConsulta = "SELECT P.PRECIO_BONO_CONSULTA, P.ID_PLAN, A.ID_USUARIO FROM [3FG].AFILIADOS A JOIN [3FG].PLANES P ON (A.ID_PLAN = P.ID_PLAN) WHERE A.ID_USUARIO = ";
 
         public Comprar_Bonos()
@@ -23,7 +25,7 @@ namespace ClinicaFrba.Compra_Bono
         {
 
         }
-
+        //ESTE BOTON AL ACCIONARSE SE TOMA EL VALOR DEL TEXTBOX, QUE TIENE EL ID_USUARIO Y LO SE LO ENVIA A LA VENTANA EFECTIVIZAR COMPRA
         private void button1_Click(object sender, EventArgs e)
         {
             string query = queryParaConsulta + textBox1.Text;

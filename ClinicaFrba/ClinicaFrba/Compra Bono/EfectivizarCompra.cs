@@ -11,6 +11,8 @@ using System.Data.SqlClient;
 
 namespace ClinicaFrba.Compra_Bono
 {
+    //EN ESTA VENTANA SE REALIZA LA COMPRA PROPIAMENTE DICHA
+    //SE RECIBE COMO PARAMETRO EL ID_USUARIO CARGADO
     public partial class EfectivizarCompra : Form
     {
         private int precioUnidad;

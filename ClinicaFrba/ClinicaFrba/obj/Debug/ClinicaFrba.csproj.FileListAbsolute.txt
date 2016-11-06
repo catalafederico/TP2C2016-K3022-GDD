@@ -77,7 +77,6 @@ C:\Users\Fede\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.R
 C:\Users\ABM\Desktop\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Cancelar_Atencion.CancelarAtencion.resources
 C:\Users\Fede\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Cancelar_Atencion.CancelarAtencionUsuario.resources
 C:\Users\Fede\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Cancelar_Atencion.CancelarAtencionProfesional.resources
-C:\Users\Fede\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Pedir_Turno.ElegirHora.resources
 C:\Users\ABM\Desktop\TP\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\bin\Debug\ClinicaFrba.exe.config
 C:\Users\ABM\Desktop\TP\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.exe
 C:\Users\ABM\Desktop\TP\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.pdb
@@ -110,3 +109,4 @@ C:\Users\Fede\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.C
 C:\Users\Fede\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Compra_Bono.EfectivizarCompra.resources
 C:\Users\Fede\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Registro_Llegada.RegistroLlegada.resources
 C:\Users\Fede\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Registro_Resultado.RegistroResultado.resources
+C:\Users\Fede\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Registro_Resultado.IngresarSintomasYDiagnostico.resources

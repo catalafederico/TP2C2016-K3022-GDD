@@ -36,6 +36,7 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
@@ -54,15 +55,15 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(179, 222);
+            this.dataGridView1.Size = new System.Drawing.Size(179, 252);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(333, 229);
+            this.button1.Location = new System.Drawing.Point(354, 229);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(153, 23);
+            this.button1.Size = new System.Drawing.Size(131, 23);
             this.button1.TabIndex = 1;
             this.button1.Text = "Cancelar Turno";
             this.button1.UseVisualStyleBackColor = true;
@@ -103,11 +104,22 @@
             this.label2.TabIndex = 6;
             this.label2.Text = "Clickee el turno a cancelar";
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(354, 258);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(132, 23);
+            this.button2.TabIndex = 7;
+            this.button2.Text = "Finalizar Cancelaciones";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // CancelarAtencionUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(502, 264);
+            this.ClientSize = new System.Drawing.Size(502, 294);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textBox1);
@@ -132,5 +144,6 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button button2;
     }
 }

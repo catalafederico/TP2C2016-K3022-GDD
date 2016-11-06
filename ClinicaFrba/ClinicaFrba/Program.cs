@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ClinicaFrba.Pedir_Turno;
-using ClinicaFrba.Cancelar_Atencion;
 
 namespace ClinicaFrba
 {
@@ -18,7 +16,7 @@ namespace ClinicaFrba
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ABMTurnos(2));
+            Application.Run(new Pedir_Turno.ABMTurnos(2));
         }
     }
 }

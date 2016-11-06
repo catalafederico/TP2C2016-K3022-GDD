@@ -49,9 +49,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(29, 162);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(80, 13);
+            this.label2.Size = new System.Drawing.Size(78, 13);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Fecha elegido: ";
+            this.label2.Text = "Turno elegido: ";
             // 
             // label3
             // 
@@ -73,11 +73,11 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(327, 221);
+            this.button1.Location = new System.Drawing.Point(318, 221);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(89, 23);
+            this.button1.Size = new System.Drawing.Size(131, 23);
             this.button1.TabIndex = 5;
-            this.button1.Text = "Confirmar fecha";
+            this.button1.Text = "Confirmar turno";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -85,9 +85,9 @@
             // 
             this.button2.Location = new System.Drawing.Point(53, 221);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(89, 23);
+            this.button2.Size = new System.Drawing.Size(130, 23);
             this.button2.TabIndex = 6;
-            this.button2.Text = "Verificar fecha";
+            this.button2.Text = "Verificar turno";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 

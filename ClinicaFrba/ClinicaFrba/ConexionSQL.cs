@@ -133,10 +133,8 @@ namespace ClinicaFrba
             return dt;
 
         }
-        public void ejecutarProcedur(ref SqlCommand miCommand)
+        public void ejecutarProcedure(ref SqlCommand miCommand)
         {
-            DataTable dataTable = new DataTable();
-
             // REM CONFIGURO EL OBJETO COMMAND
             this.conectar();
             // REM INDICO LA CONEXION ACTIVA
@@ -151,7 +149,7 @@ namespace ClinicaFrba
 
         public void ejecutarComando(SqlCommand miCommand)
         {
-            DataTable ds = new DataTable();
+
             // REM CONFIGURO EL OBJETO COMMAND
             this.conectar();
             // REM INDICO LA CONEXION ACTIVA
@@ -184,22 +182,6 @@ namespace ClinicaFrba
             this.ejecutarComando(coman2);
         }
 
-        private void loadDataGrid(string query, DataGridView dgv)
-        {
-            using (SqlConnection conexion = BDComun.obtenerConexion())
-            {
-                SqlCommand comando = new SqlCommand(query, conexion);
-                DataTable dataTable = new DataTable();
-                SqlDataAdapter dataAdapter = new SqlDataAdapter(comando);
-                dataAdapter.Fill(dataTable);
-                BindingSource bSource = new BindingSource();
-                bSource.DataSource = dataTable;
-                dgv.DataSource = bSource;
-                dgv.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-                dgv.Columns[2].Visible = false;
-                conexion.Close();
-            }
-        }
 
         #endregion
 

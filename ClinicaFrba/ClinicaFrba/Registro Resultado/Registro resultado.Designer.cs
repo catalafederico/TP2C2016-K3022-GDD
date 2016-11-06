@@ -43,11 +43,21 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AllowUserToResizeColumns = false;
+            this.dataGridView1.AllowUserToResizeRows = false;
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.dataGridView1.Location = new System.Drawing.Point(12, 26);
+            this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(347, 294);
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.Size = new System.Drawing.Size(287, 294);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
             // label1
             // 
@@ -61,7 +71,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(399, 86);
+            this.label2.Location = new System.Drawing.Point(323, 87);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(44, 13);
             this.label2.TabIndex = 2;
@@ -70,7 +80,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(399, 134);
+            this.label3.Location = new System.Drawing.Point(323, 133);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(84, 13);
             this.label3.TabIndex = 3;
@@ -79,7 +89,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(399, 182);
+            this.label4.Location = new System.Drawing.Point(323, 176);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(77, 13);
             this.label4.TabIndex = 4;
@@ -87,17 +97,18 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(454, 316);
+            this.button1.Location = new System.Drawing.Point(373, 316);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(151, 23);
             this.button1.TabIndex = 5;
             this.button1.Text = "Confirmar atencion";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(402, 242);
+            this.checkBox1.Location = new System.Drawing.Point(326, 230);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(278, 17);
             this.checkBox1.TabIndex = 6;
@@ -107,16 +118,16 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(486, 26);
+            this.label5.Location = new System.Drawing.Point(409, 42);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(84, 13);
+            this.label5.Size = new System.Drawing.Size(82, 13);
             this.label5.TabIndex = 7;
-            this.label5.Text = "Fecha atencion:";
+            this.label5.Text = "Datos atencion:";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(420, 262);
+            this.label6.Location = new System.Drawing.Point(345, 250);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(119, 13);
             this.label6.TabIndex = 8;
@@ -135,7 +146,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(699, 351);
+            this.ClientSize = new System.Drawing.Size(612, 351);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);

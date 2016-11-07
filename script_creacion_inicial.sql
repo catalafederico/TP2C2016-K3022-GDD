@@ -631,27 +631,17 @@ INSERT INTO [3FG].FUNCIONALIDADES(NOMBRE) VALUES('Registrar resultado consulta')
 
 INSERT INTO [3FG].FUNCIONALIDADES_ROL(ID_ROL, ID_FUNCIONALIDAD)
 SELECT tablaRol.ID_ROL,tablaFuncionalidad.ID_FUNCIONALIDAD FROM [3FG].ROLES  tablaRol, [3FG].FUNCIONALIDADES tablaFuncionalidad
-WHERE tablaRol.NOMBRE_ROL = 'Profesional' AND tablaFuncionalidad.NOMBRE IN ('Registrar agenda del profesional');
+WHERE tablaRol.NOMBRE_ROL = 'Profesional' AND tablaFuncionalidad.NOMBRE IN ('Registrar agenda del profesional', 'Cancelar turno profesional', 'Registrar resultado consulta');
 GO
 
 INSERT INTO [3FG].FUNCIONALIDADES_ROL(ID_ROL, ID_FUNCIONALIDAD)
 SELECT tablaRol.ID_ROL,tablaFuncionalidad.ID_FUNCIONALIDAD FROM [3FG].ROLES  tablaRol, [3FG].FUNCIONALIDADES tablaFuncionalidad
-WHERE tablaRol.NOMBRE_ROL = 'Profesional' AND tablaFuncionalidad.NOMBRE IN ('Cancelar turno profesional');
+WHERE tablaRol.NOMBRE_ROL = 'Usuario' AND tablaFuncionalidad.NOMBRE IN ('Pedir Turno', 'Cancelar turno usuario');
 GO
 
 INSERT INTO [3FG].FUNCIONALIDADES_ROL(ID_ROL, ID_FUNCIONALIDAD)
 SELECT tablaRol.ID_ROL,tablaFuncionalidad.ID_FUNCIONALIDAD FROM [3FG].ROLES  tablaRol, [3FG].FUNCIONALIDADES tablaFuncionalidad
-WHERE tablaRol.NOMBRE_ROL = 'Profesional' AND tablaFuncionalidad.NOMBRE IN ('Registrar resultado consulta');
-GO
-
-INSERT INTO [3FG].FUNCIONALIDADES_ROL(ID_ROL, ID_FUNCIONALIDAD)
-SELECT tablaRol.ID_ROL,tablaFuncionalidad.ID_FUNCIONALIDAD FROM [3FG].ROLES  tablaRol, [3FG].FUNCIONALIDADES tablaFuncionalidad
-WHERE tablaRol.NOMBRE_ROL = 'Usuario' AND tablaFuncionalidad.NOMBRE IN ('Pedir Turno');
-GO
-
-INSERT INTO [3FG].FUNCIONALIDADES_ROL(ID_ROL, ID_FUNCIONALIDAD)
-SELECT tablaRol.ID_ROL,tablaFuncionalidad.ID_FUNCIONALIDAD FROM [3FG].ROLES  tablaRol, [3FG].FUNCIONALIDADES tablaFuncionalidad
-WHERE tablaRol.NOMBRE_ROL = 'Usuario' AND tablaFuncionalidad.NOMBRE IN ('Cancelar turno usuario');
+WHERE tablaRol.NOMBRE_ROL = 'Administrativo' AND tablaFuncionalidad.NOMBRE IN ('ABM de Afiliado', 'Comprar Bonos');
 GO
 
 /*HARDCODEO ESTO A MODO DE PRUEBA*/
@@ -673,7 +663,6 @@ VALUES(1,4)*/
 
 -- INICIO DE LA MIGRACION --
 
-/*estos procedures rompian por el unique del USURARIO_NOMBE de la tabla [3FG].USUARIOS*/
 EXEC [3FG].MigrarAfiliadosAUsuarios
 EXEC [3FG].MigrarAfiliados
 EXEC [3FG].MigrarProfesionalesAUsuarios
@@ -734,4 +723,4 @@ select * from  [3FG].ROLES
 select * from [3FG].ROLES_USUARIO
 select * from [3FG].FUNCIONALIDADES
 select * from [3FG].AGENDA
-
+select * from [3FG].FUNCIONALIDADES_ROL

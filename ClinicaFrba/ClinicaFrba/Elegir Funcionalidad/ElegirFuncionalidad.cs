@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClinicaFrba.ABM_Rol;
 using ClinicaFrba.Pedir_Turno;
+using ClinicaFrba.Cancelar_Atencion;
 
 namespace ClinicaFrba.Eleccion_Funcionalidad
 {
@@ -23,6 +24,9 @@ namespace ClinicaFrba.Eleccion_Funcionalidad
         ABMTurnos unTurno;
         Compra_Bono.EfectivizarCompra unaCompra;
         Compra_Bono.Comprar_Bonos unaCompraAdmin;
+        Cancelar_Atencion.CancelarAtencionUsuario cancelacionUsuario;
+        Cancelar_Atencion.CancelarAtencionProfesional cancelacionProfesional;
+        Registro_Resultado.RegistroResultado registroResultado;
         
         Registrar_Agenda_Medico.RegistrarAgenda agenda;
       
@@ -39,36 +43,10 @@ namespace ClinicaFrba.Eleccion_Funcionalidad
 
             string query2 = "SELECT ID_USUARIO FROM [3FG].USUARIOS WHERE USUARIO_NOMBRE = '" + nombreUsuario + "'";
             DataTable dt2 = (new ConexionSQL()).cargarTablaSQL(query2);
-            string idCliente = dt2.Rows[0][0].ToString();
-            idUsuario = Convert.ToInt64(idCliente);
+            string idUs = dt2.Rows[0][0].ToString();
+            idUsuario = Convert.ToInt64(idUs);
 
-            //Verifica si puede seguir comprando o no
-            /* ver despues por el tema de las compras*/
-            if (rolPasado == "Cliente")
-            {
-                string query5 = "SELECT (SELECT COUNT(*) FROM GDD_15.OFERTAS WHERE N_ID_CLIENTE = '" + idUsuario + "' AND C_GANADOR = 'SI') + (SELECT COUNT(*) FROM GDD_15.COMPRAS WHERE N_ID_CLIENTE = '" + idUsuario + "') - (SELECT COUNT(*) FROM GDD_15.CALIFICACIONES WHERE N_ID_CLIENTE = '" + idUsuario + "')";
-                DataTable dt5 = (new ConexionSQL()).cargarTablaSQL(query5);
-                string comprasSinCalif = dt5.Rows[0][0].ToString();
-                Int32 cantComprasSinCalif = Convert.ToInt32(comprasSinCalif);
-
-                string query3 = "SELECT N_COMPRA_HABILITADA FROM GDD_15.CLIENTES WHERE N_ID_USUARIO = '" + idUsuario + "'";
-                DataTable dt3 = (new ConexionSQL()).cargarTablaSQL(query3);
-                string compraHabilitada = dt3.Rows[0][0].ToString();
-
-                if (compraHabilitada == "1")
-                {
-                    if (cantComprasSinCalif < 4)
-                    {
-
-                    }
-                    else
-                    {
-                        MessageBox.Show("Como tiene más de 3 publicaciones (" + cantComprasSinCalif + ") sin calificar no puede realizar compras u ofertas hasta que califique todas sus publicaciones", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        string query7 = "UPDATE GDD_15.CLIENTES SET N_COMPRA_HABILITADA = '0' WHERE N_ID_USUARIO = '" + idUsuario + "'";
-                        DataTable dt7 = (new ConexionSQL()).cargarTablaSQL(query7);
-                    }
-                }
-            }
+         
         }
 
         private void comboBox_funcionalidades_SelectedIndexChanged(object sender, EventArgs e)
@@ -119,6 +97,19 @@ namespace ClinicaFrba.Eleccion_Funcionalidad
                         unaCompra.ShowDialog();
                     }
                     break;
+               case "Cancelar turno usuario":
+                    cancelacionUsuario = new Cancelar_Atencion.CancelarAtencionUsuario((int)idUsuario);
+                    cancelacionUsuario.ShowDialog();
+                    break;
+               case "Cancelar turno profesional":
+                    cancelacionProfesional = new Cancelar_Atencion.CancelarAtencionProfesional((int)idUsuario);
+                    cancelacionProfesional.ShowDialog();
+                    break;
+               case "Registrar resultado consulta":
+                    registroResultado = new Registro_Resultado.RegistroResultado((int)idUsuario);
+                    registroResultado.ShowDialog();
+                    break;
+
             }
         }
 

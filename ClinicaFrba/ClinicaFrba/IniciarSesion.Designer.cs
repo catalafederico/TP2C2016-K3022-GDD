@@ -33,6 +33,7 @@
             this.txtContraseña = new System.Windows.Forms.TextBox();
             this.txtUsuario = new System.Windows.Forms.TextBox();
             this.btnIniciarSesion = new System.Windows.Forms.Button();
+            this.labelDia = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -80,11 +81,21 @@
             this.btnIniciarSesion.UseVisualStyleBackColor = true;
             this.btnIniciarSesion.Click += new System.EventHandler(this.btnIniciarSesion_Click);
             // 
+            // labelDia
+            // 
+            this.labelDia.AutoSize = true;
+            this.labelDia.Location = new System.Drawing.Point(340, 9);
+            this.labelDia.Name = "labelDia";
+            this.labelDia.Size = new System.Drawing.Size(45, 13);
+            this.labelDia.TabIndex = 5;
+            this.labelDia.Text = "labelDia";
+            // 
             // IniciarSesion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(407, 337);
+            this.Controls.Add(this.labelDia);
             this.Controls.Add(this.btnIniciarSesion);
             this.Controls.Add(this.txtUsuario);
             this.Controls.Add(this.txtContraseña);
@@ -105,6 +116,7 @@
         private System.Windows.Forms.TextBox txtContraseña;
         private System.Windows.Forms.TextBox txtUsuario;
         private System.Windows.Forms.Button btnIniciarSesion;
+        private System.Windows.Forms.Label labelDia;
     }
 }
 

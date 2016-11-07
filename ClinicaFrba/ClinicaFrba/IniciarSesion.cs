@@ -23,6 +23,10 @@ namespace ClinicaFrba
         public IniciarSesion()
         {
             InitializeComponent();
+
+            DateTime fecha = DateTime.Parse(Program.nuevaFechaSistema());
+            labelDia.Text = fecha.Day.ToString() + "/" + fecha.Month + "/" + fecha.Year;
+
         }
 
         private void btnIniciarSesion_Click(object sender, EventArgs e)

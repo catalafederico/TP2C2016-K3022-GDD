@@ -40,12 +40,12 @@ namespace ClinicaFrba
             miConexionSQL = new SqlConnection();
 
             /*se usa para las conexiones tcp/ip*/
-            //string gd20 = "Data Source=SQLSERVER2012;Initial Catalog=GD2C2016;Persist Security Info=True;User ID=gd;Password=gd2016";
+            //string gd20 = "Data source=" + Program.ip() + "," + Program.puerto() + "; Network Library=DBMSSOCN; Initial Catalog=GD2C2016;User Id=gd; Password=gd2016";
 
             /*se usa para las conexiones locales*/
-            //string gd20 = "Data source=.\\SQLSERVER2012; Initial Catalog=GD2C2016;User Id=gd; Password=gd2016";
-           string gd20 = "Data Source=SQLSERVER2012;Initial Catalog=GD2C2016;Persist Security Info=True;User ID=gd;Password=gd2016";
-            //string gd20 = "Data Source=SQLSERVER2012;Initial Catalog=GD2C2016;Persist Security Info=True;User ID=gd;Password=gd2016";
+            string gd20 = "Data source=.\\SQLSERVER2012; Initial Catalog=GD2C2016;User Id=gd; Password=gd2016";
+           //string gd20 = "Data Source=SQLSERVER2012;Initial Catalog=GD2C2016;Persist Security Info=True;User ID=gd;Password=gd2016";
+           //string gd20 = "Data Source=SQLSERVER2012;Initial Catalog=GD2C2016;Persist Security Info=True;User ID=gd;Password=gd2016";
             miConnectionStringSQL = gd20;
             miConexionSQL.ConnectionString = miConnectionStringSQL;
         }

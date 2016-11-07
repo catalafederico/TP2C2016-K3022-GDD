@@ -38,7 +38,6 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.dateTimePickerInicioDisp = new System.Windows.Forms.DateTimePicker();
             this.dateTimePickerFinDisp = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
             this.comboBoxDias = new System.Windows.Forms.ComboBox();
@@ -53,6 +52,7 @@
             this.comboBoxMinutosInicio = new System.Windows.Forms.ComboBox();
             this.comboBoxMinutosFin = new System.Windows.Forms.ComboBox();
             this.btnEliminarRango = new System.Windows.Forms.Button();
+            this.dateTimePickerInicioDisp = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // listViewRangos
@@ -139,15 +139,6 @@
             this.label2.Size = new System.Drawing.Size(105, 13);
             this.label2.TabIndex = 5;
             this.label2.Text = "Fin de disponibilidad:";
-            // 
-            // dateTimePickerInicioDisp
-            // 
-            this.dateTimePickerInicioDisp.Checked = false;
-            this.dateTimePickerInicioDisp.Location = new System.Drawing.Point(191, 9);
-            this.dateTimePickerInicioDisp.Name = "dateTimePickerInicioDisp";
-            this.dateTimePickerInicioDisp.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePickerInicioDisp.TabIndex = 6;
-            this.dateTimePickerInicioDisp.Value = new System.DateTime(2016, 10, 30, 0, 0, 0, 0);
             // 
             // dateTimePickerFinDisp
             // 
@@ -275,11 +266,20 @@
             this.btnEliminarRango.UseVisualStyleBackColor = true;
             this.btnEliminarRango.Click += new System.EventHandler(this.btnBorrar_Click);
             // 
+            // dateTimePickerInicioDisp
+            // 
+            this.dateTimePickerInicioDisp.Location = new System.Drawing.Point(191, 10);
+            this.dateTimePickerInicioDisp.Name = "dateTimePickerInicioDisp";
+            this.dateTimePickerInicioDisp.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePickerInicioDisp.TabIndex = 27;
+            this.dateTimePickerInicioDisp.Value = new System.DateTime(2016, 10, 30, 0, 0, 0, 0);
+            // 
             // RegistrarAgenda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(724, 401);
+            this.Controls.Add(this.dateTimePickerInicioDisp);
             this.Controls.Add(this.btnEliminarRango);
             this.Controls.Add(this.comboBoxMinutosFin);
             this.Controls.Add(this.comboBoxMinutosInicio);
@@ -294,7 +294,6 @@
             this.Controls.Add(this.comboBoxDias);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.dateTimePickerFinDisp);
-            this.Controls.Add(this.dateTimePickerInicioDisp);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnCancelar);
@@ -317,7 +316,6 @@
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DateTimePicker dateTimePickerInicioDisp;
         private System.Windows.Forms.DateTimePicker dateTimePickerFinDisp;
         private System.Windows.Forms.ColumnHeader columnDia;
         private System.Windows.Forms.ColumnHeader ColumnHoraInicio;
@@ -336,5 +334,6 @@
         private System.Windows.Forms.ComboBox comboBoxMinutosInicio;
         private System.Windows.Forms.ComboBox comboBoxMinutosFin;
         private System.Windows.Forms.Button btnEliminarRango;
+        private System.Windows.Forms.DateTimePicker dateTimePickerInicioDisp;
     }
 }

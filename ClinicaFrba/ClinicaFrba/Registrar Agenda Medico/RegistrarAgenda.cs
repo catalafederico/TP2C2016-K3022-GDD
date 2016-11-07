@@ -17,6 +17,11 @@ namespace ClinicaFrba.Registrar_Agenda_Medico
         public RegistrarAgenda(Int64 idProfe)
         {
             InitializeComponent();
+
+     
+            dateTimePickerFinDisp.Value = DateTime.Parse(Program.nuevaFechaSistema());
+            dateTimePickerInicioDisp.Value = DateTime.Parse(Program.nuevaFechaSistema());
+
             idPro = idProfe;
 
             cargarDiasEnComboBox();
@@ -128,7 +133,7 @@ namespace ClinicaFrba.Registrar_Agenda_Medico
                     }
                     else
                     {
-                        if (dateTimePickerInicioDisp.Value < DateTime.Today)
+                        if (dateTimePickerInicioDisp.Value < DateTime.Parse(Program.nuevaFechaSistema()))
                         {
                             MessageBox.Show("La fecha inicio de disponibilidad es menor que la fecha de hoy.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }

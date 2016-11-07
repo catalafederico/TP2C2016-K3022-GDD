@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Configuration;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ClinicaFrba;
 
 namespace ClinicaFrba
 {
@@ -17,6 +19,22 @@ namespace ClinicaFrba
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new IniciarSesion());
+        }
+
+        public static String ip()
+        {
+            return ConfigurationManager.AppSettings["ip"];
+        }
+
+        public static String puerto()
+        {
+            return ConfigurationManager.AppSettings["puerto"];
+        }
+
+
+        public static String nuevaFechaSistema()
+        {
+            return ConfigurationManager.AppSettings["FechaGlobal"];
         }
     }
 }

@@ -599,6 +599,24 @@ DEALLOCATE UsuarioCursor;
 END;
 GO
 
+/* PROCEDURES DE LA APLICACION*/
+
+create procedure agregarEntablasUsuarioYAfiliado @usuario varchar(250), @contraseña varchar(250),@id_plan bigint
+as
+begin 
+
+INSERT INTO [3FG].USUARIOS(USUARIO_NOMBRE,CONTRASEÑA)
+VALUES (@usuario,(SELECT SUBSTRING(master.dbo.fn_varbintohexstr(HASHBYTES('SHA2_256',@contraseña)),3,250) ))
+
+ select ID_USUARIO from [3FG].USUARIOS where USUARIO_NOMBRE= @usuario
+
+ insert into [3FG].AFILIADOS(ID_USUARIO,ID_PLAN,ESTADO_CIVIL,CANT_FAMILIARES,RAIZ_AFILIADO,NUMERO_FAMILIA)
+ values((select ID_USUARIO from [3FG].USUARIOS where USUARIO_NOMBRE= @usuario),@id_plan,'soltero',2,12313,01)
+
+end
+GO
+
+
 /* -- Inserto los ROLES -- */
 
 INSERT INTO [3FG].ROLES(NOMBRE_ROL) VALUES('Administrativo');
@@ -644,22 +662,10 @@ SELECT tablaRol.ID_ROL,tablaFuncionalidad.ID_FUNCIONALIDAD FROM [3FG].ROLES  tab
 WHERE tablaRol.NOMBRE_ROL = 'Administrativo' AND tablaFuncionalidad.NOMBRE IN ('ABM de Afiliado', 'Comprar Bonos');
 GO
 
-/*HARDCODEO ESTO A MODO DE PRUEBA*/
-INSERT INTO [3FG].ROLES_USUARIO(ID_USUARIO,ID_ROL)
-VALUES(1,4)
-INSERT INTO [3FG].FUNCIONALIDADES_ROL(ID_ROL,ID_FUNCIONALIDAD)
-VALUES(4,1)
-INSERT INTO [3FG].FUNCIONALIDADES_ROL(ID_ROL,ID_FUNCIONALIDAD)
-VALUES(4,2)
-INSERT INTO [3FG].FUNCIONALIDADES_ROL(ID_ROL,ID_FUNCIONALIDAD)
-VALUES(4,3)
-INSERT INTO [3FG].FUNCIONALIDADES_ROL(ID_ROL,ID_FUNCIONALIDAD)
-VALUES(4,4)
-INSERT INTO [3FG].FUNCIONALIDADES_ROL(ID_ROL,ID_FUNCIONALIDAD)
-VALUES(4,9)
-
-/*INSERT INTO [3FG].FUNCIONALIDADES_ROL(ID_FUNCIONALIDAD,ID_ROL)
-VALUES(1,4)*/
+INSERT INTO [3FG].FUNCIONALIDADES_ROL(ID_ROL, ID_FUNCIONALIDAD)
+SELECT tablaRol.ID_ROL,tablaFuncionalidad.ID_FUNCIONALIDAD FROM [3FG].ROLES  tablaRol, [3FG].FUNCIONALIDADES tablaFuncionalidad
+WHERE tablaRol.NOMBRE_ROL = 'AdministrarGeneral' AND tablaFuncionalidad.NOMBRE IN ('ABM de Rol', 'ABM de Afiliado', 'Solicitar turno', 'Registrar agenda del profesional', 'Comprar Bonos', 'Cancelar turno usuario', 'Cancelar turno profesional', 'Pedir turno', 'Registrar resultado consulta');
+GO
 
 -- INICIO DE LA MIGRACION --
 
@@ -691,36 +697,3 @@ GO
 -- ELIMINO EL TRIGGER UTILIZADO PARA LA MIGRACION
 DROP TRIGGER [3FG].CargarAtencionDespuesDeLaRecepcionTrigger
 GO
-
-/* PROCEDURES DE LA APLICACION*/
-
-create procedure agregarEntablasUsuarioYAfiliado @usuario varchar(250), @contraseña varchar(250),@id_plan bigint
-as
-begin 
-
-INSERT INTO [3FG].USUARIOS(USUARIO_NOMBRE,CONTRASEÑA)
-VALUES (@usuario,(SELECT SUBSTRING(master.dbo.fn_varbintohexstr(HASHBYTES('SHA2_256',@contraseña)),3,250) ))
-
- select ID_USUARIO from [3FG].USUARIOS where USUARIO_NOMBRE= @usuario
-
- insert into [3FG].AFILIADOS(ID_USUARIO,ID_PLAN,ESTADO_CIVIL,CANT_FAMILIARES,RAIZ_AFILIADO,NUMERO_FAMILIA)
- values((select ID_USUARIO from [3FG].USUARIOS where USUARIO_NOMBRE= @usuario),@id_plan,'soltero',2,12313,01)
-
-end
-GO
-
--- CONSULTAS PARA VERIFICAR QUE LA MIGRACION SE REALIZA CORRECTAMENTE
-select * from [3FG].ESPECIALIDAD_PROFESIONAL
-select * from [3FG].TURNOS
-select * from [3FG].PLANES
-select * from [3FG].TIPO_ESPECIALIDAD
-select * from [3FG].ESPECIALIDADES
-select * from [3FG].ROLES
-select * from [3FG].USUARIOS
-select * from [3FG].RECEPCIONES
-select * from [3FG].ATENCIONES_MEDICAS
-select * from  [3FG].ROLES
-select * from [3FG].ROLES_USUARIO
-select * from [3FG].FUNCIONALIDADES
-select * from [3FG].AGENDA
-select * from [3FG].FUNCIONALIDADES_ROL

@@ -27,24 +27,7 @@ namespace ClinicaFrba
 
         private void btnIniciarSesion_Click(object sender, EventArgs e)
         {
-           /* if (Usuario.loginUsuario(txtUsuario.Text, getSha256(txtContraseña.Text)) > 0)
-            {
-                MessageBox.Show("Se ha logueado correctamente.");
-
-                Elegir_Rol.EleccionRol rol = new Elegir_Rol.EleccionRol(txtUsuario.Text);
-                
-                rol.ShowDialog();
-
-
-            }
-            else
-            {   
-            
-                MessageBox.Show("Usuario y/o contraseña invalidos.");
-                /*MessageBox.Show("usuario incorrecto", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-            }*/
-
+         
             username = txtUsuario.Text;
             password = txtContraseña.Text;
 
@@ -143,9 +126,6 @@ namespace ClinicaFrba
 
         private void IniciarSesion_Load(object sender, EventArgs e)
         {
-            /*comboBox1.Items.Add("afiliado");
-            comboBox1.Items.Add("profesional");
-            comboBox1.Items.Add("administrador");*/
         
          }
 

@@ -16,7 +16,7 @@ namespace ClinicaFrba.Registro_Llegada
         string queryTurnos = "SELECT T.ID_TURNO, T.ID_AFILIADO, T.FECHA_TURNO FROM [3FG].AGENDA A JOIN [3FG].TURNOS T ON (T.ID_AGENDA = A.ID_AGENDA) JOIN [3FG].PROFESIONALES P ON (A.ID_USUARIO = P.ID_USUARIO) WHERE CAST(T.FECHA_TURNO AS DATE) = CAST(@FechaDeHoy AS DATE)";
         private int turnoElegido;
         private int idProfesional;
-
+        private int idTurno = 1;
 
         public CargarTurnos(int idPro)
         {

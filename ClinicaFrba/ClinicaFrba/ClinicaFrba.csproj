@@ -137,6 +137,12 @@
       <DependentUpon>ModificarRol.cs</DependentUpon>
     </Compile>
     <Compile Include="BDComun.cs" />
+    <Compile Include="Cancelar Atencion\Cancelar Turno Profesional.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cancelar Atencion\Cancelar Turno Profesional.Designer.cs">
+      <DependentUpon>Cancelar Turno Profesional.cs</DependentUpon>
+    </Compile>
     <Compile Include="Cancelar Atencion\Cancelar Turno Usuario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -150,11 +156,17 @@
     <Compile Include="ComboBoxGeneral.Designer.cs">
       <DependentUpon>ComboBoxGeneral.cs</DependentUpon>
     </Compile>
-    <Compile Include="Compra Bono\Form1.cs">
+    <Compile Include="Compra Bono\Comprar Bonos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Compra Bono\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Compra Bono\Comprar Bonos.Designer.cs">
+      <DependentUpon>Comprar Bonos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Compra Bono\EfectivizarCompra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Compra Bono\EfectivizarCompra.Designer.cs">
+      <DependentUpon>EfectivizarCompra.cs</DependentUpon>
     </Compile>
     <Compile Include="ConexionSQL.cs" />
     <Compile Include="Dominio\CompletadorDeTablas.cs" />
@@ -165,18 +177,6 @@
     </Compile>
     <Compile Include="Elegir Funcionalidad\ElegirFuncionalidad.Designer.cs">
       <DependentUpon>ElegirFuncionalidad.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Elegir Rol\EleccionRol.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Elegir Rol\EleccionRol.Designer.cs">
-      <DependentUpon>EleccionRol.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Elegir Rol\Rol.cs" />
-    <Compile Include="GD2C2016DataSet1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GD2C2016DataSet1.xsd</DependentUpon>
     </Compile>
     <Compile Include="IniciarSesion.cs">
       <SubType>Form</SubType>
@@ -190,15 +190,27 @@
     <Compile Include="Listados\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="Pedir Turno\Elegir Fecha.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pedir Turno\Elegir Fecha.Designer.cs">
+      <DependentUpon>Elegir Fecha.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Elegir Rol\EleccionRol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Elegir Rol\EleccionRol.Designer.cs">
+      <DependentUpon>EleccionRol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Elegir Rol\Rol.cs" />
     <Compile Include="Pedir Turno\Pedido Turnos.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pedir Turno\Pedido Turnos.Designer.cs">
       <DependentUpon>Pedido Turnos.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Pedir Turno\Elegir Horario.cs" />
-    <Compile Include="Pedir Turno\Elegir Horario.Designer.cs">
-      <DependentUpon>Elegir Horario.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -210,17 +222,35 @@
     <Compile Include="Registrar Agenda Medico\RegistrarAgenda.Designer.cs">
       <DependentUpon>RegistrarAgenda.cs</DependentUpon>
     </Compile>
-    <Compile Include="Registro Llegada\Form1.cs">
+    <Compile Include="Registro Llegada\CargarTurnos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Registro Llegada\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Registro Llegada\CargarTurnos.Designer.cs">
+      <DependentUpon>CargarTurnos.cs</DependentUpon>
     </Compile>
-    <Compile Include="Registro Resultado\Form1.cs">
+    <Compile Include="Registro Llegada\EfectivizarLlegada.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Registro Resultado\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Registro Llegada\EfectivizarLlegada.Designer.cs">
+      <DependentUpon>EfectivizarLlegada.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Registro Llegada\RegistroLlegada.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registro Llegada\RegistroLlegada.Designer.cs">
+      <DependentUpon>RegistroLlegada.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Registro Resultado\IngresarSintomasYDiagnostico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registro Resultado\IngresarSintomasYDiagnostico.Designer.cs">
+      <DependentUpon>IngresarSintomasYDiagnostico.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Registro Resultado\Registro resultado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registro Resultado\Registro resultado.Designer.cs">
+      <DependentUpon>Registro resultado.cs</DependentUpon>
     </Compile>
     <Compile Include="Usuario.cs" />
     <EmbeddedResource Include="ABM Afiliado\ABMafiliados.resx">
@@ -247,23 +277,32 @@
     <EmbeddedResource Include="ABM Afiliado\ModificarPlan.resx">
       <DependentUpon>ModificarPlan.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Cancelar Atencion\Cancelar Turno Profesional.resx">
+      <DependentUpon>Cancelar Turno Profesional.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Cancelar Atencion\Cancelar Turno Usuario.resx">
       <DependentUpon>Cancelar Turno Usuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compra Bono\Comprar Bonos.resx">
+      <DependentUpon>Comprar Bonos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compra Bono\EfectivizarCompra.resx">
+      <DependentUpon>EfectivizarCompra.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Elegir Funcionalidad\ElegirFuncionalidad.resx">
       <DependentUpon>ElegirFuncionalidad.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Elegir Rol\EleccionRol.resx">
-      <DependentUpon>EleccionRol.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="IniciarSesion.resx">
       <DependentUpon>IniciarSesion.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pedir Turno\Elegir Fecha.resx">
+      <DependentUpon>Elegir Fecha.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Elegir Rol\EleccionRol.resx">
+      <DependentUpon>EleccionRol.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pedir Turno\Pedido Turnos.resx">
       <DependentUpon>Pedido Turnos.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Pedir Turno\Elegir Horario.resx">
-      <DependentUpon>Elegir Horario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -277,17 +316,24 @@
     <EmbeddedResource Include="Registrar Agenda Medico\RegistrarAgenda.resx">
       <DependentUpon>RegistrarAgenda.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="GD2C2016DataSet1.xsc">
-      <DependentUpon>GD2C2016DataSet1.xsd</DependentUpon>
-    </None>
-    <None Include="GD2C2016DataSet1.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>GD2C2016DataSet1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="GD2C2016DataSet1.xss">
-      <DependentUpon>GD2C2016DataSet1.xsd</DependentUpon>
-    </None>
+    <EmbeddedResource Include="Registro Llegada\CargarTurnos.resx">
+      <DependentUpon>CargarTurnos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Registro Llegada\EfectivizarLlegada.resx">
+      <DependentUpon>EfectivizarLlegada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Registro Llegada\RegistroLlegada.resx">
+      <DependentUpon>RegistroLlegada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Registro Resultado\IngresarSintomasYDiagnostico.resx">
+      <DependentUpon>IngresarSintomasYDiagnostico.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Registro Resultado\Registro resultado.resx">
+      <DependentUpon>Registro resultado.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="bin\Debug\ClinicaFrba.exe.config" />
+    <None Include="bin\Debug\ClinicaFrba.vshost.exe.config" />
+    <None Include="bin\Debug\ClinicaFrba.vshost.exe.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -301,7 +347,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="bin\Debug\ClinicaFrba.vshost.exe" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Release\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -620,12 +620,36 @@ INSERT INTO [3FG].FUNCIONALIDADES(NOMBRE) VALUES('ABM de Afiliado');
 INSERT INTO [3FG].FUNCIONALIDADES(NOMBRE) VALUES('Solicitar turno');
 INSERT INTO [3FG].FUNCIONALIDADES(NOMBRE) VALUES('Registrar agenda del profesional');
 INSERT INTO [3FG].FUNCIONALIDADES(NOMBRE) VALUES('Comprar Bonos');
+INSERT INTO [3FG].FUNCIONALIDADES(NOMBRE) VALUES('Cancelar turno usuario');
+INSERT INTO [3FG].FUNCIONALIDADES(NOMBRE) VALUES('Cancelar turno profesional');
+INSERT INTO [3FG].FUNCIONALIDADES(NOMBRE) VALUES('Pedir turno');
+INSERT INTO [3FG].FUNCIONALIDADES(NOMBRE) VALUES('Registrar resultado consulta');
 
 /*Se agregan funcionalidades al rol Profesional*/
 
 INSERT INTO [3FG].FUNCIONALIDADES_ROL(ID_ROL, ID_FUNCIONALIDAD)
 SELECT tablaRol.ID_ROL,tablaFuncionalidad.ID_FUNCIONALIDAD FROM [3FG].ROLES  tablaRol, [3FG].FUNCIONALIDADES tablaFuncionalidad
 WHERE tablaRol.NOMBRE_ROL = 'Profesional' AND tablaFuncionalidad.NOMBRE IN ('Registrar agenda del profesional');
+GO
+
+INSERT INTO [3FG].FUNCIONALIDADES_ROL(ID_ROL, ID_FUNCIONALIDAD)
+SELECT tablaRol.ID_ROL,tablaFuncionalidad.ID_FUNCIONALIDAD FROM [3FG].ROLES  tablaRol, [3FG].FUNCIONALIDADES tablaFuncionalidad
+WHERE tablaRol.NOMBRE_ROL = 'Profesional' AND tablaFuncionalidad.NOMBRE IN ('Cancelar turno profesional');
+GO
+
+INSERT INTO [3FG].FUNCIONALIDADES_ROL(ID_ROL, ID_FUNCIONALIDAD)
+SELECT tablaRol.ID_ROL,tablaFuncionalidad.ID_FUNCIONALIDAD FROM [3FG].ROLES  tablaRol, [3FG].FUNCIONALIDADES tablaFuncionalidad
+WHERE tablaRol.NOMBRE_ROL = 'Profesional' AND tablaFuncionalidad.NOMBRE IN ('Registrar resultado consulta');
+GO
+
+INSERT INTO [3FG].FUNCIONALIDADES_ROL(ID_ROL, ID_FUNCIONALIDAD)
+SELECT tablaRol.ID_ROL,tablaFuncionalidad.ID_FUNCIONALIDAD FROM [3FG].ROLES  tablaRol, [3FG].FUNCIONALIDADES tablaFuncionalidad
+WHERE tablaRol.NOMBRE_ROL = 'Usuario' AND tablaFuncionalidad.NOMBRE IN ('Pedir Turno');
+GO
+
+INSERT INTO [3FG].FUNCIONALIDADES_ROL(ID_ROL, ID_FUNCIONALIDAD)
+SELECT tablaRol.ID_ROL,tablaFuncionalidad.ID_FUNCIONALIDAD FROM [3FG].ROLES  tablaRol, [3FG].FUNCIONALIDADES tablaFuncionalidad
+WHERE tablaRol.NOMBRE_ROL = 'Usuario' AND tablaFuncionalidad.NOMBRE IN ('Cancelar turno usuario');
 GO
 
 /*HARDCODEO ESTO A MODO DE PRUEBA*/

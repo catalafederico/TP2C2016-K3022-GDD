@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using ClinicaFrba.ABM_Rol;
 using ClinicaFrba.Pedir_Turno;
 using ClinicaFrba.Cancelar_Atencion;
+using ClinicaFrba.Listados;
 
 namespace ClinicaFrba.Eleccion_Funcionalidad
 {
@@ -22,6 +23,7 @@ namespace ClinicaFrba.Eleccion_Funcionalidad
         AbmRol.ABMROL abmRol;
         ABM_Afiliado.ABMafiliados abmAfiliado;
         ABMTurnos unTurno;
+        Listados.Listados Listados;
         Compra_Bono.EfectivizarCompra unaCompra;
         Compra_Bono.Comprar_Bonos unaCompraAdmin;
         Cancelar_Atencion.CancelarAtencionUsuario cancelacionUsuario;
@@ -108,6 +110,11 @@ namespace ClinicaFrba.Eleccion_Funcionalidad
                case "Registrar resultado consulta":
                     registroResultado = new Registro_Resultado.RegistroResultado((int)idUsuario);
                     registroResultado.ShowDialog();
+                    break;
+
+                case "Listados Estadisticos":
+                    Listados = new Listados.Listados();
+                    Listados.ShowDialog();
                     break;
 
             }

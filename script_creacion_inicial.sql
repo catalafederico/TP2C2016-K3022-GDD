@@ -644,6 +644,7 @@ INSERT INTO [3FG].FUNCIONALIDADES(NOMBRE) VALUES('Cancelar turno usuario');
 INSERT INTO [3FG].FUNCIONALIDADES(NOMBRE) VALUES('Cancelar turno profesional');
 INSERT INTO [3FG].FUNCIONALIDADES(NOMBRE) VALUES('Pedir turno');
 INSERT INTO [3FG].FUNCIONALIDADES(NOMBRE) VALUES('Registrar resultado consulta');
+INSERT INTO [3FG].FUNCIONALIDADES(NOMBRE) VALUES('Listados Estadisticos');
 
 
 
@@ -698,4 +699,133 @@ GO
 
 -- ELIMINO EL TRIGGER UTILIZADO PARA LA MIGRACION
 DROP TRIGGER [3FG].CargarAtencionDespuesDeLaRecepcionTrigger
+GO
+
+
+/*agregar funcionalidades a los roles*/
+
+
+
+/* insertamos las funcionalidades para los afiliados*/
+insert into [3FG].FUNCIONALIDADES_ROL(ID_ROL,ID_FUNCIONALIDAD)values(2,10)
+insert into [3FG].FUNCIONALIDADES_ROL(ID_ROL,ID_FUNCIONALIDAD)values(2,9)
+insert into [3FG].FUNCIONALIDADES_ROL(ID_ROL,ID_FUNCIONALIDAD)values(2,12)
+insert into [3FG].FUNCIONALIDADES_ROL(ID_ROL,ID_FUNCIONALIDAD)values(2,3)
+go
+/* insertamos las funcionalidades para los profesionales*/
+insert into [3FG].FUNCIONALIDADES_ROL(ID_ROL,ID_FUNCIONALIDAD)values(3,11)
+insert into [3FG].FUNCIONALIDADES_ROL(ID_ROL,ID_FUNCIONALIDAD)values(3,13)
+go
+/*insertamos las funcionalidad para el administrador general*/
+insert into [3FG].FUNCIONALIDADES_ROL(ID_ROL,ID_FUNCIONALIDAD)values(4,10)
+insert into [3FG].FUNCIONALIDADES_ROL(ID_ROL,ID_FUNCIONALIDAD)values(4,11)
+insert into [3FG].FUNCIONALIDADES_ROL(ID_ROL,ID_FUNCIONALIDAD)values(4,12)
+insert into [3FG].FUNCIONALIDADES_ROL(ID_ROL,ID_FUNCIONALIDAD)values(4,13)
+insert into [3FG].FUNCIONALIDADES_ROL(ID_ROL,ID_FUNCIONALIDAD)values(4,14)
+go
+
+
+/*procedures necesarios para los listados*/
+
+/*lista de cancelaciones*/
+CREATE PROCEDURE [3FG].top5Cancelaciones @semetre integer,@anio integer 
+AS
+BEGIN
+
+IF (@semetre = 1)
+BEGIN
+select top 5 count(e.ID_ESPECIALIDAD)'N° de cancelaciones' , e.DESCRIPCION_ESPECIALIDAD
+ from [3FG].ESPECIALIDADES  e join [3FG].AGENDA a on
+ (e.ID_ESPECIALIDAD=A.ID_ESPECIALIDAD) join [3FG].TURNOS t on
+ (a.ID_AGENDA=t.ID_AGENDA) join [3FG].CANCELACIONES c on
+ (t.ID_TURNO=c.ID_TURNO)
+ where YEAR(t.FECHA_TURNO) =@anio and MONTH(t.FECHA_TURNO) >=1 and MONTH(t.FECHA_TURNO) <=6
+ group by e.ID_ESPECIALIDAD,e.DESCRIPCION_ESPECIALIDAD
+ order by 1 DESC
+
+END
+ELSE
+
+BEGIN
+
+select top 5 count(e.ID_ESPECIALIDAD)'N° de cancelaciones' , e.DESCRIPCION_ESPECIALIDAD
+ from [3FG].ESPECIALIDADES  e join [3FG].AGENDA a on
+ (e.ID_ESPECIALIDAD=A.ID_ESPECIALIDAD) join [3FG].TURNOS t on
+ (a.ID_AGENDA=t.ID_AGENDA) join [3FG].CANCELACIONES c on
+ (t.ID_TURNO=c.ID_TURNO)
+ where YEAR(t.FECHA_TURNO) =@anio and MONTH(t.FECHA_TURNO) >=7 and MONTH(t.FECHA_TURNO) <=12
+ group by e.ID_ESPECIALIDAD,e.DESCRIPCION_ESPECIALIDAD
+ order by 1 DESC
+
+END
+
+END
+GO
+
+
+
+/*listado estadistico de profesionales mas consultados por plan y especialidad*/
+CREATE PROCEDURE [3FG].top5ProfesionalesConsultadosPorPLan @descripcionPlan varchar(250),@descripcionEspecialidad varchar(250),@semetre integer,@anio integer 
+AS
+BEGIN
+IF (@semetre = 1)
+BEGIN
+select top 5 U.NOMBRE,U.APELLIDO,PP.DESCRIPCION_PLAN as 'plan', count(A.ID_USUARIO)'Consultas Por Plan',E.DESCRIPCION_ESPECIALIDAD
+ from [3FG].AGENDA A join
+[3FG].ESPECIALIDADES E on(A.ID_ESPECIALIDAD=E.ID_ESPECIALIDAD) join [3FG].PROFESIONALES P
+on(A.ID_USUARIO=P.ID_USUARIO) join [3FG].TURNOS T on(T.ID_AGENDA =A.ID_AGENDA) join 
+[3FG].AFILIADOS AA on(T.ID_AFILIADO=AA.ID_USUARIO) join [3FG].PLANES PP on 
+(PP.ID_PLAN=AA.ID_PLAN) join [3FG].USUARIOS U on (P.ID_USUARIO=U.ID_USUARIO)
+ where PP.DESCRIPCION_PLAN=@descripcionPlan and E.DESCRIPCION_ESPECIALIDAD = @descripcionEspecialidad and
+YEAR(T.FECHA_TURNO) =@anio and MONTH(T.FECHA_TURNO) >=1 and MONTH(T.FECHA_TURNO) <=6
+group by E.DESCRIPCION_ESPECIALIDAD,PP.DESCRIPCION_PLAN,U.NOMBRE,U.APELLIDO
+order by 4 DESC  
+END
+ELSE 
+BEGIN
+select top 5 U.NOMBRE,U.APELLIDO,PP.DESCRIPCION_PLAN as 'plan', count(A.ID_USUARIO)'Consultas Por Plan',E.DESCRIPCION_ESPECIALIDAD
+ from [3FG].AGENDA A join
+[3FG].ESPECIALIDADES E on(A.ID_ESPECIALIDAD=E.ID_ESPECIALIDAD) join [3FG].PROFESIONALES P
+on(A.ID_USUARIO=P.ID_USUARIO) join [3FG].TURNOS T on(T.ID_AGENDA =A.ID_AGENDA) join 
+[3FG].AFILIADOS AA on(T.ID_AFILIADO=AA.ID_USUARIO) join [3FG].PLANES PP on 
+(PP.ID_PLAN=AA.ID_PLAN) join [3FG].USUARIOS U on (P.ID_USUARIO=U.ID_USUARIO)
+ where PP.DESCRIPCION_PLAN=@descripcionPlan and
+YEAR(T.FECHA_TURNO) =@anio and MONTH(T.FECHA_TURNO) >=1 and MONTH(T.FECHA_TURNO) <=6
+group by E.DESCRIPCION_ESPECIALIDAD,PP.DESCRIPCION_PLAN,U.NOMBRE,U.APELLIDO
+order by 4 DESC 
+
+
+END
+END
+GO
+
+/*lista de afiliados con mayor cantidad de bonos comprados*/
+
+
+CREATE PROCEDURE [3FG].top5AfiliafsCompradoosConMasBonos @semetre integer,@anio integer 
+AS
+BEGIN
+IF (@semetre = 1)
+BEGIN
+select U.NOMBRE as'Nombre',U.APELLIDO as'Apellido',A.CANT_FAMILIARES as 'Cant. Familia' 
+,sum(CANTIDAD_BONOS)'Cantidad Comprada' 
+from [3FG].COMPRAS C join [3FG].AFILIADOS A
+on(C.ID_USUARIO=A.ID_USUARIO) join [3FG].USUARIOS U on(A.ID_USUARIO=U.ID_USUARIO)
+where YEAR(C.FECHA_COMPRA) =@anio and MONTH(C.FECHA_COMPRA) >=1 and MONTH(C.FECHA_COMPRA) <=6
+group by U.NOMBRE,U.APELLIDO,A.CANT_FAMILIARES
+order by 4 DESC
+
+END
+ELSE 
+BEGIN
+select U.NOMBRE as'Nombre',U.APELLIDO as'Apellido',A.CANT_FAMILIARES as 'Cant. Familia' 
+,sum(CANTIDAD_BONOS)'Cantidad Comprada' 
+from [3FG].COMPRAS C join [3FG].AFILIADOS A
+on(C.ID_USUARIO=A.ID_USUARIO) join [3FG].USUARIOS U on(A.ID_USUARIO=U.ID_USUARIO)
+where YEAR(C.FECHA_COMPRA) =@anio and MONTH(C.FECHA_COMPRA) >=7 and MONTH(C.FECHA_COMPRA) <=12
+group by U.NOMBRE,U.APELLIDO,A.CANT_FAMILIARES
+order by 4 DESC
+
+END
+END
 GO

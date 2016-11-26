@@ -127,7 +127,7 @@ GO
 CREATE TABLE [3FG].BONOS (
 	ID_BONO BIGINT IDENTITY(46494,1) PRIMARY KEY,
 	ID_PLAN BIGINT,
-	ID_USUARIO BIGINT,
+	ID_COMPRA BIGINT,
 	NUMERO_CONSULTA BIGINT
 );
 GO
@@ -230,8 +230,8 @@ GO
 alter table [3FG].ESPECIALIDADES add constraint FK_ESPECIALIDADES_TIPO_DE_ESPECIALIDAD
 	foreign key (ID_TIPO_ESPECIALIDAD) references [3FG].TIPO_ESPECIALIDAD (ID_TIPO_ESPECIALIDAD);
 GO
-alter table [3FG].BONOS add constraint FK_BONO_AFILIADO
-	foreign key (ID_USUARIO) references [3FG].AFILIADOS (ID_USUARIO);
+alter table [3FG].BONOS add constraint FK_BONO_COMPRA
+	foreign key (ID_COMPRA) references [3FG].COMPRAS (ID_COMPRA);
 GO
 alter table [3FG].BONOS add constraint FK_BONO_PLAN
 	foreign key (ID_PLAN) references [3FG].PLANES (ID_PLAN);
@@ -437,26 +437,6 @@ BEGIN
 END;
 GO
 
-/*VER SI ESTO ESTA BIEN*/
-CREATE PROCEDURE [3FG].MigrarBonos
-AS
-BEGIN
-
-	alter TABLE [3FG].BONOS
-	NOCHECK CONSTRAINT FK_BONO_AFILIADO;
-
-	--Se migran los bonos de la tabla Maestra
-	INSERT INTO [3FG].BONOS(ID_PLAN,ID_USUARIO)
-	SELECT Plan_Med_Codigo,ID_USUARIO
-	FROM gd_esquema.Maestra m, USUARIOS u
-	WHERE m.Paciente_Dni = u.NUMERO_DOCUMENTO
-	AND Compra_Bono_Fecha = Bono_Consulta_Fecha_Impresion
-	AND Bono_Consulta_Numero is NOT NULL
-	ORDER BY Bono_Consulta_Numero ASC
-
-END;
-GO
-
 CREATE PROCEDURE [3FG].MigrarCompras
 AS
 BEGIN
@@ -472,6 +452,28 @@ BEGIN
 	AND Compra_Bono_Fecha=Bono_Consulta_Fecha_Impresion
 	AND Compra_Bono_Fecha is NOT NULL
 	GROUP BY ID_USUARIO,Compra_Bono_Fecha,Plan_Med_Precio_Bono_Consulta
+
+END;
+GO
+
+/*VER SI ESTO ESTA BIEN*/
+CREATE PROCEDURE [3FG].MigrarBonos
+AS
+BEGIN
+
+	alter TABLE [3FG].BONOS
+	NOCHECK CONSTRAINT FK_BONO_AFILIADO;
+
+	--Se migran los bonos de la tabla Maestra
+	INSERT INTO [3FG].BONOS(ID_PLAN,ID_COMPRA)
+	SELECT Plan_Med_Codigo,ID_COMPRA
+	FROM gd_esquema.Maestra m,  [3FG].COMPRAS c, [3FG].AFILIADOS a 
+	WHERE c.ID_USUARIO = a.ID_USUARIO 
+	AND m.Paciente_Dni = a.NUMERO_DOCUMENTO
+	AND Compra_Bono_Fecha = Bono_Consulta_Fecha_Impresion
+	AND Bono_Consulta_Numero is NOT NULL
+	AND c.FECHA_COMPRA = Compra_Bono_Fecha
+	ORDER BY Bono_Consulta_Numero ASC
 
 END;
 GO
@@ -664,7 +666,7 @@ GO
 
 INSERT INTO [3FG].FUNCIONALIDADES_ROL(ID_ROL, ID_FUNCIONALIDAD)
 SELECT tablaRol.ID_ROL,tablaFuncionalidad.ID_FUNCIONALIDAD FROM [3FG].ROLES  tablaRol, [3FG].FUNCIONALIDADES tablaFuncionalidad
-WHERE tablaRol.NOMBRE_ROL = 'AdministrarGeneral' AND tablaFuncionalidad.NOMBRE IN ('ABM de Rol', 'ABM de Afiliado', 'Solicitar turno', 'Registrar agenda del profesional', 'Comprar Bonos', 'Cancelar turno usuario', 'Cancelar turno profesional', 'Pedir turno', 'Registrar resultado consulta');
+WHERE tablaRol.NOMBRE_ROL = 'Administrador General' AND tablaFuncionalidad.NOMBRE IN ('ABM de Rol', 'ABM de Afiliado', 'Solicitar turno', 'Registrar agenda del profesional', 'Comprar Bonos', 'Cancelar turno usuario', 'Cancelar turno profesional', 'Pedir turno', 'Registrar resultado consulta');
 GO
 
 -- INICIO DE LA MIGRACION --
@@ -681,8 +683,8 @@ EXEC [3FG].MigrarEspecialidadPorProfesional
 EXEC [3FG].Migrar_Afiliados_Profesionales_Temporales
 EXEC [3FG].MigrarTurnos
 EXEC [3FG].MigrarRecepciones
-EXEC [3FG].MigrarBonos
 EXEC [3FG].MigrarCompras
+EXEC [3FG].MigrarBonos
 EXEC [3FG].EsteblecerUsuarioYContraseñaPorDefault
 GO
 

@@ -31,7 +31,6 @@
             this.textBoxFechNacim = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
@@ -69,7 +68,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(37, 339);
+            this.label9.Location = new System.Drawing.Point(87, 338);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(122, 13);
             this.label9.TabIndex = 68;
@@ -78,27 +77,17 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(37, 326);
+            this.label14.Location = new System.Drawing.Point(87, 316);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(116, 13);
             this.label14.TabIndex = 67;
             this.label14.Text = "(*) Campos Obligatorios";
             // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(581, 321);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(140, 23);
-            this.button3.TabIndex = 66;
-            this.button3.Text = "Añadir Familiar";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(350, 321);
+            this.button2.Location = new System.Drawing.Point(497, 316);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(157, 23);
+            this.button2.Size = new System.Drawing.Size(226, 23);
             this.button2.TabIndex = 65;
             this.button2.Text = "Crear Afliado";
             this.button2.UseVisualStyleBackColor = true;
@@ -295,9 +284,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(175, 321);
+            this.button1.Location = new System.Drawing.Point(285, 316);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(115, 23);
+            this.button1.Size = new System.Drawing.Size(164, 23);
             this.button1.TabIndex = 41;
             this.button1.Text = "Cancelar Operacion";
             this.button1.UseVisualStyleBackColor = true;
@@ -311,7 +300,6 @@
             this.Controls.Add(this.textBoxFechNacim);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label14);
-            this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.comboBox3);
@@ -350,7 +338,6 @@
         private System.Windows.Forms.TextBox textBoxFechNacim;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ComboBox comboBox3;

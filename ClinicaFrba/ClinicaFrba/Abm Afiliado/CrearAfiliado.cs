@@ -117,12 +117,48 @@ VALUES ('pepita',(SELECT SUBSTRING(master.dbo.fn_varbintohexstr(HASHBYTES('SHA2_
             string crearAfiliado1 = "insert into [3FG].AFILIADOS(ID_USUARIO,ID_PLAN,ESTADO_CIVIL,CANT_FAMILIARES,RAIZ_AFILIADO,NUMERO_FAMILIA) values((select ID_USUARIO from [3FG].USUARIOS where USUARIO_NOMBRE='" + Usuario.username + "'),(select ID_PLAN from [3FG].PLANES where DESCRIPCION_PLAN ='" + Usuario.afiPlan + "'),'" + Usuario.estadoCivil + "','" + Usuario.cantidadFamiliares + "','" + aleatorio + "','" + raiz + "')";
             (new ConexionSQL()).ejecutarComandoSQL(crearAfiliado1);
 
+
+            /* insert into [3FG].ROLES_USUARIO(ID_USUARIO,ID_ROL)values((select a.ID_USUARIO from [3FG].AFILIADOS a join[3FG].USUARIOS u on (a.ID_USUARIO=u.ID_USUARIO) and u.NUMERO_DOCUMENTO=1233456),2)*/
+            string AsignarRol = "insert into [3FG].ROLES_USUARIO(ID_USUARIO,ID_ROL)values((select a.ID_USUARIO from [3FG].AFILIADOS a join[3FG].USUARIOS u on (a.ID_USUARIO=u.ID_USUARIO) and u.NUMERO_DOCUMENTO= '" + Usuario.afiNumeroDocumento + "'),2)";
+            (new ConexionSQL()).ejecutarComandoSQL(AsignarRol);
+
+
             /* insert into [3FG].AFILIADOS(ID_USUARIO,ID_PLAN,ESTADO_CIVIL,CANT_FAMILIARES,RAIZ_AFILIADO,NUMERO_FAMILIA)
  values((select ID_USUARIO from [3FG].USUARIOS where USUARIO_NOMBRE= 'pepita'),(select ID_PLAN from [3FG].PLANES where DESCRIPCION_PLAN ='plan medico corriente'),'casada',5,(select max(RAIZ_AFILIADO) from [3FG].AFILIADOS),01)
 */
+            if (Convert.ToInt32(textBoxFamiliares.Text) > 0)
+            {
+                if ((MessageBox.Show("¿Desea añadir a un familiar?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes))
+                {
 
-            MessageBox.Show("Afiliado Agregado con exito", this.Text, MessageBoxButtons.OK, MessageBoxIcon.None);
-            this.Hide();
+                    MessageBox.Show("Afiliado anterior Agregado con exito, agregue al nuevo afiliado", this.Text, MessageBoxButtons.OK, MessageBoxIcon.None);
+                    ABM_Afiliado.CrearUsuario crearUsuario = new CrearUsuario(aleatorio, raiz, 1, 1, aleatorio, raizAfiliado);
+                    crearUsuario.ShowDialog();
+
+                    this.Hide();
+                    /*modificarRol(rolPasado);
+                    MessageBox.Show("Rol " + rolPasado + " modificado", this.Text, MessageBoxButtons.OK, MessageBoxIcon.None);
+                    this.Close();
+                    form.Close();*/
+                }
+                else
+                {
+                    MessageBox.Show("Afiliado Agreagado Con Exito", this.Text, MessageBoxButtons.OK, MessageBoxIcon.None);
+                    this.Hide();
+                }
+
+
+            }
+            else
+            {
+                MessageBox.Show("Afiliado Agreagado Con Exito", this.Text, MessageBoxButtons.OK, MessageBoxIcon.None);
+                this.Hide();
+            }
+
+
+
+
+
         }
         private bool validacionesCliente()
         {
@@ -271,85 +307,6 @@ VALUES ('pepita',(SELECT SUBSTRING(master.dbo.fn_varbintohexstr(HASHBYTES('SHA2_
 
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            if (!validacionesCliente())
-            {
-                return;
-            }
-
-
-            Usuario.afiNombre = textBoxNombre.Text;
-            Usuario.afiApellido = textBoxApellido.Text;
-            Usuario.sexo = textBoxSexo.Text;
-            Usuario.afiTipoDocumento = comboBox1.Text;
-            Usuario.afiNumeroDocumento = Convert.ToInt64(textBoxNumeroDoc.Text);
-            Usuario.afiPlan = comboBox2.Text;
-            Usuario.afiFechaNac = textBoxFechNacim.Text;
-            Usuario.estadoCivil = comboBox3.Text;
-            Usuario.cantidadFamiliares = Convert.ToInt64(textBoxFamiliares.Text);
-
-            Usuario.mail = textBoxMail.Text;
-            Usuario.telefono = Convert.ToInt64(textBoxTelefono.Text);
-            Usuario.DireccionCompleta = textBoxDirCompleta.Text;
-
-
-            /*INSERT INTO [3FG].USUARIOS(USUARIO_NOMBRE,CONTRASEÑA,NOMBRE,APELLIDO,TIPO_DE_DOCUMENTO,NUMERO_DOCUMENTO,TELEFONO,DIRECCION,MAIL,FECHA_NACIMIENTO,SEXO)
-VALUES ('pepita',(SELECT SUBSTRING(master.dbo.fn_varbintohexstr(HASHBYTES('SHA2_256','lora')),3,250) ),'luciana','ortman','D.N.I',123123123,46465237,'rivadavia 2345','luciana@gamil.com',(SELECT convert(datetime, '23/10/2016', 103)),'M')
-*/
-            string crearAfiliado = "INSERT INTO [3FG].USUARIOS(USUARIO_NOMBRE,CONTRASEÑA,NOMBRE,APELLIDO,TIPO_DE_DOCUMENTO,NUMERO_DOCUMENTO,TELEFONO,DIRECCION,MAIL,FECHA_NACIMIENTO,SEXO)VALUES('" + Usuario.username + "', (SELECT SUBSTRING(master.dbo.fn_varbintohexstr(HASHBYTES('SHA2_256','" + Usuario.password + "')),3,250) ),'" + Usuario.afiNombre + "','" + Usuario.afiApellido + "','" + Usuario.afiTipoDocumento + "'," + Usuario.afiNumeroDocumento + "," + Usuario.telefono + ",'" + Usuario.DireccionCompleta + "','" + Usuario.mail + "',(SELECT convert(datetime, '" + Usuario.afiFechaNac + "', 103)),'" + Usuario.sexo + "')";
-            (new ConexionSQL()).ejecutarComandoSQL(crearAfiliado);
-
-            /*falta agregar esto*/
-
-
-
-            if (flagNuevo == 0)
-            {
-                aleatorio = r.Next(999999999);
-                int flag = 0;
-                while (flag == 0)
-                {
-                    if (raizAfiliado.Contains(aleatorio))
-                    {
-                        aleatorio = r.Next(999999999);
-                    }
-                    else
-                    {
-                        raizAfiliado.Add(aleatorio);
-                        flag = 1;
-
-                    }
-                }
-
-            }
-
-
-            if (flagnumerito == 0)
-            {
-                raiz = 00;
-                raiz++;
-            }
-            else
-            {
-                raiz++;
-            }
-
-
-
-
-            string crearAfiliado1 = "insert into [3FG].AFILIADOS(ID_USUARIO,ID_PLAN,ESTADO_CIVIL,CANT_FAMILIARES,RAIZ_AFILIADO,NUMERO_FAMILIA) values((select ID_USUARIO from [3FG].USUARIOS where NUMERO_DOCUMENTO='" + Usuario.afiNumeroDocumento + "'),(select ID_PLAN from [3FG].PLANES where DESCRIPCION_PLAN ='" + Usuario.afiPlan + "'),'" + Usuario.estadoCivil + "','" + Usuario.cantidadFamiliares + "','" + aleatorio + "','" + raiz + "')";
-            (new ConexionSQL()).ejecutarComandoSQL(crearAfiliado1);
-
-            /* insert into [3FG].AFILIADOS(ID_USUARIO,ID_PLAN,ESTADO_CIVIL,CANT_FAMILIARES,RAIZ_AFILIADO,NUMERO_FAMILIA)
- values((select ID_USUARIO from [3FG].USUARIOS where USUARIO_NOMBRE= 'pepita'),(select ID_PLAN from [3FG].PLANES where DESCRIPCION_PLAN ='plan medico corriente'),'casada',5,(select max(RAIZ_AFILIADO) from [3FG].AFILIADOS),01)
-*/
-            MessageBox.Show("Afiliado anterior Agregado con exito, agregue al nuevo afiliado", this.Text, MessageBoxButtons.OK, MessageBoxIcon.None);
-                ABM_Afiliado.CrearUsuario crearUsuario = new CrearUsuario(aleatorio, raiz, 1, 1, aleatorio, raizAfiliado);
-                crearUsuario.ShowDialog();
-           
-            this.Hide();
-        }
 
         private void button1_Click(object sender, EventArgs e)
         {

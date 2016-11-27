@@ -183,6 +183,22 @@ namespace ClinicaFrba
             this.ejecutarComando(coman2);
         }
 
+        public static void loadDataGrid(string query, DataGridView dgv)
+        {
+            ConexionSQL objConexion = new ConexionSQL();
+            using (SqlConnection conexion = objConexion.getMiConexionSQL())
+            {
+                SqlCommand comando = new SqlCommand(query, conexion);
+                DataTable dataTable = new DataTable();
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(comando);
+                dataAdapter.Fill(dataTable);
+                BindingSource bSource = new BindingSource();
+                bSource.DataSource = dataTable;
+                dgv.DataSource = bSource;
+                dgv.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+                conexion.Close();
+            }
+        }
 
         #endregion
 

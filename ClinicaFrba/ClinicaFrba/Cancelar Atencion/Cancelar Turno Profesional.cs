@@ -33,24 +33,9 @@ namespace ClinicaFrba.Cancelar_Atencion
         //Funcion generica de llenado de DataGridView
         private void loadTable(string query)
         {
-            using (SqlConnection conexion = BDComun.obtenerConexion())
-            {
-                //Aca recibe la query como dato y la usa para llenar el DataGridView
-                SqlCommand comando = new SqlCommand(query, conexion);
-                DataTable dataTable = new DataTable();
-                SqlDataAdapter dataAdapter = new SqlDataAdapter(comando);
-                dataAdapter.Fill(dataTable);
-                BindingSource bSource = new BindingSource();
-                bSource.DataSource = dataTable;
-                dataGridView1.DataSource = bSource;
-                dataGridView1.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-
-                /* Aca esconde la columna del ID de cada turno.
-                 * No quiero que el usuario la vea pero quiero los guardar ID en algun lugar
-                 * facil de encontrar y linkeadas al resto de los datos del turno */
-                dataGridView1.Columns[0].Visible = false;
-                conexion.Close();
-            }
+            ConexionSQL.loadDataGrid(query, dataGridView1);
+            //Escondo la columna de los IDs
+            dataGridView1.Columns[0].Visible = false;
         }
 
         private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
@@ -148,7 +133,7 @@ namespace ClinicaFrba.Cancelar_Atencion
         // Funcion de cancelacion de turnos
         private void cancelar(int idTurno)
         {
-            using (SqlConnection conexion = BDComun.obtenerConexion())
+            using (SqlConnection conexion = new ConexionSQL().conectar())
             {
                 // La creo asi para cuidarme de SQL Injection
                 string crearCancelacion = "INSERT INTO [3FG].CANCELACIONES(ID_TURNO,TIPO_CANCELACION,MOTIVO_CANCELACION) VALUES(@idTurno,'Profesional',@motivoCancelacion)";

@@ -119,3 +119,5 @@ C:\Users\ABM\Desktop\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\Clinic
 C:\Users\ABM\Desktop\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.csproj.GenerateResource.Cache
 C:\Users\ABM\Desktop\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.exe
 C:\Users\ABM\Desktop\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.pdb
+C:\Users\Fede\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Registro_Llegada.CargarTurnos.resources
+C:\Users\Fede\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Registro_Llegada.EfectivizarLlegada.resources

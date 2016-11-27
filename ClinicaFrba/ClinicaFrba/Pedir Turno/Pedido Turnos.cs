@@ -33,7 +33,7 @@ namespace ClinicaFrba.Pedir_Turno
             InitializeComponent();
 
             // Cargo el DataGrid
-            BDComun.loadDataGrid(queryDeLoadTable,dataGridView1);
+            ConexionSQL.loadDataGrid(queryDeLoadTable,dataGridView1);
 
             // Escondo las columnas de ID, me viene bien tenerlos a mano pero no quiero que el usuario los vea
             dataGridView1.Columns[2].Visible = false;
@@ -59,7 +59,7 @@ namespace ClinicaFrba.Pedir_Turno
             if (checkBox3.Checked) newQuery += " AND (E.DESCRIPCION_ESPECIALIDAD LIKE '%" + especialidad + "%')";
 
             // Vuelvo a cargar el DataGrid
-            BDComun.loadDataGrid(newQuery, dataGridView1);
+            ConexionSQL.loadDataGrid(newQuery, dataGridView1);
         }
 
 

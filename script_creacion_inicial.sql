@@ -461,9 +461,6 @@ CREATE PROCEDURE [3FG].MigrarBonos
 AS
 BEGIN
 
-	alter TABLE [3FG].BONOS
-	NOCHECK CONSTRAINT FK_BONO_AFILIADO;
-
 	--Se migran los bonos de la tabla Maestra
 	INSERT INTO [3FG].BONOS(ID_PLAN,ID_COMPRA)
 	SELECT Plan_Med_Codigo, ID_COMPRA

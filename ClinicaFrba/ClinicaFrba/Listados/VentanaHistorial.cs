@@ -59,13 +59,31 @@ namespace ClinicaFrba.Listados
                 
             }
 
-            
+
+
+            if (label1.Text == "ESPECIALIDADES CON MAS BONO DE CONSULTA UTILIZADOS")
+            {
+                /*[3FG].top5EspecialidadesConMasBonosUtilizados 1,2015*/
+                CompletadorDeTablas.hacerQuery("[3FG].top5EspecialidadesConMasBonosUtilizados " + semetreElegido + "," + anioElegido + "", ref dataGridView1);
+
+            }
+            if (label1.Text == "PROFESIONALES CON MENOS HORAS TRABAJADAS")
+            {
+                /*exec [3FG].top5ProfesionalesConMenosHorasTrabajadas 'Plan Medico 130','Anestesiología y Reanimación',1,2015*/
+                CompletadorDeTablas.hacerQuery("exec [3FG].top5ProfesionalesConMenosHorasTrabajadas '" + planParaFiltrar + "','" + especialidadParaFiltrar + "'," + semetreElegido + "," + anioElegido + "", ref dataGridView1);
+
+            }
 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             this.Hide();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

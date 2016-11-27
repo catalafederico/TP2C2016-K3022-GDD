@@ -52,6 +52,7 @@
             this.label1.Size = new System.Drawing.Size(128, 13);
             this.label1.TabIndex = 7;
             this.label1.Text = "Historial Cambios De Plan";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // dataGridView1
             // 

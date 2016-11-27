@@ -19,7 +19,8 @@ namespace ClinicaFrba.Listados
             comboBox1.Items.Add("PROFESIONALES CON MAS CONSULTAS");
             comboBox1.Items.Add("AFILIADOS CON MAS BONOS COMPRADOS");
             comboBox1.Items.Add("PROFESIONALES CON MENOS HORAS TRABAJADAS");
-            comboBox1.Items.Add("MEDICOS CON MAS BONO DE CONSULTA UTILIZADOS");
+            comboBox1.Items.Add("ESPECIALIDADES CON MAS BONO DE CONSULTA UTILIZADOS");
+            /*exec [3FG].top5EspecialidadesConMasBonosUtilizados 1,2015*/
             comboBox_SEMESTRE.Items.Add("1");
             comboBox_SEMESTRE.Items.Add("2");
 
@@ -56,8 +57,20 @@ namespace ClinicaFrba.Listados
                 ventana.ShowDialog();
                 this.Hide();
             }
+            if (comboBox1.Text == "ESPECIALIDADES CON MAS BONO DE CONSULTA UTILIZADOS")
+            {
+                VentanaHistorial ventana = new VentanaHistorial(comboBox1.Text, null, null, comboBox_SEMESTRE.Text, textBox_AÑO.Text);
+                ventana.ShowDialog();
+                this.Hide();
+            }
+            if (comboBox1.Text == "PROFESIONALES CON MENOS HORAS TRABAJADAS")
+            {
+                DatosParaFiltrar ventana = new DatosParaFiltrar(comboBox1.Text, comboBox_SEMESTRE.Text, textBox_AÑO.Text);
+                ventana.ShowDialog();
+                this.Hide();
+            }
 
-
+            
         }
 
         private void comboBox_SEMESTRE_SelectedIndexChanged(object sender, EventArgs e)

@@ -466,10 +466,11 @@ BEGIN
 
 	--Se migran los bonos de la tabla Maestra
 	INSERT INTO [3FG].BONOS(ID_PLAN,ID_COMPRA)
-	SELECT Plan_Med_Codigo,ID_COMPRA
-	FROM gd_esquema.Maestra m,  [3FG].COMPRAS c, [3FG].AFILIADOS a 
-	WHERE c.ID_USUARIO = a.ID_USUARIO 
-	AND m.Paciente_Dni = a.NUMERO_DOCUMENTO
+	SELECT Plan_Med_Codigo, ID_COMPRA
+	FROM gd_esquema.Maestra m,  [3FG].COMPRAS c, [3FG].AFILIADOS a, [3FG].USUARIOS u
+	WHERE c.ID_USUARIO = a.ID_USUARIO
+	AND a.ID_USUARIO = u.ID_USUARIO
+	AND m.Paciente_Dni = u.NUMERO_DOCUMENTO
 	AND Compra_Bono_Fecha = Bono_Consulta_Fecha_Impresion
 	AND Bono_Consulta_Numero is NOT NULL
 	AND c.FECHA_COMPRA = Compra_Bono_Fecha

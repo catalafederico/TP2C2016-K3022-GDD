@@ -461,13 +461,15 @@ CREATE PROCEDURE [3FG].MigrarBonos
 AS
 BEGIN
 
+	alter TABLE [3FG].BONOS
+	NOCHECK CONSTRAINT FK_BONO_AFILIADO;
+
 	--Se migran los bonos de la tabla Maestra
 	INSERT INTO [3FG].BONOS(ID_PLAN,ID_COMPRA)
-	SELECT Plan_Med_Codigo, ID_COMPRA
-	FROM gd_esquema.Maestra m,  [3FG].COMPRAS c, [3FG].AFILIADOS a, [3FG].USUARIOS u
-	WHERE c.ID_USUARIO = a.ID_USUARIO
-	AND a.ID_USUARIO = u.ID_USUARIO
-	AND m.Paciente_Dni = u.NUMERO_DOCUMENTO
+	SELECT Plan_Med_Codigo,ID_COMPRA
+	FROM gd_esquema.Maestra m,  [3FG].COMPRAS c, [3FG].AFILIADOS a 
+	WHERE c.ID_USUARIO = a.ID_USUARIO 
+	AND m.Paciente_Dni = a.NUMERO_DOCUMENTO
 	AND Compra_Bono_Fecha = Bono_Consulta_Fecha_Impresion
 	AND Bono_Consulta_Numero is NOT NULL
 	AND c.FECHA_COMPRA = Compra_Bono_Fecha
@@ -640,15 +642,13 @@ INSERT INTO [3FG].FUNCIONALIDADES(NOMBRE) VALUES('Registrar agenda del profesion
 INSERT INTO [3FG].FUNCIONALIDADES(NOMBRE) VALUES('Comprar Bonos');
 INSERT INTO [3FG].FUNCIONALIDADES(NOMBRE) VALUES('Cancelar turno usuario');
 INSERT INTO [3FG].FUNCIONALIDADES(NOMBRE) VALUES('Cancelar turno profesional');
-INSERT INTO [3FG].FUNCIONALIDADES(NOMBRE) VALUES('Registrar llegada');
 INSERT INTO [3FG].FUNCIONALIDADES(NOMBRE) VALUES('Pedir turno');
 INSERT INTO [3FG].FUNCIONALIDADES(NOMBRE) VALUES('Registrar resultado consulta');
 INSERT INTO [3FG].FUNCIONALIDADES(NOMBRE) VALUES('Listados Estadisticos');
 
 
 
-
-/*Se agregan funcionalidades a los roles*/
+/*Se agregan funcionalidades al rol Profesional*/
 
 INSERT INTO [3FG].FUNCIONALIDADES_ROL(ID_ROL, ID_FUNCIONALIDAD)
 SELECT tablaRol.ID_ROL,tablaFuncionalidad.ID_FUNCIONALIDAD FROM [3FG].ROLES  tablaRol, [3FG].FUNCIONALIDADES tablaFuncionalidad
@@ -657,7 +657,7 @@ GO
 
 INSERT INTO [3FG].FUNCIONALIDADES_ROL(ID_ROL, ID_FUNCIONALIDAD)
 SELECT tablaRol.ID_ROL,tablaFuncionalidad.ID_FUNCIONALIDAD FROM [3FG].ROLES  tablaRol, [3FG].FUNCIONALIDADES tablaFuncionalidad
-WHERE tablaRol.NOMBRE_ROL = 'Afiliado' AND tablaFuncionalidad.NOMBRE IN ('Solicitar turno', 'Cancelar turno usuario');
+WHERE tablaRol.NOMBRE_ROL = 'Usuario' AND tablaFuncionalidad.NOMBRE IN ('Pedir Turno', 'Cancelar turno usuario');
 GO
 
 INSERT INTO [3FG].FUNCIONALIDADES_ROL(ID_ROL, ID_FUNCIONALIDAD)
@@ -667,7 +667,7 @@ GO
 
 INSERT INTO [3FG].FUNCIONALIDADES_ROL(ID_ROL, ID_FUNCIONALIDAD)
 SELECT tablaRol.ID_ROL,tablaFuncionalidad.ID_FUNCIONALIDAD FROM [3FG].ROLES  tablaRol, [3FG].FUNCIONALIDADES tablaFuncionalidad
-WHERE tablaRol.NOMBRE_ROL = 'Administrador General' AND tablaFuncionalidad.NOMBRE IN ('ABM de Rol', 'ABM de Afiliado', 'Solicitar turno', 'Registrar agenda del profesional', 'Comprar Bonos', 'Cancelar turno usuario', 'Cancelar turno profesional', 'Registrar resultado consulta','Listados Estadisticos');
+WHERE tablaRol.NOMBRE_ROL = 'Administrador General' AND tablaFuncionalidad.NOMBRE IN ('ABM de Rol', 'ABM de Afiliado', 'Solicitar turno', 'Registrar agenda del profesional', 'Comprar Bonos', 'Cancelar turno usuario', 'Cancelar turno profesional', 'Pedir turno', 'Registrar resultado consulta');
 GO
 
 -- INICIO DE LA MIGRACION --
@@ -704,7 +704,8 @@ GO
 
 /*agregar funcionalidades a los roles*/
 
-/*
+
+
 /* insertamos las funcionalidades para los afiliados*/
 insert into [3FG].FUNCIONALIDADES_ROL(ID_ROL,ID_FUNCIONALIDAD)values(2,10)
 insert into [3FG].FUNCIONALIDADES_ROL(ID_ROL,ID_FUNCIONALIDAD)values(2,9)
@@ -722,7 +723,7 @@ insert into [3FG].FUNCIONALIDADES_ROL(ID_ROL,ID_FUNCIONALIDAD)values(4,12)
 insert into [3FG].FUNCIONALIDADES_ROL(ID_ROL,ID_FUNCIONALIDAD)values(4,13)
 insert into [3FG].FUNCIONALIDADES_ROL(ID_ROL,ID_FUNCIONALIDAD)values(4,14)
 go
-*/
+
 
 /*procedures necesarios para los listados*/
 
@@ -975,7 +976,3 @@ BEGIN
 
 END
 GO
-
-/* Se agregan los roles a los usuarios de prueba*/
-INSERT INTO [3FG].ROLES_USUARIO(ID_USUARIO,ID_ROL)
-VALUES (1,4)

@@ -32,7 +32,7 @@ namespace ClinicaFrba.Registro_Resultado
             InitializeComponent();
 
             // Cargo el Datagrid
-            ConexionSQL.loadDataGrid(queryDeAtenciones, dataGridView1);
+            BDComun.loadDataGrid(queryDeAtenciones, dataGridView1);
 
             // Escondo las columnas de id, las necesito pero no quiero que el usuario las vea
             dataGridView1.Columns[0].Visible = false;
@@ -70,7 +70,7 @@ namespace ClinicaFrba.Registro_Resultado
         {
             string queryObtencion = "SELECT top 1 U.NOMBRE, U.APELLIDO FROM [3FG].TURNOS T, [3FG].AFILIADOS A, [3FG].USUARIOS U WHERE T.ID_AFILIADO = A.ID_USUARIO AND A.ID_USUARIO = U.ID_USUARIO AND T.FECHA_TURNO = '" + this.fechaAtencion.ToString("yyyy-MM-dd hh:mm:ss.fff") + "'";
             Dictionary<string, string> diccionario = new Dictionary<string, string>();
-            using (SqlConnection conexion = new ConexionSQL().conectar())
+            using (SqlConnection conexion = BDComun.obtenerConexion())
             {
                 using (SqlCommand command = new SqlCommand(queryObtencion, conexion))
                 {

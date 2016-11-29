@@ -94,6 +94,24 @@
     <Compile Include="ABM Afiliado\ModificarPlan.Designer.cs">
       <DependentUpon>ModificarPlan.cs</DependentUpon>
     </Compile>
+    <Compile Include="ABM Especialidades Medicas\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM Especialidades Medicas\Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ABM Planes\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM Planes\Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ABM Profesional\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM Profesional\Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
     <Compile Include="ABM Rol\ABMRol.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,6 +137,7 @@
     <Compile Include="ABM Rol\ModificarRol.Designer.cs">
       <DependentUpon>ModificarRol.cs</DependentUpon>
     </Compile>
+    <Compile Include="BDComun.cs" />
     <Compile Include="Cancelar Atencion\Cancelar Turno Profesional.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,6 +151,12 @@
       <DependentUpon>Cancelar Turno Usuario.cs</DependentUpon>
     </Compile>
     <Compile Include="ComboBox.cs" />
+    <Compile Include="ComboBoxGeneral.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ComboBoxGeneral.Designer.cs">
+      <DependentUpon>ComboBoxGeneral.cs</DependentUpon>
+    </Compile>
     <Compile Include="Compra Bono\Comprar Bonos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -160,23 +185,11 @@
     <Compile Include="IniciarSesion.Designer.cs">
       <DependentUpon>IniciarSesion.cs</DependentUpon>
     </Compile>
-    <Compile Include="Listados\DatosParaFiltrar.cs">
+    <Compile Include="Listados\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Listados\DatosParaFiltrar.Designer.cs">
-      <DependentUpon>DatosParaFiltrar.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Listados\Listados.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Listados\Listados.Designer.cs">
-      <DependentUpon>Listados.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Listados\VentanaHistorial.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Listados\VentanaHistorial.Designer.cs">
-      <DependentUpon>VentanaHistorial.cs</DependentUpon>
+    <Compile Include="Listados\Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
@@ -209,6 +222,24 @@
     </Compile>
     <Compile Include="Registrar Agenda Medico\RegistrarAgenda.Designer.cs">
       <DependentUpon>RegistrarAgenda.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Registro Llegada\CargarTurnos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registro Llegada\CargarTurnos.Designer.cs">
+      <DependentUpon>CargarTurnos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Registro Llegada\EfectivizarLlegada.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registro Llegada\EfectivizarLlegada.Designer.cs">
+      <DependentUpon>EfectivizarLlegada.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Registro Llegada\RegistroLlegada.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registro Llegada\RegistroLlegada.Designer.cs">
+      <DependentUpon>RegistroLlegada.cs</DependentUpon>
     </Compile>
     <Compile Include="Registro Resultado\IngresarSintomasYDiagnostico.cs">
       <SubType>Form</SubType>
@@ -265,15 +296,6 @@
     <EmbeddedResource Include="IniciarSesion.resx">
       <DependentUpon>IniciarSesion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Listados\DatosParaFiltrar.resx">
-      <DependentUpon>DatosParaFiltrar.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Listados\Listados.resx">
-      <DependentUpon>Listados.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Listados\VentanaHistorial.resx">
-      <DependentUpon>VentanaHistorial.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Pedir Turno\Elegir Fecha.resx">
       <DependentUpon>Elegir Fecha.cs</DependentUpon>
     </EmbeddedResource>
@@ -294,6 +316,15 @@
     </Compile>
     <EmbeddedResource Include="Registrar Agenda Medico\RegistrarAgenda.resx">
       <DependentUpon>RegistrarAgenda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Registro Llegada\CargarTurnos.resx">
+      <DependentUpon>CargarTurnos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Registro Llegada\EfectivizarLlegada.resx">
+      <DependentUpon>EfectivizarLlegada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Registro Llegada\RegistroLlegada.resx">
+      <DependentUpon>RegistroLlegada.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Registro Resultado\IngresarSintomasYDiagnostico.resx">
       <DependentUpon>IngresarSintomasYDiagnostico.cs</DependentUpon>
@@ -321,11 +352,7 @@
     <Content Include="bin\Debug\ClinicaFrba.vshost.exe" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ABM Especialidades Medicas\" />
-    <Folder Include="ABM Planes\" />
-    <Folder Include="ABM Profesional\" />
     <Folder Include="bin\Release\" />
-    <Folder Include="Registro Llegada\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

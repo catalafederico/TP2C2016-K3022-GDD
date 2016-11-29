@@ -34,11 +34,11 @@ namespace ClinicaFrba.Pedir_Turno
             this.Text = "Elegir fecha para consulta con Dr." + doctorElegido.ToString();
 
             // Busco fecha de inicio de la disponibilidad actual del profesional
-            SqlCommand dateEarly = new SqlCommand("SELECT P.INICIO_DISPONIBILIDAD FROM [3FG].PROFESIONALES P WHERE P.ID_USUARIO LIKE '" + idDoc + "'", new ConexionSQL().conectar());
+            SqlCommand dateEarly = new SqlCommand("SELECT P.INICIO_DISPONIBILIDAD FROM [3FG].PROFESIONALES P WHERE P.ID_USUARIO LIKE '" + idDoc + "'", BDComun.obtenerConexion());
             this.fechaTemprana = (DateTime)dateEarly.ExecuteScalar();
 
             // Busco fecha de fin de la disponibilidad actual del profesional
-            SqlCommand dateLate = new SqlCommand("SELECT P.FIN_DISPONIBILIDAD FROM [3FG].PROFESIONALES P WHERE P.ID_USUARIO LIKE '" + idDoc + "'", new ConexionSQL().conectar());
+            SqlCommand dateLate = new SqlCommand("SELECT P.FIN_DISPONIBILIDAD FROM [3FG].PROFESIONALES P WHERE P.ID_USUARIO LIKE '" + idDoc + "'", BDComun.obtenerConexion());
             this.fechaTardia = (DateTime)dateLate.ExecuteScalar();
 
             // Modifico las labels para que el usuario sepa desde donde hasta donde puede elegir fecha
@@ -58,7 +58,7 @@ namespace ClinicaFrba.Pedir_Turno
             if (this.fechaElegida.Year != 1000)
             {
                 // Abro la conexion
-                using (SqlConnection conexion = new ConexionSQL().conectar())
+                using (SqlConnection conexion = BDComun.obtenerConexion())
                 {
                     // Setteo la query de crear turnos
                     string crearTurno = "INSERT INTO [3FG].TURNOS(ID_AFILIADO,ID_AGENDA,FECHA_TURNO) VALUES(@idAfiliado,@idAgenda,@fechaTurno)";
@@ -66,7 +66,7 @@ namespace ClinicaFrba.Pedir_Turno
                     using (SqlCommand queryCrearTurno = new SqlCommand(crearTurno))
                     {
                         // Agrego los valores dinamicamente para evitar SQL Injection
-                        queryCrearTurno.Connection = conexion;
+                        queryCrearTurno.Connection = BDComun.obtenerConexion();
                         queryCrearTurno.Parameters.Add("@idAfiliado", SqlDbType.BigInt, 8).Value = idAfiliado;
                         queryCrearTurno.Parameters.Add("@idAgenda", SqlDbType.BigInt, 8).Value = idAgenda;
                         queryCrearTurno.Parameters.Add("@fechaTurno", SqlDbType.DateTime, 8).Value = fechaElegida;
@@ -157,7 +157,7 @@ namespace ClinicaFrba.Pedir_Turno
             // Me fijo si el profesional atiende ese dia para la especialidad que elegi
             SqlCommand queryHayAgenda = new SqlCommand("SELECT COUNT(*) FROM [3FG].PROFESIONALES P, [3FG].AGENDA A WHERE (P.ID_USUARIO LIKE '" + idDoctor + @"') 
                                                         AND (P.ID_USUARIO = A.ID_USUARIO) AND (A.DIA_ATENCION = '" + this.diaDeLaSemana + @"')
-                                                        AND (A.ID_ESPECIALIDAD = " + this.idEspecialidad.ToString() + ")", new ConexionSQL().conectar());
+                                                        AND (A.ID_ESPECIALIDAD = "+ this.idEspecialidad.ToString() +")", BDComun.obtenerConexion());
             if ((int)queryHayAgenda.ExecuteScalar() > 0)
             {
                 return true;
@@ -175,7 +175,7 @@ namespace ClinicaFrba.Pedir_Turno
             // Busco y devuelvo el id de las agendas del profesional para la especialidad elegida
             SqlCommand queryBuscarAgenda = new SqlCommand("SELECT A.ID_AGENDA FROM [3FG].PROFESIONALES P, [3FG].AGENDA A WHERE (P.ID_USUARIO LIKE '" + idDoctor + @"') 
                                                            AND (P.ID_USUARIO = A.ID_USUARIO) AND (A.DIA_ATENCION = '" + this.diaDeLaSemana + @"')
-                                                           AND (A.ID_ESPECIALIDAD = " + this.idEspecialidad.ToString() + ")", new ConexionSQL().conectar());
+                                                           AND (A.ID_ESPECIALIDAD = " + this.idEspecialidad.ToString() + ")", BDComun.obtenerConexion());
             return int.Parse(queryBuscarAgenda.ExecuteScalar().ToString());
         }
 
@@ -190,11 +190,11 @@ namespace ClinicaFrba.Pedir_Turno
            int idAgendaTemporaria = buscarAgenda();
 
            // Busco el inicio de la disponibilidad para esa agenda
-           SqlCommand queryBuscarMinimo = new SqlCommand("SELECT INICIO_ATENCION FROM [3FG].AGENDA WHERE ID_AGENDA = " + idAgendaTemporaria.ToString(), new ConexionSQL().conectar());
+           SqlCommand queryBuscarMinimo = new SqlCommand("SELECT INICIO_ATENCION FROM [3FG].AGENDA WHERE ID_AGENDA = " + idAgendaTemporaria.ToString(), BDComun.obtenerConexion());
            TimeSpan horarioMinimo = TimeSpan.Parse(queryBuscarMinimo.ExecuteScalar().ToString());
 
            // Busco el fin de la disponibilidad para esa agenda
-           SqlCommand queryBuscarMaximo = new SqlCommand("SELECT FIN_ATENCION FROM [3FG].AGENDA WHERE ID_AGENDA = " + idAgendaTemporaria.ToString(), new ConexionSQL().conectar());
+           SqlCommand queryBuscarMaximo = new SqlCommand("SELECT FIN_ATENCION FROM [3FG].AGENDA WHERE ID_AGENDA = " + idAgendaTemporaria.ToString(), BDComun.obtenerConexion());
            TimeSpan horarioMaximo = TimeSpan.Parse(queryBuscarMaximo.ExecuteScalar().ToString());
 
            // Setteo el turno actual (empiezo con el primero posible del dia) y el turno final del dia
@@ -215,7 +215,7 @@ namespace ClinicaFrba.Pedir_Turno
                                                             [3FG].PROFESIONALES P WHERE A.ID_USUARIO = P.ID_USUARIO
                                                             AND P.ID_USUARIO = " + this.idDoctor.ToString() + @") AP
                                                             WHERE T.ID_AGENDA = AP.ID_AGENDA AND
-                                                            T.FECHA_TURNO = '" + actualTurno.ToString("yyyy-dd-MM HH:mm:ss") + "'", new ConexionSQL().conectar());
+                                                            T.FECHA_TURNO = '" + actualTurno.ToString("yyyy-dd-MM HH:mm:ss") + "'", BDComun.obtenerConexion());
               
                // Salvo ese valor en una variable
                int turnoPisados = (int)disponibilidad.ExecuteScalar();

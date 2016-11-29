@@ -34,7 +34,7 @@ namespace ClinicaFrba.Cancelar_Atencion
             turnos += "AND A.ID_USUARIO = " + idUsuario.ToString();
 
             // Cargo el DataGrid
-            ConexionSQL.loadDataGrid(turnos, dataGridView1);
+            BDComun.loadDataGrid(turnos, dataGridView1);
 
             // Escondo la columna que tiene el ID del turno
             dataGridView1.Columns[0].Visible = false;
@@ -79,7 +79,7 @@ namespace ClinicaFrba.Cancelar_Atencion
                 if (idTurno != -1)
                 {
                     // Abro la conexion
-                    using (SqlConnection conexion = new ConexionSQL().conectar())
+                    using (SqlConnection conexion = BDComun.obtenerConexion())
                     {
                         // Creo la query
                         string crearCancelacion = "INSERT INTO [3FG].CANCELACIONES(ID_TURNO,TIPO_CANCELACION,MOTIVO_CANCELACION) VALUES(@idTurno,'Usuario',@motivoCancelacion)";
@@ -87,7 +87,7 @@ namespace ClinicaFrba.Cancelar_Atencion
                         // Lleno los campos de manera dinamica para evitar SQL Injection
                         using (SqlCommand queryCrearCancelacion = new SqlCommand(crearCancelacion))
                         {
-                            queryCrearCancelacion.Connection = conexion;
+                            queryCrearCancelacion.Connection = BDComun.obtenerConexion();
                             queryCrearCancelacion.Parameters.Add("@idTurno", SqlDbType.BigInt, 8).Value = idTurno;
                             queryCrearCancelacion.Parameters.Add("@motivoCancelacion", SqlDbType.VarChar, 250).Value = textBox1.Text;
 
@@ -97,7 +97,7 @@ namespace ClinicaFrba.Cancelar_Atencion
                                 queryCrearCancelacion.ExecuteNonQuery();
                                 MessageBox.Show("Cancelacion creada correctamente");
                                 idTurno = -1;
-                                ConexionSQL.loadDataGrid(turnos, dataGridView1);
+                                BDComun.loadDataGrid(turnos, dataGridView1);
                                 label1.Text = "Turno a cancelar: ";
                             }
                             // Por si falla

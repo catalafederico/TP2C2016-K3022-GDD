@@ -640,13 +640,15 @@ INSERT INTO [3FG].FUNCIONALIDADES(NOMBRE) VALUES('Registrar agenda del profesion
 INSERT INTO [3FG].FUNCIONALIDADES(NOMBRE) VALUES('Comprar Bonos');
 INSERT INTO [3FG].FUNCIONALIDADES(NOMBRE) VALUES('Cancelar turno usuario');
 INSERT INTO [3FG].FUNCIONALIDADES(NOMBRE) VALUES('Cancelar turno profesional');
+INSERT INTO [3FG].FUNCIONALIDADES(NOMBRE) VALUES('Registrar llegada');
 INSERT INTO [3FG].FUNCIONALIDADES(NOMBRE) VALUES('Pedir turno');
 INSERT INTO [3FG].FUNCIONALIDADES(NOMBRE) VALUES('Registrar resultado consulta');
 INSERT INTO [3FG].FUNCIONALIDADES(NOMBRE) VALUES('Listados Estadisticos');
 
 
 
-/*Se agregan funcionalidades al rol Profesional*/
+
+/*Se agregan funcionalidades a los roles*/
 
 INSERT INTO [3FG].FUNCIONALIDADES_ROL(ID_ROL, ID_FUNCIONALIDAD)
 SELECT tablaRol.ID_ROL,tablaFuncionalidad.ID_FUNCIONALIDAD FROM [3FG].ROLES  tablaRol, [3FG].FUNCIONALIDADES tablaFuncionalidad
@@ -655,7 +657,7 @@ GO
 
 INSERT INTO [3FG].FUNCIONALIDADES_ROL(ID_ROL, ID_FUNCIONALIDAD)
 SELECT tablaRol.ID_ROL,tablaFuncionalidad.ID_FUNCIONALIDAD FROM [3FG].ROLES  tablaRol, [3FG].FUNCIONALIDADES tablaFuncionalidad
-WHERE tablaRol.NOMBRE_ROL = 'Usuario' AND tablaFuncionalidad.NOMBRE IN ('Pedir Turno', 'Cancelar turno usuario');
+WHERE tablaRol.NOMBRE_ROL = 'Afiliado' AND tablaFuncionalidad.NOMBRE IN ('Solicitar turno', 'Cancelar turno usuario');
 GO
 
 INSERT INTO [3FG].FUNCIONALIDADES_ROL(ID_ROL, ID_FUNCIONALIDAD)
@@ -665,7 +667,7 @@ GO
 
 INSERT INTO [3FG].FUNCIONALIDADES_ROL(ID_ROL, ID_FUNCIONALIDAD)
 SELECT tablaRol.ID_ROL,tablaFuncionalidad.ID_FUNCIONALIDAD FROM [3FG].ROLES  tablaRol, [3FG].FUNCIONALIDADES tablaFuncionalidad
-WHERE tablaRol.NOMBRE_ROL = 'Administrador General' AND tablaFuncionalidad.NOMBRE IN ('ABM de Rol', 'ABM de Afiliado', 'Solicitar turno', 'Registrar agenda del profesional', 'Comprar Bonos', 'Cancelar turno usuario', 'Cancelar turno profesional', 'Pedir turno', 'Registrar resultado consulta');
+WHERE tablaRol.NOMBRE_ROL = 'Administrador General' AND tablaFuncionalidad.NOMBRE IN ('ABM de Rol', 'ABM de Afiliado', 'Solicitar turno', 'Registrar agenda del profesional', 'Comprar Bonos', 'Cancelar turno usuario', 'Cancelar turno profesional', 'Registrar resultado consulta','Listados Estadisticos');
 GO
 
 -- INICIO DE LA MIGRACION --
@@ -702,8 +704,7 @@ GO
 
 /*agregar funcionalidades a los roles*/
 
-
-
+/*
 /* insertamos las funcionalidades para los afiliados*/
 insert into [3FG].FUNCIONALIDADES_ROL(ID_ROL,ID_FUNCIONALIDAD)values(2,10)
 insert into [3FG].FUNCIONALIDADES_ROL(ID_ROL,ID_FUNCIONALIDAD)values(2,9)
@@ -721,7 +722,7 @@ insert into [3FG].FUNCIONALIDADES_ROL(ID_ROL,ID_FUNCIONALIDAD)values(4,12)
 insert into [3FG].FUNCIONALIDADES_ROL(ID_ROL,ID_FUNCIONALIDAD)values(4,13)
 insert into [3FG].FUNCIONALIDADES_ROL(ID_ROL,ID_FUNCIONALIDAD)values(4,14)
 go
-
+*/
 
 /*procedures necesarios para los listados*/
 
@@ -974,3 +975,7 @@ BEGIN
 
 END
 GO
+
+/* Se agregan los roles a los usuarios de prueba*/
+INSERT INTO [3FG].ROLES_USUARIO(ID_USUARIO,ID_ROL)
+VALUES (1,4)

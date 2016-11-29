@@ -57,14 +57,14 @@ namespace ClinicaFrba.Compra_Bono
                 if (dialogResult == DialogResult.Yes)
                 {
                     //SE REALIZA EL INSERT DE LA COMPRA
+                    ConexionSQL unaConexion = new ConexionSQL();
                     string queryBonos = "INSERT INTO [3FG].BONOS (ID_PLAN,ID_USUARIO) VALUES ( " + plan.ToString() + "," + numeroUsuario.ToString() + ")";
                     DateTime fechaYHora = DateTime.Now;
                     string queryCompra = "INSERT INTO [3FG].COMPRAS (ID_USUARIO, FECHA_COMPRA, CANTIDAD_BONOS, MONTO_PAGADO) VALUES (" + numeroUsuario.ToString() + "," + "@Fecha_Compra" + "," + textBox1.Text + "," + precioTotal.ToString() + ")";
                     SqlCommand unaCompra = new SqlCommand(queryCompra);
-                    unaCompra.Connection = BDComun.obtenerConexion();
+                    unaCompra.Connection = unaConexion.getMiConexionSQL();
                     unaCompra.Parameters.Add("@Fecha_Compra", SqlDbType.DateTime, 8).Value = fechaYHora;
                     unaCompra.ExecuteNonQuery();
-                    ConexionSQL unaConexion = new ConexionSQL();
                     //SE REALIZA EL INSERT DE LOS BONOS
                     for (i = 0; i < cantidad; i++)
                     {

@@ -210,24 +210,6 @@
     <Compile Include="Registrar Agenda Medico\RegistrarAgenda.Designer.cs">
       <DependentUpon>RegistrarAgenda.cs</DependentUpon>
     </Compile>
-    <Compile Include="Registro Llegada\CargarTurnos.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Registro Llegada\CargarTurnos.Designer.cs">
-      <DependentUpon>CargarTurnos.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Registro Llegada\EfectivizarLlegada.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Registro Llegada\EfectivizarLlegada.Designer.cs">
-      <DependentUpon>EfectivizarLlegada.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Registro Llegada\RegistroLlegada.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Registro Llegada\RegistroLlegada.Designer.cs">
-      <DependentUpon>RegistroLlegada.cs</DependentUpon>
-    </Compile>
     <Compile Include="Registro Resultado\IngresarSintomasYDiagnostico.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -313,15 +295,6 @@
     <EmbeddedResource Include="Registrar Agenda Medico\RegistrarAgenda.resx">
       <DependentUpon>RegistrarAgenda.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Registro Llegada\CargarTurnos.resx">
-      <DependentUpon>CargarTurnos.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Registro Llegada\EfectivizarLlegada.resx">
-      <DependentUpon>EfectivizarLlegada.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Registro Llegada\RegistroLlegada.resx">
-      <DependentUpon>RegistroLlegada.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Registro Resultado\IngresarSintomasYDiagnostico.resx">
       <DependentUpon>IngresarSintomasYDiagnostico.cs</DependentUpon>
     </EmbeddedResource>
@@ -352,6 +325,7 @@
     <Folder Include="ABM Planes\" />
     <Folder Include="ABM Profesional\" />
     <Folder Include="bin\Release\" />
+    <Folder Include="Registro Llegada\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

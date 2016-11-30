@@ -14,7 +14,7 @@ namespace ClinicaFrba.Compra_Bono
     {
         //AQUI SE DETALLA EL CODIGO DE ESTA VENTANA. DICHA VENTANA SOLO SE UTILIZA POR EL ADMINISTRADOR PARA INGRESAR EL NUMERO DE AFILIADO (AUNQUE POR EL MOMENTO ES SOLAMENTE EL ID_USUARIO)
         //ASI QUE EN EL CASO DE QUE EL USUARIO LOGGEADO SEA AFILIADO, DIRECTAMENTE PASARA A LA VENTANA EFECTIVIZAR COMPRA
-        private string queryParaConsulta = "SELECT P.PRECIO_BONO_CONSULTA, P.ID_PLAN, A.ID_USUARIO FROM [3FG].AFILIADOS A JOIN [3FG].PLANES P ON (A.ID_PLAN = P.ID_PLAN) WHERE A.ID_USUARIO = ";
+        private string queryParaConsulta = "SELECT A.ID_USUARIO FROM [3FG].AFILIADOS A JOIN [3FG].USUARIOS U ON (A.ID_USUARIO = U.ID_USUARIO) WHERE (CONVERT(VARCHAR, RAIZ_AFILIADO) + CONVERT(VARCHAR, NUMERO_FAMILIA)) = ";
 
         public Comprar_Bonos()
         {
@@ -43,10 +43,10 @@ namespace ClinicaFrba.Compra_Bono
                 }
                 else
                 {
-                    /*int precio = int.Parse(dt.Rows[0][0].ToString());
-                    int plan = int.Parse(dt.Rows[0]["ID_PLAN"].ToString());
-                    int numeroDeUsuario = int.Parse(dt.Rows[0]["ID_USUARIO"].ToString());*/
-                    EfectivizarCompra compra = new EfectivizarCompra(int.Parse(textBox1.Text));
+                    //int precio = int.Parse(dt.Rows[0][0].ToString());
+                    //int plan = int.Parse(dt.Rows[0]["ID_PLAN"].ToString());
+                    int numeroDeUsuario = int.Parse(dt.Rows[0][0].ToString());
+                    EfectivizarCompra compra = new EfectivizarCompra(numeroDeUsuario);
                     this.Hide();
                     compra.Closed += (s, args) => this.Close();
                     compra.Show();

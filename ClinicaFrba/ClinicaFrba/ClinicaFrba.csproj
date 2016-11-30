@@ -94,24 +94,6 @@
     <Compile Include="ABM Afiliado\ModificarPlan.Designer.cs">
       <DependentUpon>ModificarPlan.cs</DependentUpon>
     </Compile>
-    <Compile Include="ABM Especialidades Medicas\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ABM Especialidades Medicas\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ABM Planes\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ABM Planes\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ABM Profesional\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ABM Profesional\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="ABM Rol\ABMRol.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -185,11 +167,23 @@
     <Compile Include="IniciarSesion.Designer.cs">
       <DependentUpon>IniciarSesion.cs</DependentUpon>
     </Compile>
-    <Compile Include="Listados\Form1.cs">
+    <Compile Include="Listados\DatosParaFiltrar.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Listados\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Listados\DatosParaFiltrar.Designer.cs">
+      <DependentUpon>DatosParaFiltrar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Listados\Listados.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Listados\Listados.Designer.cs">
+      <DependentUpon>Listados.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Listados\VentanaHistorial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Listados\VentanaHistorial.Designer.cs">
+      <DependentUpon>VentanaHistorial.cs</DependentUpon>
     </Compile>
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
@@ -296,6 +290,15 @@
     <EmbeddedResource Include="IniciarSesion.resx">
       <DependentUpon>IniciarSesion.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Listados\DatosParaFiltrar.resx">
+      <DependentUpon>DatosParaFiltrar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Listados\Listados.resx">
+      <DependentUpon>Listados.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Listados\VentanaHistorial.resx">
+      <DependentUpon>VentanaHistorial.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pedir Turno\Elegir Fecha.resx">
       <DependentUpon>Elegir Fecha.cs</DependentUpon>
     </EmbeddedResource>
@@ -352,6 +355,9 @@
     <Content Include="bin\Debug\ClinicaFrba.vshost.exe" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="ABM Especialidades Medicas\" />
+    <Folder Include="ABM Planes\" />
+    <Folder Include="ABM Profesional\" />
     <Folder Include="bin\Release\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

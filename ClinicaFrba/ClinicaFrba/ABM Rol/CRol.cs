@@ -20,7 +20,7 @@ namespace ClinicaFrba.ABM_Rol
 
             List<CRol> Lista = new List<CRol>();
 
-            using (SqlConnection conexion = BDComun.obtenerConexion())
+            using (SqlConnection conexion = new ConexionSQL().conectar())
             {
                 
                 SqlCommand comando = new SqlCommand(string.Format("SELECT NOMBRE FROM [3FG].FUNCIONALIDADES"), conexion);

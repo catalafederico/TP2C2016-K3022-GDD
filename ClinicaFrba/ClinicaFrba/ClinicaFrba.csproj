@@ -119,7 +119,6 @@
     <Compile Include="ABM Rol\ModificarRol.Designer.cs">
       <DependentUpon>ModificarRol.cs</DependentUpon>
     </Compile>
-    <Compile Include="BDComun.cs" />
     <Compile Include="Cancelar Atencion\Cancelar Turno Profesional.cs">
       <SubType>Form</SubType>
     </Compile>

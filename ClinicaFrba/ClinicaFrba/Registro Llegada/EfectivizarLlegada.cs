@@ -22,7 +22,7 @@ namespace ClinicaFrba.Registro_Llegada
             InitializeComponent();
             idTurno = turno;
             string queryBonosCompleto = queryBonos + turno.ToString();
-            BDComun.loadDataGrid(queryBonosCompleto, dataGridView1);
+            ConexionSQL.loadDataGrid(queryBonosCompleto, dataGridView1);
             dataGridView1.Columns[2].Visible = false;
 
 
@@ -51,7 +51,7 @@ namespace ClinicaFrba.Registro_Llegada
             DateTime fechaYHora = DateTime.Now;
             string insertar = "INSERT INTO [3FG].RECEPCIONES (ID_TURNO,ID_BONO,FECHA_RECEPCIONES) VALUES (" + idTurno.ToString() + "," + idBono.ToString() + ", @Fecha)";
             SqlCommand unInsert = new SqlCommand(insertar);
-            unInsert.Connection = BDComun.obtenerConexion();
+            unInsert.Connection = new ConexionSQL().conectar();
             unInsert.Parameters.Add("@Fecha", SqlDbType.DateTime, 8).Value = fechaYHora;
             unInsert.ExecuteNonQuery();
 

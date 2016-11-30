@@ -20,7 +20,7 @@ namespace ClinicaFrba
 
             List<ComboBox> Lista = new List<ComboBox>();
 
-            using (SqlConnection conexion = BDComun.obtenerConexion())
+            using (SqlConnection conexion = new ConexionSQL().conectar())
             {
 
                 SqlCommand comando = new SqlCommand(string.Format("select NOMBRE from [3FG].FUNCIONALIDADES F join [3FG].FUNCIONALIDADES_ROL R on(f.ID_FUNCIONALIDAD = R.ID_FUNCIONALIDAD) join [3FG].ROLES L on(R.ID_ROL =L.ID_ROL) where L.ID_ROL={0}", numero), conexion);

@@ -15,7 +15,7 @@ namespace ClinicaFrba
         {
             int resultado = -1;
 
-            SqlConnection conexion = BDComun.obtenerConexion();
+            SqlConnection conexion = new ConexionSQL().conectar();
 
             SqlCommand unaQuery = new SqlCommand(string.Format("SELECT * FROM [3FG].USUARIOS WHERE USUARIO_NOMBRE ='{0}' AND CONTRASEÑA = '{1}'", nombre, contraseñaEncriptada), conexion);
 

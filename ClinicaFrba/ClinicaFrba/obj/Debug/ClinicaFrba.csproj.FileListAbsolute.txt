@@ -139,3 +139,6 @@ C:\Users\ABM\Desktop\TP\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\Cli
 C:\Users\ABM\Desktop\TP\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Listados.VentanaHistorial.resources
 C:\Users\ABM\Desktop\TP\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Registro_Llegada.CargarTurnos.resources
 C:\Users\ABM\Desktop\TP\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Registro_Llegada.EfectivizarLlegada.resources
+C:\Users\Fede\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Listados.DatosParaFiltrar.resources
+C:\Users\Fede\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Listados.Listados.resources
+C:\Users\Fede\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Listados.VentanaHistorial.resources

@@ -32,7 +32,7 @@ namespace ClinicaFrba.Registro_Resultado
             InitializeComponent();
 
             // Cargo el Datagrid
-            BDComun.loadDataGrid(queryDeAtenciones, dataGridView1);
+            ConexionSQL.loadDataGrid(queryDeAtenciones, dataGridView1);
 
             // Escondo las columnas de id, las necesito pero no quiero que el usuario las vea
             dataGridView1.Columns[0].Visible = false;
@@ -52,38 +52,48 @@ namespace ClinicaFrba.Registro_Resultado
                 object fechaElegida = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
                 object recepcion = dataGridView1.Rows[e.RowIndex].Cells[0].Value;
 
-                // Los uso para settear las variables que necesito
-                this.fechaAtencion = (DateTime) fechaElegida;
-                this.idRecepcion = int.Parse(recepcion.ToString());
+                if (existeAfiliado((DateTime)fechaElegida))
+                {
+                    // Los uso para settear las variables que necesito
+                    this.fechaAtencion = (DateTime)fechaElegida;
+                    this.idRecepcion = int.Parse(recepcion.ToString());
 
-                // Muestro en la ventana la eleccion del usuario
-                label3.Text = "Fecha atencion: " + fechaAtencion.ToString("dd/MM/yyyy");
-                label4.Text = "Hora atencion: " + fechaAtencion.ToString("hh:mm");
-                mostrarAfiliado();
+                    // Muestro en la ventana la eleccion del usuario
+                    label3.Text = "Fecha atencion: " + fechaAtencion.ToString("dd/MM/yyyy");
+                    label4.Text = "Hora atencion: " + fechaAtencion.ToString("hh:mm");
+                    mostrarAfiliado();
+                }
+                else MessageBox.Show("No se encontro ningun usuario para el turno elegido. Si este error persiste, comuniquese con soporte", "Error", MessageBoxButtons.OK);
             }
         }
 
-
+        private bool existeAfiliado(DateTime fechaElegida)
+        {
+            SqlCommand numeroUsuario = new SqlCommand("SELECT COUNT(*) FROM [3FG].TURNOS T, [3FG].AFILIADOS A, [3FG].USUARIOS U WHERE T.ID_AFILIADO = A.ID_USUARIO AND A.ID_USUARIO = U.ID_USUARIO AND T.FECHA_TURNO = '" + fechaElegida.ToString("dd/MM/yyyy hh:mm:ss.fff") + "'", new ConexionSQL().conectar());
+            int deberiaSerMayorACero = (int) numeroUsuario.ExecuteScalar();
+            return (deberiaSerMayorACero > 0);
+        }
 
         // Funcion que agrega el nombre del paciente del turno elegido a la ventana
         private void mostrarAfiliado()
         {
-            string queryObtencion = "SELECT top 1 U.NOMBRE, U.APELLIDO FROM [3FG].TURNOS T, [3FG].AFILIADOS A, [3FG].USUARIOS U WHERE T.ID_AFILIADO = A.ID_USUARIO AND A.ID_USUARIO = U.ID_USUARIO AND T.FECHA_TURNO = '" + this.fechaAtencion.ToString("yyyy-MM-dd hh:mm:ss.fff") + "'";
-            Dictionary<string, string> diccionario = new Dictionary<string, string>();
-            using (SqlConnection conexion = BDComun.obtenerConexion())
-            {
-                using (SqlCommand command = new SqlCommand(queryObtencion, conexion))
+            string queryObtencion = "SELECT top 1 U.NOMBRE, U.APELLIDO FROM [3FG].TURNOS T, [3FG].AFILIADOS A, [3FG].USUARIOS U WHERE T.ID_AFILIADO = A.ID_USUARIO AND A.ID_USUARIO = U.ID_USUARIO AND T.FECHA_TURNO = '" + this.fechaAtencion.ToString("dd/MM/yyyy hh:mm:ss.fff") + "'";
+                Dictionary<string, string> diccionario = new Dictionary<string, string>();
+                using (SqlConnection conexion = new ConexionSQL().conectar())
                 {
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    using (SqlCommand command = new SqlCommand(queryObtencion, conexion))
                     {
-                        while (reader.Read())
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            diccionario.Add(reader.GetString(0), reader.GetString(1));
+                            while (reader.Read())
+                            {
+                                diccionario.Add(reader.GetString(0), reader.GetString(1));
+                            }
                         }
                     }
                 }
-            }
-            label2.Text = "Afiliado: " + nombreBienEscrito(diccionario.FirstOrDefault().Key) + " " + diccionario.FirstOrDefault().Value;
+                label2.Text = "Afiliado: " + nombreBienEscrito(diccionario.FirstOrDefault().Key) + " " + diccionario.FirstOrDefault().Value;
+            
         }
 
 

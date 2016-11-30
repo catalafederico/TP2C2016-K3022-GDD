@@ -40,7 +40,7 @@ namespace ClinicaFrba
             miConexionSQL = new SqlConnection();
 
             /*se usa para las conexiones tcp/ip*/
-            string gd20 = "Data Source=ABM-PC\\SQLSERVER2012;Initial Catalog=GD2C2016;Persist Security Info=True;User ID=gd;Password=gd2016";
+            string gd20 = "Data Source=FEDE-PC\\SQLSERVER2012;Initial Catalog=GD2C2016;Integrated Security=True";
 
             /*se usa para las conexiones locales*/
             //string gd20 = "Data source=.\\SQLSERVER2012; Initial Catalog=GD2C2016;User Id=gd; Password=gd2016";
@@ -183,7 +183,21 @@ namespace ClinicaFrba
             this.ejecutarComando(coman2);
         }
 
-
+        public static void loadDataGrid(string query, DataGridView dgv)
+        {
+            using (SqlConnection conexion = new ConexionSQL().conectar())
+            {
+                SqlCommand comando = new SqlCommand(query, conexion);
+                DataTable dataTable = new DataTable();
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(comando);
+                dataAdapter.Fill(dataTable);
+                BindingSource bSource = new BindingSource();
+                bSource.DataSource = dataTable;
+                dgv.DataSource = bSource;
+                dgv.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+                conexion.Close();
+            }
+        }
         #endregion
 
     }

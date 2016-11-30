@@ -24,7 +24,7 @@ namespace ClinicaFrba.Registro_Llegada
             InitializeComponent();
             DateTime fechaDeHoy = DateTime.Now;
             SqlCommand unaQuery = new SqlCommand(queryTurnos);
-            unaQuery.Connection = BDComun.obtenerConexion();
+            unaQuery.Connection = new ConexionSQL().conectar();
             unaQuery.Parameters.Add("@FechaDeHoy", SqlDbType.DateTime, 8).Value = fechaDeHoy;
             SqlDataAdapter sqlDataAdap = new SqlDataAdapter(unaQuery);
             DataTable dt = new DataTable();

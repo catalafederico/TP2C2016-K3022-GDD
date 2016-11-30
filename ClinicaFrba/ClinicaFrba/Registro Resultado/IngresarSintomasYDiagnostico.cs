@@ -50,7 +50,7 @@ namespace ClinicaFrba.Registro_Resultado
         private void crearResultado()
         {
             // Abro la conexion
-            using (SqlConnection conexion = BDComun.obtenerConexion())
+            using (SqlConnection conexion = new ConexionSQL().conectar())
             {
                 // Creo que la query de insercion en la tabla
                 string crearResultado = "INSERT INTO [3FG].ATENCIONES_MEDICAS(ID_RECEPCION,FECHA_ATENCION,SINTOMAS,DIAGNOSTICO) VALUES (@idRecepcion,@fechaAtencion,@sintomas,@diagnostico)";
@@ -58,7 +58,7 @@ namespace ClinicaFrba.Registro_Resultado
                 // Lleno los datos de la query dinamicamente para evitar SQL Injection
                 using (SqlCommand queryCrearResultado = new SqlCommand(crearResultado))
                 {
-                    queryCrearResultado.Connection = BDComun.obtenerConexion();
+                    queryCrearResultado.Connection = new ConexionSQL().conectar();
                     queryCrearResultado.Parameters.Add("@idRecepcion", SqlDbType.BigInt, 8).Value = this.idRecepcion;
                     queryCrearResultado.Parameters.Add("@fechaAtencion", SqlDbType.DateTime, 8).Value = DateTime.Now;
 

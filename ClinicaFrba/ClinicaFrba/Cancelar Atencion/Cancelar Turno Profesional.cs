@@ -33,7 +33,7 @@ namespace ClinicaFrba.Cancelar_Atencion
         //Funcion generica de llenado de DataGridView
         private void loadTable(string query)
         {
-            using (SqlConnection conexion = BDComun.obtenerConexion())
+            using (SqlConnection conexion = new ConexionSQL().conectar())
             {
                 //Aca recibe la query como dato y la usa para llenar el DataGridView
                 SqlCommand comando = new SqlCommand(query, conexion);
@@ -148,7 +148,7 @@ namespace ClinicaFrba.Cancelar_Atencion
         // Funcion de cancelacion de turnos
         private void cancelar(int idTurno)
         {
-            using (SqlConnection conexion = BDComun.obtenerConexion())
+            using (SqlConnection conexion = new ConexionSQL().conectar())
             {
                 // La creo asi para cuidarme de SQL Injection
                 string crearCancelacion = "INSERT INTO [3FG].CANCELACIONES(ID_TURNO,TIPO_CANCELACION,MOTIVO_CANCELACION) VALUES(@idTurno,'Profesional',@motivoCancelacion)";

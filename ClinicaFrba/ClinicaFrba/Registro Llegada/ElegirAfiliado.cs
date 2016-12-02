@@ -16,7 +16,7 @@ namespace ClinicaFrba.Registro_Llegada
         private int id_bono;
         private int turno;
         private int numeroAfiliado;
-        private string queryDeAfiliados = "select U.APELLIDO, U.NOMBRE, A1.RAIZ_AFILIADO,A1.NUMERO_FAMILIA from [3FG].AFILIADOS A1 join [3FG].USUARIOS U on (A1.ID_USUARIO = U.ID_USUARIO) where RAIZ_AFILIADO = (select A.RAIZ_AFILIADO from [3FG].AFILIADOS A join [3FG].TURNOS T on (A.ID_USUARIO = T.ID_AFILIADO) where T.ID_TURNO = @Turno)";
+        private string queryDeAfiliados = "select U.APELLIDO, U.NOMBRE, A1.RAIZ_AFILIADO,A1.NUMERO_FAMILIA from [3FG].AFILIADOS A1 join [3FG].USUARIOS U on (A1.ID_USUARIO = U.ID_USUARIO) where RAIZ_AFILIADO = (select A.RAIZ_AFILIADO from [3FG].AFILIADOS A join [3FG].TURNOS T on (A.ID_USUARIO = T.ID_AFILIADO) where T.ID_TURNO = @Turno AND U.HABILITADO = 1)";
         private string queryDeBonos = "select B.ID_BONO,B.ID_COMPRA,B.ID_PLAN from [3FG].BONOS B JOIN [3FG].COMPRAS C ON (B.ID_COMPRA = C.ID_COMPRA) JOIN [3FG].AFILIADOS A ON (A.ID_USUARIO = C.ID_USUARIO) WHERE A.RAIZ_AFILIADO = @NumeroAfiliado AND NUMERO_CONSULTA IS NULL";
         
         //Se cargan los afiliados que pueden hacer uso de dicho turno

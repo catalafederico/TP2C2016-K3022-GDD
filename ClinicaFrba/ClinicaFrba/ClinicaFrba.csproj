@@ -221,23 +221,23 @@
     <Compile Include="Registrar Agenda Medico\RegistrarAgenda.Designer.cs">
       <DependentUpon>RegistrarAgenda.cs</DependentUpon>
     </Compile>
-    <Compile Include="Registro Llegada\CargarTurnos.cs">
+    <Compile Include="Registro Llegada\ElegirAfiliado.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Registro Llegada\CargarTurnos.Designer.cs">
-      <DependentUpon>CargarTurnos.cs</DependentUpon>
+    <Compile Include="Registro Llegada\ElegirAfiliado.Designer.cs">
+      <DependentUpon>ElegirAfiliado.cs</DependentUpon>
     </Compile>
-    <Compile Include="Registro Llegada\EfectivizarLlegada.cs">
+    <Compile Include="Registro Llegada\ElegirTurno.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Registro Llegada\EfectivizarLlegada.Designer.cs">
-      <DependentUpon>EfectivizarLlegada.cs</DependentUpon>
+    <Compile Include="Registro Llegada\ElegirTurno.Designer.cs">
+      <DependentUpon>ElegirTurno.cs</DependentUpon>
     </Compile>
-    <Compile Include="Registro Llegada\RegistroLlegada.cs">
+    <Compile Include="Registro Llegada\RegistrarLlegada.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Registro Llegada\RegistroLlegada.Designer.cs">
-      <DependentUpon>RegistroLlegada.cs</DependentUpon>
+    <Compile Include="Registro Llegada\RegistrarLlegada.Designer.cs">
+      <DependentUpon>RegistrarLlegada.cs</DependentUpon>
     </Compile>
     <Compile Include="Registro Resultado\IngresarSintomasYDiagnostico.cs">
       <SubType>Form</SubType>
@@ -324,14 +324,14 @@
     <EmbeddedResource Include="Registrar Agenda Medico\RegistrarAgenda.resx">
       <DependentUpon>RegistrarAgenda.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Registro Llegada\CargarTurnos.resx">
-      <DependentUpon>CargarTurnos.cs</DependentUpon>
+    <EmbeddedResource Include="Registro Llegada\ElegirAfiliado.resx">
+      <DependentUpon>ElegirAfiliado.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Registro Llegada\EfectivizarLlegada.resx">
-      <DependentUpon>EfectivizarLlegada.cs</DependentUpon>
+    <EmbeddedResource Include="Registro Llegada\ElegirTurno.resx">
+      <DependentUpon>ElegirTurno.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Registro Llegada\RegistroLlegada.resx">
-      <DependentUpon>RegistroLlegada.cs</DependentUpon>
+    <EmbeddedResource Include="Registro Llegada\RegistrarLlegada.resx">
+      <DependentUpon>RegistrarLlegada.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Registro Resultado\IngresarSintomasYDiagnostico.resx">
       <DependentUpon>IngresarSintomasYDiagnostico.cs</DependentUpon>

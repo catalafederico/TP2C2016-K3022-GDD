@@ -9,40 +9,35 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 
-
-namespace ClinicaFrba.Pedir_Turno
+namespace ClinicaFrba.Registro_Llegada
 {
-    public partial class ABMTurnos : Form
+    public partial class RegistrarLlegada : Form
     {
         private int idEspecialidad;
         private string doctorElegido;
         private int idDoctor;
-        private int idAfiliado;
 
         // Esta query busca todos el ID, nombre y apellido de cada profesional ademas de su especialidad y el ID de la misma
         private string queryDeLoadTable = "SELECT U.APELLIDO AS Apellido, U.NOMBRE AS Nombre, U.ID_USUARIO, E.DESCRIPCION_ESPECIALIDAD AS Especialidad, E.ID_ESPECIALIDAD FROM [3FG].USUARIOS U, [3FG].PROFESIONALES P, [3FG].ESPECIALIDAD_PROFESIONAL EP, [3FG].ESPECIALIDADES E WHERE (U.ID_USUARIO = P.ID_USUARIO) AND (P.ID_USUARIO = EP.ID_USUARIO) AND (EP.ID_ESPECIALIDAD = E.ID_ESPECIALIDAD)";
 
-
-
-
-        // Funcion de inicializacion
-        public ABMTurnos(int id)
+        public RegistrarLlegada()
         {
-            // Setteo el id del afiliado
-            this.idAfiliado = id;
+            
             InitializeComponent();
 
             // Cargo el DataGrid
-            ConexionSQL.loadDataGrid(queryDeLoadTable,dataGridView1);
+            ConexionSQL.loadDataGrid(queryDeLoadTable, dataGridView1);
 
             // Escondo las columnas de ID, me viene bien tenerlos a mano pero no quiero que el usuario los vea
             dataGridView1.Columns[2].Visible = false;
             dataGridView1.Columns[4].Visible = false;
         }
 
-        
+       /* private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
 
-        // Funcion de busqueda
+        }*/
+
         private void button1_Click(object sender, EventArgs e)
         {
             // Agarro la query que use para settear el DataGrid
@@ -64,6 +59,16 @@ namespace ClinicaFrba.Pedir_Turno
 
 
 
+        // Funcion para propositos esteticos nomas
+        private string nombreBienEscrito(object nombre)
+        {
+            string nombreString = nombre.ToString();
+            char primerLetra = nombreString[0];
+            string elResto = nombreString.Remove(0, 1).ToLower();
+            string todoJunto = primerLetra + elResto;
+            return todoJunto;
+        }
+
         // Funcion de eleccion de profesional y especialidad por click en el DataGrid
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -83,22 +88,18 @@ namespace ClinicaFrba.Pedir_Turno
                 this.idEspecialidad = int.Parse(idEsp.ToString());
 
                 // Modifico la ventana para reflejar la eleccion del usuario
-                label1.Text = "Profesional Elegido: " + doctorElegido + ", " + nombreBienEscrito(nombre);
-                label6.Text = "Especialidad Elegida: " + especialidad.ToString();
+                label4.Text = "Profesional Elegido: " + doctorElegido + ", " + nombreBienEscrito(nombre);
+                label5.Text = "Especialidad Elegida: " + especialidad.ToString();
             }
         }
 
-
-
-
-       // Funcion para pasar a elegir el turno
-        private void button3_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
             // Si elegi un doctor
             if (doctorElegido != null)
             {
                 // Creo una nueva ventana para elegir horario con los datos que necesita
-                Elegir_Horario eh = new Elegir_Horario(doctorElegido, idDoctor, idAfiliado, idEspecialidad);
+                ElegirTurno eh = new ElegirTurno(idDoctor,idEspecialidad);
 
                 // Escondo esta venta
                 this.Hide();
@@ -108,25 +109,14 @@ namespace ClinicaFrba.Pedir_Turno
                 eh.Show();
             }
             else MessageBox.Show("No ha seleccionado un profesional", "Error", MessageBoxButtons.OK);
+        
         }
 
-
-
-
-        // Funcion para propositos esteticos nomas
-        private string nombreBienEscrito(object nombre)
-        {
-            string nombreString = nombre.ToString();
-            char primerLetra = nombreString[0];
-            string elResto = nombreString.Remove(0, 1).ToLower();
-            string todoJunto = primerLetra + elResto;
-            return todoJunto;
-        }
-
-        private void ABMTurnos_Load(object sender, EventArgs e)
+        private void RegistrarLlegada_Load(object sender, EventArgs e)
         {
 
         }
 
+     
     }
 }

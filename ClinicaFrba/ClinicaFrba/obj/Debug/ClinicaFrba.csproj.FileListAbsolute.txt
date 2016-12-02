@@ -80,7 +80,6 @@ C:\Users\ABM\Desktop\TP\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\Cli
 C:\Users\ABM\Desktop\TP\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Registrar_Agenda_Medico.RegistrarAgenda.resources
 C:\Users\ABM\Desktop\TP\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.csproj.GenerateResource.Cache
 C:\Users\ABM\Desktop\TP\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Compra_Bono.EfectivizarCompra.resources
-C:\Users\ABM\Desktop\TP\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Registro_Llegada.RegistroLlegada.resources
 C:\Users\Fede\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Compra_Bono.Comprar_Bonos.resources
 C:\Users\Fede\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Compra_Bono.EfectivizarCompra.resources
 C:\Users\Fede\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Registro_Llegada.RegistroLlegada.resources
@@ -137,8 +136,9 @@ C:\Users\guill\git\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaF
 C:\Users\ABM\Desktop\TP\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Listados.DatosParaFiltrar.resources
 C:\Users\ABM\Desktop\TP\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Listados.Listados.resources
 C:\Users\ABM\Desktop\TP\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Listados.VentanaHistorial.resources
-C:\Users\ABM\Desktop\TP\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Registro_Llegada.CargarTurnos.resources
-C:\Users\ABM\Desktop\TP\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Registro_Llegada.EfectivizarLlegada.resources
 C:\Users\Fede\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Listados.DatosParaFiltrar.resources
 C:\Users\Fede\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Listados.Listados.resources
 C:\Users\Fede\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Listados.VentanaHistorial.resources
+C:\Users\ABM\Desktop\TP\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Registro_Llegada.RegistrarLlegada.resources
+C:\Users\ABM\Desktop\TP\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Registro_Llegada.ElegirTurno.resources
+C:\Users\ABM\Desktop\TP\TP2C2016-K3022-GDD\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Registro_Llegada.ElegirAfiliado.resources

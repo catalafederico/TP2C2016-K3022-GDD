@@ -18,7 +18,7 @@ namespace ClinicaFrba
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Registro_Resultado.RegistroResultado(5552));
+            Application.Run(new Registro_Llegada.ElegirAfiliado(56565));
         }
 
         public static String ip()

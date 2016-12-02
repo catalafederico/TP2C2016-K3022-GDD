@@ -117,7 +117,7 @@ namespace ClinicaFrba.Registro_Resultado
                 IngresarSintomasYDiagnostico eh = new IngresarSintomasYDiagnostico(idRecepcion);
                 this.Hide();
                 eh.Closed += (s, args) => this.Close();
-                eh.Show();
+                eh.ShowDialog();
             }
             else MessageBox.Show("No puede ingresar el resultado de la consulta sin confirmar la fecha y hora del turno elegido", "Error", MessageBoxButtons.OK);
         }

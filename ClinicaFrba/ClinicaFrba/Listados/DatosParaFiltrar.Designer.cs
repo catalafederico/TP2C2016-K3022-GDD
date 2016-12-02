@@ -55,6 +55,7 @@
             // 
             // comboBox_PLAN
             // 
+            this.comboBox_PLAN.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_PLAN.FormattingEnabled = true;
             this.comboBox_PLAN.Location = new System.Drawing.Point(179, 26);
             this.comboBox_PLAN.Name = "comboBox_PLAN";
@@ -64,6 +65,7 @@
             // 
             // comboBox_ESPECIALIDAD
             // 
+            this.comboBox_ESPECIALIDAD.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_ESPECIALIDAD.FormattingEnabled = true;
             this.comboBox_ESPECIALIDAD.Location = new System.Drawing.Point(179, 79);
             this.comboBox_ESPECIALIDAD.Name = "comboBox_ESPECIALIDAD";

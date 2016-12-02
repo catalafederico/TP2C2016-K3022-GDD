@@ -58,6 +58,7 @@
             // 
             // comboBox1
             // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(66, 55);
             this.comboBox1.Name = "comboBox1";
@@ -76,6 +77,7 @@
             // 
             // comboBox_SEMESTRE
             // 
+            this.comboBox_SEMESTRE.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_SEMESTRE.FormattingEnabled = true;
             this.comboBox_SEMESTRE.Location = new System.Drawing.Point(66, 186);
             this.comboBox_SEMESTRE.Name = "comboBox_SEMESTRE";
@@ -112,7 +114,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.comboBox1);
             this.Name = "Listados";
-            this.Text = "Form1";
+            this.Text = "Listado estadistico";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -29,7 +29,7 @@ namespace ClinicaFrba.Eleccion_Funcionalidad
         Cancelar_Atencion.CancelarAtencionUsuario cancelacionUsuario;
         Cancelar_Atencion.CancelarAtencionProfesional cancelacionProfesional;
         Registro_Resultado.RegistroResultado registroResultado;
-        
+        Registro_Llegada.RegistrarLlegada registroLlegada;
         Registrar_Agenda_Medico.RegistrarAgenda agenda;
       
         Int64 idUsuario;
@@ -111,7 +111,10 @@ namespace ClinicaFrba.Eleccion_Funcionalidad
                     registroResultado = new Registro_Resultado.RegistroResultado((int)idUsuario);
                     registroResultado.ShowDialog();
                     break;
-
+                case "Registrar Llegadas":
+                    registroLlegada = new Registro_Llegada.RegistrarLlegada();
+                    registroLlegada.ShowDialog();
+                    break;
                 case "Listados Estadisticos":
                     Listados = new Listados.Listados();
                     Listados.ShowDialog();

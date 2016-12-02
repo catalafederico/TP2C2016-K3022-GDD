@@ -88,7 +88,7 @@ namespace ClinicaFrba.Eleccion_Funcionalidad
                     agenda.ShowDialog();
                     break;
                case "Comprar Bonos":
-                    if (rol == "Administrativo" || rol == "Administrador general")
+                    if (rol == "Administrativo")
                     {
                         unaCompraAdmin = new Compra_Bono.Comprar_Bonos();
                         unaCompraAdmin.ShowDialog();
@@ -99,13 +99,17 @@ namespace ClinicaFrba.Eleccion_Funcionalidad
                         unaCompra.ShowDialog();
                     }
                     break;
-               case "Cancelar turno usuario":
+               case "Cancelar turno":
+                    if (rol == "Afiliado")
+                    {
                     cancelacionUsuario = new Cancelar_Atencion.CancelarAtencionUsuario((int)idUsuario);
                     cancelacionUsuario.ShowDialog();
-                    break;
-               case "Cancelar turno profesional":
+                    }
+                    else
+                    {
                     cancelacionProfesional = new Cancelar_Atencion.CancelarAtencionProfesional((int)idUsuario);
                     cancelacionProfesional.ShowDialog();
+                    }
                     break;
                case "Registrar resultado consulta":
                     registroResultado = new Registro_Resultado.RegistroResultado((int)idUsuario);

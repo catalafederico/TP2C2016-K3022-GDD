@@ -97,21 +97,33 @@ namespace ClinicaFrba.Pedir_Turno
             // Si elegi un doctor
             if (doctorElegido != null)
             {
-                // Creo una nueva ventana para elegir horario con los datos que necesita
-                Elegir_Horario eh = new Elegir_Horario(doctorElegido, idDoctor, idAfiliado, idEspecialidad);
+                if(profesionalValido())
+                {
+                    // Creo una nueva ventana para elegir horario con los datos que necesita
+                    Elegir_Horario eh = new Elegir_Horario(doctorElegido, idDoctor, idAfiliado, idEspecialidad);
 
-                // Escondo esta venta
-                this.Hide();
+                    // Escondo esta venta
+                    this.Hide();
 
-                // Y modifico a la nueva ventana para que al cerrarse cierre esta tambien
-                eh.Closed += (s, args) => this.Close();
-                eh.Show();
+                    // Y modifico a la nueva ventana para que al cerrarse cierre esta tambien
+                    eh.Closed += (s, args) => this.Close();
+                    eh.Show();
+                }
+                else MessageBox.Show("El profesional elegido no tiene un inicio o fin de disponibilidad validos. Disculpe las molestias", "Error", MessageBoxButtons.OK);
             }
             else MessageBox.Show("No ha seleccionado un profesional", "Error", MessageBoxButtons.OK);
         }
 
 
-
+        private bool profesionalValido()
+        {
+            bool ph = true;
+            SqlCommand dateEarly = new SqlCommand("SELECT P.INICIO_DISPONIBILIDAD FROM [3FG].PROFESIONALES P WHERE P.ID_USUARIO LIKE '" + idDoctor + "'", new ConexionSQL().conectar());
+            if (dateEarly.ExecuteScalar().ToString() == "") { ph = false; }
+            SqlCommand dateLate = new SqlCommand("SELECT P.FIN_DISPONIBILIDAD FROM [3FG].PROFESIONALES P WHERE P.ID_USUARIO LIKE '" + idDoctor + "'", new ConexionSQL().conectar());
+            if (dateLate.ExecuteScalar().ToString() == "") { ph = false; }
+            return ph;
+        }
 
         // Funcion para propositos esteticos nomas
         private string nombreBienEscrito(object nombre)

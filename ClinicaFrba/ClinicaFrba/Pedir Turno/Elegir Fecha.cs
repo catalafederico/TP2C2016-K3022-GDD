@@ -22,7 +22,6 @@ namespace ClinicaFrba.Pedir_Turno
         private int idAfiliado;
         private String diaDeLaSemana;
 
-
         // Funcion de inicializacion
         public Elegir_Horario(string doctorElegido, int idDoc, int idAfi, int idEsp)
         {
@@ -45,11 +44,10 @@ namespace ClinicaFrba.Pedir_Turno
             label3.Text = "Primera fecha disponible: " + fechaTemprana.ToString("yyyy-MM-dd");
             label4.Text = "Ultima fecha disponible: " + fechaTardia.ToString("yyyy-MM-dd");
             this.idDoctor = idDoc;
+            
+            // Indico mediante un label los dias en los que atiende el profesional elegido
+            diasDisponibles();
         }
-
-
-
-
 
         // Funcion de creacion de turno
         private void button1_Click(object sender, EventArgs e)
@@ -88,11 +86,8 @@ namespace ClinicaFrba.Pedir_Turno
                     }
                 }
             }
-            else MessageBox.Show("No ha seleccionado una fecha", "Error", MessageBoxButtons.OK);
+            else MessageBox.Show("No ha seleccionado un turno", "Error", MessageBoxButtons.OK);
         }
-
-
-
 
 
         // Funcion de eleccion de fecha
@@ -106,57 +101,80 @@ namespace ClinicaFrba.Pedir_Turno
             else
             {
                 // Me fijo si el profesional elegido atiende ese dia para esa especialidad
-                if (hayAgenda(dateTimePicker1.Value))
+                if (hayAgenda(switchDias(dateTimePicker1.Value)))
                 {
-                    // Si lo hace, busco si hay turnos disponibles para ese dia que le agraden al usuario
+                    // Si lo hace, busco si hay turnos disponibles para ese dia
                     if (busquedaDeTurnos(dateTimePicker1.Value))
                     {
-                        // Modifico la ventana para reflejar la eleccion del usuario
-                        MessageBox.Show("Ha elegido el turno : " + this.fechaElegida.ToString("yyyy-MM-dd HH:mm:ss"), "Error", MessageBoxButtons.OK);
-                        label2.Text = "Turno elegido: " + this.fechaElegida.ToString("yyyy-MM-dd HH:mm");
+                        // Aviso al usuario que se ha cambiado el ComboBox con los turnos disponibles ese dia
+                        MessageBox.Show("Se ha cargado la lista de turnos disponibles", "Atencion", MessageBoxButtons.OK);
                     }
-                    else MessageBox.Show("No quedan mas turnos disponibles para ese día", "Error", MessageBoxButtons.OK);
+                    else
+                    {
+                        // Por las dudas y para mantener consistencia, vacio mi ComboBox. Esto evita que si el usuario
+                        // elige una fecha con turnos disponibles y despues otra en la que no los hay, este no pueda elegir
+                        // turnos validos de la fecha anterior
+                        comboBox1.DataSource = null;
+                        MessageBox.Show("No quedan mas turnos disponibles para ese día", "Error", MessageBoxButtons.OK);
+                    }
                 }
                 else MessageBox.Show("El profesional elegido no atiende ese día", "Error", MessageBoxButtons.OK);
             }
         }
 
+        // Busco para que dias tiene agenda el profesional
+        private void diasDisponibles() {
+            label1.Text = "Los días disponibles del profesional son: [";
+            if (hayAgenda("DOMINGO")) { label1.Text += "Domingo "; };
+            if (hayAgenda("LUNES")) { label1.Text += "| Lunes "; };
+            if (hayAgenda("MARTES")) { label1.Text += "| Martes "; };
+            if (hayAgenda("MIERCOLES")) { label1.Text += "| Miercoles "; };
+            if (hayAgenda("JUEVES")) { label1.Text += "| Jueves "; };
+            if (hayAgenda("VIERNES")) { label1.Text += "| Viernes "; };
+            if (hayAgenda("SABADO")) { label1.Text += "| Sabado"; };
+            label1.Text += "]";
+        }
 
 
-
-
-        // Funcion de checkeo de agenda
-        private bool hayAgenda(DateTime fecha)
+        // Me fijo que dia de la semana tiene la fecha que elegi y lo devuelvo
+        private string switchDias(DateTime fecha)
         {
-            // Me fijo que dia de la semana tiene la fecha que elegi
+            // Este setteo no signfica nada, solo esta porque sino me tira un error de que dia no esta setteado en el return
+            string dia="DOMINGO";
             switch (fecha.DayOfWeek)
             {
                 case DayOfWeek.Sunday:
-                    this.diaDeLaSemana = "DOMINGO";
+                    dia = "DOMINGO";
                     break;
                 case DayOfWeek.Monday:
-                    this.diaDeLaSemana = "LUNES";
+                    dia = "LUNES";
                     break;
                 case DayOfWeek.Tuesday:
-                    this.diaDeLaSemana = "MARTES";
+                    dia = "MARTES";
                     break;
                 case DayOfWeek.Wednesday:
-                    this.diaDeLaSemana = "MIERCOLES";
+                    dia = "MIERCOLES";
                     break;
                 case DayOfWeek.Thursday:
-                    this.diaDeLaSemana = "JUEVES";
+                    dia = "JUEVES";
                     break;
                 case DayOfWeek.Friday:
-                    this.diaDeLaSemana = "VIERNES";
+                    dia = "VIERNES";
                     break;
                 case DayOfWeek.Saturday:
-                    this.diaDeLaSemana = "SABADO";
+                    dia = "SABADO";
                     break;
             }
+            this.diaDeLaSemana = dia;
+            return dia;
+        }
 
+        // Funcion de checkeo de agenda
+        private bool hayAgenda(string fecha)
+        {
             // Me fijo si el profesional atiende ese dia para la especialidad que elegi
             SqlCommand queryHayAgenda = new SqlCommand("SELECT COUNT(*) FROM [3FG].PROFESIONALES P, [3FG].AGENDA A WHERE (P.ID_USUARIO LIKE '" + idDoctor + @"') 
-                                                        AND (P.ID_USUARIO = A.ID_USUARIO) AND (A.DIA_ATENCION = '" + this.diaDeLaSemana + @"')
+                                                        AND (P.ID_USUARIO = A.ID_USUARIO) AND (A.DIA_ATENCION = '" + fecha + @"')
                                                         AND (A.ID_ESPECIALIDAD = " + this.idEspecialidad.ToString() + ")", new ConexionSQL().conectar());
             if ((int)queryHayAgenda.ExecuteScalar() > 0)
             {
@@ -164,9 +182,6 @@ namespace ClinicaFrba.Pedir_Turno
             }
             else return false;
         }
-
-
-
 
 
         // Funcion de obtencion de agenda
@@ -178,8 +193,6 @@ namespace ClinicaFrba.Pedir_Turno
                                                            AND (A.ID_ESPECIALIDAD = " + this.idEspecialidad.ToString() + ")", new ConexionSQL().conectar());
             return int.Parse(queryBuscarAgenda.ExecuteScalar().ToString());
         }
-
-
 
 
 
@@ -201,11 +214,11 @@ namespace ClinicaFrba.Pedir_Turno
            DateTime ultimoTurno = fecha.Date + horarioMaximo;
            DateTime actualTurno = fecha.Date + horarioMinimo;
 
-           // Voy a retornar este bool para informar que oucrrio con la operacion
-           bool eligioTurno = false;
+           // Voy a retornar este bool para informar que ocurrio con la operacion
+           bool encontroTurno = false;
 
            // Itero el siguiente comportamiento hasta que llegue al turno final del dia o elija uno el usuario
-           while (actualTurno < ultimoTurno && !eligioTurno)
+           while (actualTurno < ultimoTurno && !encontroTurno)
            {
                /* Esta hermosa query del infierno busca la cantidad de turnos en todas las agendas
                 * del profesional que voy a estar pisando con el nuevo turno que quiero crear en el
@@ -224,27 +237,47 @@ namespace ClinicaFrba.Pedir_Turno
                 * posible que esta 30 minutos mas adelante*/
                if (turnoPisados > 0) { actualTurno = actualTurno.AddMinutes(30); }
 
-               // Si no es mayor a 0, le doy al usuario la oportunidad de seguir buscando turnos en ese dia o quedarse con ese
+               // Si no es mayor a 0, empiezo a llenar un diccionario con los horarios disponibles de ese dia
                else
                {
-                   DialogResult dialogResult = MessageBox.Show("El turno " + actualTurno.ToString("yyyy-MM-dd HH:mm:ss") + " esta disponible. Desea reservar ese turno?", "Eleccion de turno", MessageBoxButtons.YesNo);
-                   
-                   // Si dice que si, setteo las variables fechaElegida e idAgenda con los valores actuales
-                   if (dialogResult == DialogResult.Yes)
-                   {
-                       // Agrego que el bool sea verdadero para salir del while antes de la porxima iteracion
-                       eligioTurno = true;
-                       this.fechaElegida = actualTurno;
-                       this.idAgenda = idAgendaTemporaria;
-                   }
-                   // Si dice que no, sigo buscando
-                   else if (dialogResult == DialogResult.No)
-                   {
+                   this.idAgenda = idAgendaTemporaria;
+                   Dictionary<string, DateTime>turnos = new Dictionary<string, DateTime>();
+                   while (actualTurno < ultimoTurno) {
+                       // Me sigo fijando si los turnos estan disponbiles o no
+                       if (turnoPisados == 0)
+                       {
+                           turnos.Add(actualTurno.ToString("HH:mm"), actualTurno);
+                       }
                        actualTurno = actualTurno.AddMinutes(30);
+
+                       // No queria repetir la query aca pero tratando de settear la query como un string hacia que el valor
+                       // de actualTurno no cambiara en la query aun cuando cambiaba afuera asi que no tuve otra opcion que dejarlo
+                       disponibilidad = new SqlCommand(@"SELECT COUNT(*) FROM [3FG].TURNOS T,
+                                                       (SELECT A.ID_AGENDA FROM [3FG].AGENDA A,
+                                                       [3FG].PROFESIONALES P WHERE A.ID_USUARIO = P.ID_USUARIO
+                                                       AND P.ID_USUARIO = " + this.idDoctor.ToString() + @") AP
+                                                       WHERE T.ID_AGENDA = AP.ID_AGENDA AND
+                                                       T.FECHA_TURNO = '" + actualTurno.ToString("yyyy-dd-MM HH:mm:ss") + "'", new ConexionSQL().conectar());
+                       turnoPisados = (int)disponibilidad.ExecuteScalar();
                    }
+
+                   // Asigno mi nuevo diccionario como BindingSource de comboBox1 para que tome esos valores
+                   comboBox1.DataSource = new BindingSource(turnos, null);
+                   comboBox1.DisplayMember = "Key";
+                   comboBox1.ValueMember = "Value";
+
+                   // Cambio el valor para salir del loop
+                   encontroTurno = true;
                }
            }
-           return eligioTurno;
+           return encontroTurno;
+       }
+
+       // Setteo el turno elegido y muestro con la label que turno eligio
+       private void button3_Click(object sender, EventArgs e)
+       {
+           this.fechaElegida = (DateTime) comboBox1.SelectedValue;
+           label2.Text = "Turno elegido: " + fechaElegida.ToString("yyyy-dd-MM HH:mm");
        }
     
     }

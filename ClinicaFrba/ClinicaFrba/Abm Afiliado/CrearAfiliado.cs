@@ -82,7 +82,7 @@ VALUES ('pepita',(SELECT SUBSTRING(master.dbo.fn_varbintohexstr(HASHBYTES('SHA2_
 
             if (flagNuevo == 0)
             {
-                aleatorio = r.Next(999999999);
+                aleatorio = r.Next(99999);
                 int flag = 0;
                 while (flag == 0)
                 {

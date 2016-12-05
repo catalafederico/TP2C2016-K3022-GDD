@@ -36,8 +36,39 @@ namespace ClinicaFrba.Listados
 
         }
 
+        private bool validacionesCliente()
+        {
+
+
+            if (comboBox1.Text =="")
+            {
+                MessageBox.Show("No se ha seleccionado ningun listado", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            if (comboBox_SEMESTRE.Text=="")
+            {
+                MessageBox.Show("No se elegir el semestre", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+
+            if (textBox_AÑO.Text=="")
+            {
+                MessageBox.Show("No se ha Elegido el año", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+
+            return true;
+
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
+            if (!validacionesCliente())
+            {
+                return;
+            }
             if (comboBox1.Text == "ESPECIALIDADES CON MAS CANELACIONES")
             {
                 VentanaHistorial ventana = new VentanaHistorial(comboBox1.Text, null, null, comboBox_SEMESTRE.Text,textBox_AÑO.Text);

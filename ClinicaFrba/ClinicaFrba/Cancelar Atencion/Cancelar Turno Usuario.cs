@@ -18,8 +18,18 @@ namespace ClinicaFrba.Cancelar_Atencion
         private int idTurno=-1;
         private int idUsuario;
 
-        // Query que devuelve los turnos que no han sido cancelados y no tienen recepcion todavia
-        private string turnos = "SELECT T.ID_TURNO, T.FECHA_TURNO AS 'Fecha Turno' FROM [3FG].TURNOS T, [3FG].AFILIADOS A, [3FG].USUARIOS U WHERE T.ID_AGENDA IS NOT NULL AND (T.ID_AFILIADO = A.ID_USUARIO) AND (A.ID_USUARIO = U.ID_USUARIO) AND (T.ID_TURNO NOT IN (SELECT C.ID_TURNO FROM [3FG].CANCELACIONES C)) AND (T.ID_TURNO NOT IN (SELECT R.ID_TURNO FROM [3FG].RECEPCIONES R))";
+        // Setteo la fecha actual del sistema
+        private static DateTime fechaActual = DateTime.Parse(Program.nuevaFechaSistema());
+
+        // Query que devuelve los turnos que no han sido cancelados, no tienen recepcion todavia y son posteriores a la fecha actual del sistema
+        private string turnos = @"SELECT T.ID_TURNO, T.FECHA_TURNO AS 'Fecha Turno'
+                                  FROM [3FG].TURNOS T, [3FG].AFILIADOS A, [3FG].USUARIOS U
+                                  WHERE T.ID_AGENDA IS NOT NULL
+                                  AND (T.ID_AFILIADO = A.ID_USUARIO)
+                                  AND (A.ID_USUARIO = U.ID_USUARIO)
+                                  AND (T.ID_TURNO NOT IN (SELECT C.ID_TURNO FROM [3FG].CANCELACIONES C))
+                                  AND (T.ID_TURNO NOT IN (SELECT R.ID_TURNO FROM [3FG].RECEPCIONES R))
+                                  AND T.FECHA_TURNO > '" + fechaActual.ToString("yyyy-dd-MM HH:mm:ss") + "'";
         
 
 
@@ -52,8 +62,8 @@ namespace ClinicaFrba.Cancelar_Atencion
                 object fechaTurno = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
                 DateTime fecha = (DateTime)fechaTurno;
 
-                // Si la fecha no es hoy
-                if (fecha.Day != DateTime.Now.Day)
+                // Si la fecha del turno no es la actual de la app
+                if (fecha.Day != DateTime.Parse(Program.nuevaFechaSistema()).Day)
                 {
                     // Setteo el id del turno elegido
                     object idT = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex - 1].Value;

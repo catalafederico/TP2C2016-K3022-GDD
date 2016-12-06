@@ -16,8 +16,13 @@ namespace ClinicaFrba.Registro_Resultado
         private DateTime fechaAtencion;
         private int idProfesional;
         private int idRecepcion;
-        // Setteo todo el DataGrid con los turnos que no han sido cancelado y no tienen un resultado
-        private static string queryDeAtenciones = "SELECT R.ID_RECEPCION, T.ID_TURNO, T.FECHA_TURNO AS 'Fecha Turno' FROM [3FG].TURNOS T, [3FG].RECEPCIONES R, [3FG].AGENDA A, [3FG].USUARIOS U, [3FG].PROFESIONALES P WHERE R.ID_TURNO = T.ID_TURNO AND T.ID_AGENDA = A.ID_AGENDA AND A.ID_USUARIO = P.ID_USUARIO AND P.ID_USUARIO = U.ID_USUARIO";
+        // Setteo todo el DataGrid con los turnos que tengan una recepcion confirmada
+        private static string queryDeAtenciones = @"SELECT R.ID_RECEPCION, T.ID_TURNO, T.FECHA_TURNO AS 'Fecha Turno' 
+                                                    FROM [3FG].TURNOS T, [3FG].RECEPCIONES R, [3FG].AGENDA A, [3FG].USUARIOS U, [3FG].PROFESIONALES P
+                                                    WHERE R.ID_TURNO = T.ID_TURNO
+                                                    AND T.ID_AGENDA = A.ID_AGENDA
+                                                    AND A.ID_USUARIO = P.ID_USUARIO
+                                                    AND P.ID_USUARIO = U.ID_USUARIO";
 
 
 
@@ -63,7 +68,7 @@ namespace ClinicaFrba.Registro_Resultado
                     label4.Text = "Hora atencion: " + fechaAtencion.ToString("hh:mm");
                     mostrarAfiliado();
                 }
-                else MessageBox.Show("No se encontro ningun usuario para el turno elegido. Si este error persiste, comuniquese con soporte", "Error", MessageBoxButtons.OK);
+                else MessageBox.Show("No se encontro ningun usuario para el turno elegido. Comuniquese con soporte para más información", "Error", MessageBoxButtons.OK);
             }
         }
 

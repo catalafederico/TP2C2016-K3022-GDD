@@ -18,39 +18,28 @@ namespace ClinicaFrba.Cancelar_Atencion
         private DateTime fechaTemprana = new DateTime(1000, 1, 01);
         private DateTime fechaTardia = new DateTime(1000, 1, 01);
 
+        // Agarro la fecha actual de la app, no deberían poder borrarse turnos que ya pasaron
+        private DateTime fechaActual = DateTime.Parse(Program.nuevaFechaSistema());
+
         /* Esta query la uso como base para llenar el DataGridView de turnos. Linkea Turnos
           Agenda, Profesionales y Usuarios y me devuelve todos los turnos que tienen una agenda
           linkeada a un profesional y que no hayan sido ya cancelados*/
-        private string turnos = "SELECT T.ID_TURNO, T.FECHA_TURNO AS 'Turnos a borrar' FROM [3FG].TURNOS T, [3FG].PROFESIONALES P, [3FG].USUARIOS U, [3FG].AGENDA A WHERE T.ID_AGENDA IS NOT NULL AND (T.ID_AGENDA = A.ID_AGENDA) AND (A.ID_USUARIO = U.ID_USUARIO) AND (U.ID_USUARIO = P.ID_USUARIO) AND (T.ID_TURNO NOT IN (SELECT C.ID_TURNO FROM [3FG].CANCELACIONES C))";
+        private string turnos = @"SELECT T.ID_TURNO, T.FECHA_TURNO AS 'Turnos a borrar'
+                                  FROM [3FG].TURNOS T, [3FG].PROFESIONALES P, [3FG].USUARIOS U, [3FG].AGENDA A
+                                  WHERE T.ID_AGENDA IS NOT NULL
+                                  AND (T.ID_AGENDA = A.ID_AGENDA)
+                                  AND (A.ID_USUARIO = U.ID_USUARIO)
+                                  AND (U.ID_USUARIO = P.ID_USUARIO)
+                                  AND (T.ID_TURNO NOT IN (SELECT C.ID_TURNO FROM [3FG].CANCELACIONES C))
+                                  AND (T.ID_TURNO NOT IN (SELECT R.ID_TURNO FROM [3FG].RECEPCIONES R))";
 
         public CancelarAtencionProfesional(int idU)
         {
             InitializeComponent();
+            // Setteo el Month Calendar con la fecha actual de la app
+            monthCalendar1.SetDate(fechaActual);
             // Cambio la query original para agregarle que solo me traiga los turnos del profesional indicado
             this.turnos += " AND (P.ID_USUARIO = " + idU + ") ";
-        }
-
-        //Funcion generica de llenado de DataGridView
-        private void loadTable(string query)
-        {
-            using (SqlConnection conexion = new ConexionSQL().conectar())
-            {
-                //Aca recibe la query como dato y la usa para llenar el DataGridView
-                SqlCommand comando = new SqlCommand(query, conexion);
-                DataTable dataTable = new DataTable();
-                SqlDataAdapter dataAdapter = new SqlDataAdapter(comando);
-                dataAdapter.Fill(dataTable);
-                BindingSource bSource = new BindingSource();
-                bSource.DataSource = dataTable;
-                dataGridView1.DataSource = bSource;
-                dataGridView1.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-
-                /* Aca esconde la columna del ID de cada turno.
-                 * No quiero que el usuario la vea pero quiero los guardar ID en algun lugar
-                 * facil de encontrar y linkeadas al resto de los datos del turno */
-                dataGridView1.Columns[0].Visible = false;
-                conexion.Close();
-            }
         }
 
         private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
@@ -69,44 +58,51 @@ namespace ClinicaFrba.Cancelar_Atencion
         {
             // Me fijo si el usuario marco un rango de fecha
             if (fechaTemprana.Year != 1000 || fechaTardia.Year != 1000)
+            {
+                if (!(fechaTemprana < fechaActual))
+                {
+                    // Me fijo que no haya marcado ambas opciones de cancelacion
+                    if (checkBox1.Checked && checkBox2.Checked)
                     {
-                        // Me fijo que no haya marcado ambas opciones de cancelacion
-                        if (checkBox1.Checked && checkBox2.Checked)
-                        {
-                            MessageBox.Show("Solo puede seleccionar un metodo de cancelacion", "Error", MessageBoxButtons.OK);
-                        }
-
-                        // Me fijo que haya marcado alguna opcion de cancelacion
-                        if (!checkBox1.Checked && !checkBox2.Checked)
-                        {
-                            MessageBox.Show("Debe seleccionar un metodo de cancelacion", "Error", MessageBoxButtons.OK);
-                        }
-
-                        // Si marco la opcion de cancelacion por rango de fechas...
-                        if (checkBox1.Checked && !checkBox2.Checked)
-                        {
-                            // Cargo la DataGridView con la query "turnos" y agregandole como condicion
-                            // que los turnos obtenidos se encuentren entre las primera y ultima fecha
-                            loadTable(turnos + "AND CONVERT(DATE,T.FECHA_TURNO) BETWEEN CONVERT(DATE,'" + this.fechaTemprana.Date.ToString("yyyy-MM-dd") + "') AND CONVERT(DATE,'" + this.fechaTardia.Date.ToString("yyyy-MM-dd") + "')");
-                        }
-                        // Si marco la opcion de cancelacion por una sola fecha...
-                        if (checkBox2.Checked && !checkBox1.Checked)
-                        {
-                            // Cargo la DataGridView con la query "turnos" y agregandole como condicion
-                            // que los turnos obtenidos se encuentren en la fecha marcada. En este caso,
-                            // fechaTemprana y fechaTardia son iguales asi que es indistinto cual uso
-                            loadTable(turnos + "AND CONVERT(DATE,T.FECHA_TURNO) = CONVERT(DATE,'" + this.fechaTemprana.Date.ToString("yyyy-MM-dd") + "')");
-                        }                    
+                        MessageBox.Show("Solo puede seleccionar un metodo de cancelacion", "Error", MessageBoxButtons.OK);
                     }
+
+                    // Me fijo que haya marcado alguna opcion de cancelacion
+                    if (!checkBox1.Checked && !checkBox2.Checked)
+                    {
+                        MessageBox.Show("Debe seleccionar un metodo de cancelacion", "Error", MessageBoxButtons.OK);
+                    }
+
+                    // Si marco la opcion de cancelacion por rango de fechas...
+                    if (checkBox1.Checked && !checkBox2.Checked)
+                    {
+                        // Cargo la DataGridView con la query "turnos" y agregandole como condicion
+                        // que los turnos obtenidos se encuentren entre las primera y ultima fecha
+                        ConexionSQL.loadDataGrid(turnos + "AND CONVERT(DATE,T.FECHA_TURNO) BETWEEN CONVERT(DATE,'" + this.fechaTemprana.Date.ToString("yyyy-MM-dd") + "') AND CONVERT(DATE,'" + this.fechaTardia.Date.ToString("yyyy-MM-dd") + "')", dataGridView1);
+                        dataGridView1.Columns[0].Visible = false;
+                    }
+                    // Si marco la opcion de cancelacion por una sola fecha...
+                    if (checkBox2.Checked && !checkBox1.Checked)
+                    {
+                        // Cargo la DataGridView con la query "turnos" y agregandole como condicion
+                        // que los turnos obtenidos se encuentren en la fecha marcada. En este caso,
+                        // fechaTemprana y fechaTardia son iguales asi que es indistinto cual uso
+                        ConexionSQL.loadDataGrid(turnos + "AND CONVERT(DATE,T.FECHA_TURNO) = CONVERT(DATE,'" + this.fechaTemprana.Date.ToString("yyyy-MM-dd") + "')", dataGridView1);
+                        dataGridView1.Columns[0].Visible = false;
+                    }
+                }
+                else MessageBox.Show("No puede cancelar turnos que ya hayan pasado", "Error", MessageBoxButtons.OK);
+            }
             else MessageBox.Show("Seleccione una fecha o rango de fechas", "Error", MessageBoxButtons.OK);
         }
 
-        //wow such (void) long function
+        // Llamo al bodoque de arriba
         private void button1_Click_1(object sender, EventArgs e)
         {
             cargaDeTablaYFechas();
         }
         
+        // Funcion de creacion de cancelacion
         private void button2_Click(object sender, EventArgs e)
         {
             int contador = 0;

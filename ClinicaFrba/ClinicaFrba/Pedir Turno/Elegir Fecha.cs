@@ -21,8 +21,9 @@ namespace ClinicaFrba.Pedir_Turno
         private DateTime fechaElegida = new DateTime(1000,01,01);
         private int idAfiliado;
         private String diaDeLaSemana;
+        private DateTime fechaActual;
 
-        // Funcion de inicializacion
+        // Funcion de creacion e inicializacion
         public Elegir_Horario(string doctorElegido, int idDoc, int idAfi, int idEsp)
         {
             InitializeComponent();
@@ -30,6 +31,8 @@ namespace ClinicaFrba.Pedir_Turno
             // Setteo los id que ya tengo y no van a cambiar
             this.idAfiliado = idAfi;
             this.idEspecialidad = idEsp;
+
+            // Modifico el titulo de la ventana
             this.Text = "Elegir fecha para consulta con Dr." + doctorElegido.ToString();
 
             // Busco fecha de inicio de la disponibilidad actual del profesional
@@ -40,6 +43,9 @@ namespace ClinicaFrba.Pedir_Turno
             SqlCommand dateLate = new SqlCommand("SELECT P.FIN_DISPONIBILIDAD FROM [3FG].PROFESIONALES P WHERE P.ID_USUARIO LIKE '" + idDoc + "'", new ConexionSQL().conectar());
             this.fechaTardia = (DateTime)dateLate.ExecuteScalar();
 
+            // Tomo la fecha actual del sistema
+            this.fechaActual = DateTime.Parse(Program.nuevaFechaSistema());
+
             // Modifico las labels para que el usuario sepa desde donde hasta donde puede elegir fecha
             label3.Text = "Primera fecha disponible: " + fechaTemprana.ToString("yyyy-MM-dd");
             label4.Text = "Ultima fecha disponible: " + fechaTardia.ToString("yyyy-MM-dd");
@@ -47,6 +53,9 @@ namespace ClinicaFrba.Pedir_Turno
             
             // Indico mediante un label los dias en los que atiende el profesional elegido
             diasDisponibles();
+
+            // Setteo el DateTimePicker con la fecha actual del sistema
+            dateTimePicker1.Value = fechaActual;
         }
 
         // Funcion de creacion de turno
@@ -94,7 +103,7 @@ namespace ClinicaFrba.Pedir_Turno
         private void button2_Click(object sender, EventArgs e)
         {
             // Verifico si la fecha no esta entre las disponibles
-            if (dateTimePicker1.Value.Date < this.fechaTemprana.Date || dateTimePicker1.Value.Date > this.fechaTardia.Date)
+            if (dateTimePicker1.Value.Date < primeraFecha().Date || dateTimePicker1.Value.Date > this.fechaTardia.Date)
             {
                 MessageBox.Show("La fecha seleccionada no se encuentra dentro de las disponibles", "Error", MessageBoxButtons.OK);
             }
@@ -120,6 +129,14 @@ namespace ClinicaFrba.Pedir_Turno
                 }
                 else MessageBox.Show("El profesional elegido no atiende ese día", "Error", MessageBoxButtons.OK);
             }
+        }
+
+        // Se fija cual fecha viene antes, la actual del sistema o la de inicio de disponibilidad debido a que
+        // el turno elegido debe estar dentro de la disponibilidad y ser posterior a la actual
+        private DateTime primeraFecha()
+        {
+            if (fechaTemprana < fechaActual) { return fechaTemprana; }
+            else return fechaActual;
         }
 
         // Busco para que dias tiene agenda el profesional
@@ -251,7 +268,7 @@ namespace ClinicaFrba.Pedir_Turno
                        actualTurno = actualTurno.AddMinutes(30);
 
                        // No queria repetir la query aca pero tratando de settear la query como un string hacia que el valor
-                       // de actualTurno no cambiara en la query aun cuando cambiaba afuera asi que no tuve otra opcion que dejarlo
+                       // de actualTurno no cambiara en la query aun cuando cambiaba afuera asi que no tuve otra opcion que copiarla aca
                        disponibilidad = new SqlCommand(@"SELECT COUNT(*) FROM [3FG].TURNOS T,
                                                        (SELECT A.ID_AGENDA FROM [3FG].AGENDA A,
                                                        [3FG].PROFESIONALES P WHERE A.ID_USUARIO = P.ID_USUARIO
@@ -276,8 +293,12 @@ namespace ClinicaFrba.Pedir_Turno
        // Setteo el turno elegido y muestro con la label que turno eligio
        private void button3_Click(object sender, EventArgs e)
        {
-           this.fechaElegida = (DateTime) comboBox1.SelectedValue;
-           label2.Text = "Turno elegido: " + fechaElegida.ToString("yyyy-dd-MM HH:mm");
+           if (comboBox1.SelectedValue != null)
+           {
+               this.fechaElegida = (DateTime)comboBox1.SelectedValue;
+               label2.Text = "Turno elegido: " + fechaElegida.ToString("yyyy-dd-MM HH:mm");
+           }
+           else MessageBox.Show("No ha elegido una fecha ni horario valido para un turno", "Error", MessageBoxButtons.OK);
        }
     
     }

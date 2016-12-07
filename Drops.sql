@@ -56,3 +56,4 @@ DROP PROCEDURE [3FG].EsteblecerUsuarioYContraseñaPorDefault;
 DROP FUNCTION [3FG].obtenerDia;
 DROP FUNCTION [3FG].obtenerHora;
 DROP PROCEDURE agregarEntablasUsuarioYAfiliado;
+DROP TRIGGER [3FG].guardarNroConsulta;

@@ -300,6 +300,11 @@ namespace ClinicaFrba.Pedir_Turno
            }
            else MessageBox.Show("No ha elegido una fecha ni horario valido para un turno", "Error", MessageBoxButtons.OK);
        }
+
+       private void Elegir_Horario_Load(object sender, EventArgs e)
+       {
+
+       }
     
     }
 }

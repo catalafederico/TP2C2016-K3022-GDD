@@ -148,6 +148,7 @@
             this.Controls.Add(this.dateTimePicker1);
             this.Name = "Elegir_Horario";
             this.Text = "Elegir Horario";
+            this.Load += new System.EventHandler(this.Elegir_Horario_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

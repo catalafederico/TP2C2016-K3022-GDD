@@ -13,20 +13,20 @@ namespace ClinicaFrba.Registro_Llegada
 {
     public partial class ElegirAfiliado : Form
     {
-        private int id_bono;
+        private int id_bono = -1;
         private int turno;
-        private int numeroAfiliado;
-        private string queryDeAfiliados = "select U.APELLIDO, U.NOMBRE, A1.RAIZ_AFILIADO,A1.NUMERO_FAMILIA from [3FG].AFILIADOS A1 join [3FG].USUARIOS U on (A1.ID_USUARIO = U.ID_USUARIO) where RAIZ_AFILIADO = (select A.RAIZ_AFILIADO from [3FG].AFILIADOS A join [3FG].TURNOS T on (A.ID_USUARIO = T.ID_AFILIADO) where T.ID_TURNO = @Turno AND U.HABILITADO = 1)";
-        private string queryDeBonos = "select B.ID_BONO,B.ID_COMPRA,B.ID_PLAN from [3FG].BONOS B JOIN [3FG].COMPRAS C ON (B.ID_COMPRA = C.ID_COMPRA) JOIN [3FG].AFILIADOS A ON (A.ID_USUARIO = C.ID_USUARIO) WHERE A.RAIZ_AFILIADO = @NumeroAfiliado AND NUMERO_CONSULTA IS NULL";
+        private string queryDeBonos = "select B.ID_BONO,B.ID_COMPRA,B.ID_PLAN from [3FG].BONOS B JOIN [3FG].COMPRAS C ON (B.ID_COMPRA = C.ID_COMPRA) JOIN [3FG].AFILIADOS A ON (A.ID_USUARIO = C.ID_USUARIO) WHERE A.RAIZ_AFILIADO = @NumeroAfiliado AND NUMERO_CONSULTA IS NULL AND B.ID_PLAN IN (SELECT A1.ID_PLAN FROM [3FG].AFILIADOS A1 WHERE A1.ID_USUARIO = @Id_Usuario)";
         
-        //Se cargan los afiliados que pueden hacer uso de dicho turno
-        public ElegirAfiliado(int id_Turno)
+        //Se cargan los bonos que puede usar el afiliado seleccionado, que son los que adquirio él o algun miembro de su familia, siemprey cuando, sea con el mismo plan que posee.
+        public ElegirAfiliado(int id_Turno, int id_afiliado, int raizAfiliado, string apellido, string nombre)
         {
             turno = id_Turno;
             InitializeComponent();
-            SqlCommand comandoAfiliados = new SqlCommand(queryDeAfiliados);
-            comandoAfiliados.Parameters.Add("@Turno", SqlDbType.Int).Value = id_Turno;
-            ConexionSQL.loadDataGridConSqlCommand(comandoAfiliados, dataGridView1);
+            SqlCommand comandoBonos = new SqlCommand(queryDeBonos);
+            comandoBonos.Parameters.Add("@NumeroAfiliado", SqlDbType.Int).Value = raizAfiliado;
+            comandoBonos.Parameters.Add("@Id_Usuario", SqlDbType.Int).Value = id_afiliado;
+            ConexionSQL.loadDataGridConSqlCommand(comandoBonos, dataGridView2);
+            label1.Text = "Afiliado seleccionado: " + apellido.ToString() + ", " + nombre.ToString();
         }
 
 
@@ -34,36 +34,6 @@ namespace ClinicaFrba.Registro_Llegada
         private void ElegirAfiliado_Load(object sender, EventArgs e)
         {
 
-        }
-
-        //Se selecciona el afiliado que hara uso del turno
-        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0)
-            {
-                // Tomo toda la informacion de la fila que fue clickeada
-                object apellido = dataGridView1.Rows[e.RowIndex].Cells[0].Value;
-                object nombre = dataGridView1.Rows[e.RowIndex].Cells[1].Value;
-                object raiz = dataGridView1.Rows[e.RowIndex].Cells[2].Value;
-                object nroFamilia = dataGridView1.Rows[e.RowIndex].Cells[3].Value;
-
-                // Setteo las variables
-                numeroAfiliado = int.Parse(raiz.ToString());
-                string apellidoAfi = apellido.ToString();
-                string nombreAfi = nombre.ToString();
-
-                // Modifico la ventana para reflejar la eleccion del usuario
-                label1.Text = "Afiliado Seleccionado: " + apellidoAfi + "; "+ nombreAfi;
-            }
-        }
-
-
-        //Se buscan los bonos que tiene disponible dicho usuario para poder realizar la consulta (Con esto incluimos los bonos comprados por miembros de la misma familia)
-        private void button1_Click(object sender, EventArgs e)
-        {
-            SqlCommand comandoBonos = new SqlCommand(queryDeBonos);
-            comandoBonos.Parameters.Add("@NumeroAfiliado", SqlDbType.Int).Value = numeroAfiliado;
-            ConexionSQL.loadDataGridConSqlCommand(comandoBonos, dataGridView2);
         }
 
 
@@ -88,10 +58,10 @@ namespace ClinicaFrba.Registro_Llegada
         private void button2_Click(object sender, EventArgs e)
         {
             // Si elegi un bono
-            if (id_bono != null)
+            if (id_bono != (-1))
             {
                 ConexionSQL unaConexion = new ConexionSQL();
-                DateTime fechaYHora = DateTime.Now;
+                DateTime fechaYHora = DateTime.Parse(Program.nuevaFechaSistema());
                 string insertDeRecepcion = "INSERT INTO [3FG].RECEPCIONES (ID_TURNO, ID_BONO,FECHA_RECEPCIONES) VALUES (@Turno,@Bono,@Fecha)";
                 SqlCommand unaLlegada = new SqlCommand(insertDeRecepcion);
                 unaLlegada.Parameters.Add("@Turno", SqlDbType.Int).Value = turno;
@@ -110,7 +80,7 @@ namespace ClinicaFrba.Registro_Llegada
                 eh.Closed += (s, args) => this.Close();
                 eh.Show();
             }
-            else MessageBox.Show("No ha seleccionado un Turno", "Error", MessageBoxButtons.OK);
+            else MessageBox.Show("No ha seleccionado un Bono", "Error", MessageBoxButtons.OK);
         }
 
 

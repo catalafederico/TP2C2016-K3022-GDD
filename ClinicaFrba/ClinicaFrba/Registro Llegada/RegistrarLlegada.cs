@@ -18,7 +18,7 @@ namespace ClinicaFrba.Registro_Llegada
         private int idDoctor;
 
         // Esta query busca todos el ID, nombre y apellido de cada profesional ademas de su especialidad y el ID de la misma
-        private string queryDeLoadTable = "SELECT U.APELLIDO AS Apellido, U.NOMBRE AS Nombre, U.ID_USUARIO, E.DESCRIPCION_ESPECIALIDAD AS Especialidad, E.ID_ESPECIALIDAD FROM [3FG].USUARIOS U, [3FG].PROFESIONALES P, [3FG].ESPECIALIDAD_PROFESIONAL EP, [3FG].ESPECIALIDADES E WHERE (U.ID_USUARIO = P.ID_USUARIO) AND (P.ID_USUARIO = EP.ID_USUARIO) AND (EP.ID_ESPECIALIDAD = E.ID_ESPECIALIDAD)";
+        private string queryDeLoadTable = "SELECT U.APELLIDO AS Apellido, U.NOMBRE AS Nombre, U.ID_USUARIO, E.DESCRIPCION_ESPECIALIDAD AS Especialidad, E.ID_ESPECIALIDAD FROM [3FG].USUARIOS U, [3FG].PROFESIONALES P, [3FG].ESPECIALIDAD_PROFESIONAL EP, [3FG].ESPECIALIDADES E WHERE (U.ID_USUARIO = P.ID_USUARIO) AND (P.ID_USUARIO = EP.ID_USUARIO) AND (EP.ID_ESPECIALIDAD = E.ID_ESPECIALIDAD) AND U.HABILITADO = 1";
 
         public RegistrarLlegada()
         {

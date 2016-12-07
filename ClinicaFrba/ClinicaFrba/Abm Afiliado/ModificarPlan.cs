@@ -45,7 +45,7 @@ namespace ClinicaFrba.ABM_Afiliado
 
             /* SELECT COUNT(*) FROM [3FG].USUARIOS u join [3FG].AFILIADOS a on(u.ID_USUARIO=a.ID_USUARIO) WHERE u.TIPO_DE_DOCUMENTO = 'D.N.I' AND u.NUMERO_DOCUMENTO = '52655802';*/
 
-            if (textBox1.Text == null)
+            if (textBox1.Text == "")
             {
                 MessageBox.Show("Debe Agregar el motivo de la modificacion del plan", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
@@ -53,6 +53,11 @@ namespace ClinicaFrba.ABM_Afiliado
 
 
             return true;
+        }
+
+        private void ModificarPlan_Load(object sender, EventArgs e)
+        {
+
         }
 
     }

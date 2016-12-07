@@ -30,6 +30,15 @@ namespace ClinicaFrba.ABM_Afiliado
 
         private void buttonSiguiente_Click(object sender, EventArgs e)
         {
+
+
+
+            if (!validacionesCliente())
+            {
+                return;
+            }
+
+
             if ((MessageBox.Show("¿Realmente desea modificar al Afiliado?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes))
             {
                 modificarAfiliado(comboBox1.Text, textBox1.Text);
@@ -157,6 +166,35 @@ namespace ClinicaFrba.ABM_Afiliado
 
             return true;
         }
+
+
+        private bool validacionesCliente()
+        {
+         
+
+            if (comboBox1.Text=="")
+            {
+                MessageBox.Show("No ha completado que desea modificar", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+
+
+            if (textBox1.Text =="")
+            {
+                MessageBox.Show("No se agrego el nuevo dato", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+           
+
+            return true;
+
+
+
+        }
+
+
 
     }
 }

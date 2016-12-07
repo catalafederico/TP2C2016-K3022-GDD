@@ -69,6 +69,7 @@
             this.Controls.Add(this.label1);
             this.Name = "ModificarPlan";
             this.Text = "ModificarPlan";
+            this.Load += new System.EventHandler(this.ModificarPlan_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

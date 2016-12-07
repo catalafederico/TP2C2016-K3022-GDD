@@ -73,32 +73,32 @@ namespace ClinicaFrba.Listados
             {
                 VentanaHistorial ventana = new VentanaHistorial(comboBox1.Text, null, null, comboBox_SEMESTRE.Text,textBox_AÑO.Text);
                 ventana.ShowDialog();
-                this.Hide();
+             
             }
 
             if (comboBox1.Text == "PROFESIONALES CON MAS CONSULTAS")
             {
                 DatosParaFiltrar ventana = new DatosParaFiltrar(comboBox1.Text, comboBox_SEMESTRE.Text, textBox_AÑO.Text);
                 ventana.ShowDialog();
-                this.Hide();
+             
             }
             if (comboBox1.Text == "AFILIADOS CON MAS BONOS COMPRADOS")
             {
                 VentanaHistorial ventana = new VentanaHistorial(comboBox1.Text, null, null, comboBox_SEMESTRE.Text, textBox_AÑO.Text);
                 ventana.ShowDialog();
-                this.Hide();
+               
             }
             if (comboBox1.Text == "ESPECIALIDADES CON MAS BONO DE CONSULTA UTILIZADOS")
             {
                 VentanaHistorial ventana = new VentanaHistorial(comboBox1.Text, null, null, comboBox_SEMESTRE.Text, textBox_AÑO.Text);
                 ventana.ShowDialog();
-                this.Hide();
+                
             }
             if (comboBox1.Text == "PROFESIONALES CON MENOS HORAS TRABAJADAS")
             {
                 DatosParaFiltrar ventana = new DatosParaFiltrar(comboBox1.Text, comboBox_SEMESTRE.Text, textBox_AÑO.Text);
                 ventana.ShowDialog();
-                this.Hide();
+              
             }
 
             

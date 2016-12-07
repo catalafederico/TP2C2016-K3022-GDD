@@ -47,7 +47,7 @@ namespace ClinicaFrba.Pedir_Turno
             this.fechaActual = DateTime.Parse(Program.nuevaFechaSistema());
 
             // Modifico las labels para que el usuario sepa desde donde hasta donde puede elegir fecha
-            label3.Text = "Primera fecha disponible: " + fechaTemprana.ToString("yyyy-MM-dd");
+            label3.Text = "Primera fecha disponible: " + primeraFecha().ToString("yyyy-MM-dd");
             label4.Text = "Ultima fecha disponible: " + fechaTardia.ToString("yyyy-MM-dd");
             this.idDoctor = idDoc;
             
@@ -131,11 +131,11 @@ namespace ClinicaFrba.Pedir_Turno
             }
         }
 
-        // Se fija cual fecha viene antes, la actual del sistema o la de inicio de disponibilidad debido a que
+        // Se fija cual fecha usar como limite, la actual del sistema o la de inicio de disponibilidad debido a que
         // el turno elegido debe estar dentro de la disponibilidad y ser posterior a la actual
         private DateTime primeraFecha()
         {
-            if (fechaTemprana < fechaActual) { return fechaTemprana; }
+            if (fechaTemprana > fechaActual) { return fechaTemprana; }
             else return fechaActual;
         }
 

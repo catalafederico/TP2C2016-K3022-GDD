@@ -30,8 +30,7 @@ namespace ClinicaFrba.Cancelar_Atencion
                                   AND (T.ID_AGENDA = A.ID_AGENDA)
                                   AND (A.ID_USUARIO = U.ID_USUARIO)
                                   AND (U.ID_USUARIO = P.ID_USUARIO)
-                                  AND (T.ID_TURNO NOT IN (SELECT C.ID_TURNO FROM [3FG].CANCELACIONES C))
-                                  AND (T.ID_TURNO NOT IN (SELECT R.ID_TURNO FROM [3FG].RECEPCIONES R))";
+                                  AND (T.ID_TURNO NOT IN (SELECT C.ID_TURNO FROM [3FG].CANCELACIONES C))";
 
         public CancelarAtencionProfesional(int idU)
         {

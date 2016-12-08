@@ -35,7 +35,6 @@
             this.button_seleccionarTodo = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.buttonGuardar = new System.Windows.Forms.Button();
-            this.chkHabilitado = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -103,23 +102,11 @@
             this.buttonGuardar.UseVisualStyleBackColor = true;
             this.buttonGuardar.Click += new System.EventHandler(this.buttonGuardar_Click_1);
             // 
-            // chkHabilitado
-            // 
-            this.chkHabilitado.AutoSize = true;
-            this.chkHabilitado.Location = new System.Drawing.Point(71, 223);
-            this.chkHabilitado.Name = "chkHabilitado";
-            this.chkHabilitado.Size = new System.Drawing.Size(80, 17);
-            this.chkHabilitado.TabIndex = 7;
-            this.chkHabilitado.Text = "checkBox1";
-            this.chkHabilitado.UseVisualStyleBackColor = true;
-            this.chkHabilitado.CheckedChanged += new System.EventHandler(this.chkHabilitado_CheckedChanged_1);
-            // 
             // ModificarRol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(583, 338);
-            this.Controls.Add(this.chkHabilitado);
             this.Controls.Add(this.buttonGuardar);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button_seleccionarTodo);
@@ -144,6 +131,5 @@
         private System.Windows.Forms.Button button_seleccionarTodo;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button buttonGuardar;
-        private System.Windows.Forms.CheckBox chkHabilitado;
     }
 }

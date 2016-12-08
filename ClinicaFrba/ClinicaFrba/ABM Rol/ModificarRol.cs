@@ -39,7 +39,7 @@ namespace ClinicaFrba.ABM_Rol
             string query2 = "SELECT COUNT(*) FROM [3FG].ROLES WHERE NOMBRE_ROL = '" + rolPasado + "' AND HABILITADO = 1";
             DataTable dt2 = (new ConexionSQL()).cargarTablaSQL(query2);
             string habilitado = dt2.Rows[0][0].ToString();
-            if (habilitado == "1")
+            /*if (habilitado == "1")
             {
                 estadoAnterior = chkHabilitado.Checked = true;
                 chkHabilitado.Enabled = false;
@@ -47,7 +47,7 @@ namespace ClinicaFrba.ABM_Rol
             else
             {
                 estadoAnterior = chkHabilitado.Checked = false;
-            }
+            }*/
 
             //cargo las funcionalidades del rol
 
@@ -150,7 +150,7 @@ namespace ClinicaFrba.ABM_Rol
             string comando5 = "UPDATE [3FG].ROLES SET NOMBRE_ROL = '" + txtNombreRol.Text + "' WHERE ID_ROL = '" + idRol + "'";
             (new ConexionSQL()).ejecutarComandoSQL(comando5);
 
-            if (estadoAnterior == true && chkHabilitado.Checked == true)
+           /* if (estadoAnterior == true && chkHabilitado.Checked == true)
             {
 
             }
@@ -167,7 +167,7 @@ namespace ClinicaFrba.ABM_Rol
             else
             {
 
-            }
+            }*/
         }
 
         private void button_seleccionarTodo_Click(object sender, EventArgs e)

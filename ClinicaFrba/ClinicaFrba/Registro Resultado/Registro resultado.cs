@@ -16,13 +16,14 @@ namespace ClinicaFrba.Registro_Resultado
         private DateTime fechaAtencion;
         private int idProfesional;
         private int idRecepcion;
-        // Setteo todo el DataGrid con los turnos que tengan una recepcion confirmada
+        // Setteo todo el DataGrid con los turnos que tengan una recepcion confirmada y no un resultado
         private static string queryDeAtenciones = @"SELECT R.ID_RECEPCION, T.ID_TURNO, T.FECHA_TURNO AS 'Fecha Turno' 
                                                     FROM [3FG].TURNOS T, [3FG].RECEPCIONES R, [3FG].AGENDA A, [3FG].USUARIOS U, [3FG].PROFESIONALES P
                                                     WHERE R.ID_TURNO = T.ID_TURNO
                                                     AND T.ID_AGENDA = A.ID_AGENDA
                                                     AND A.ID_USUARIO = P.ID_USUARIO
-                                                    AND P.ID_USUARIO = U.ID_USUARIO";
+                                                    AND P.ID_USUARIO = U.ID_USUARIO
+                                                    AND (R.ID_RECEPCION NOT IN (SELECT AM.ID_RECEPCION FROM [3FG].ATENCIONES_MEDICAS AM))";
 
 
 

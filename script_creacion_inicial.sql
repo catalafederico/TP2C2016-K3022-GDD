@@ -758,9 +758,9 @@ EXEC [3FG].MigrarEspecialidades
 EXEC [3FG].MigrarEspecialidadPorProfesional
 EXEC [3FG].Migrar_Afiliados_Profesionales_Temporales
 EXEC [3FG].MigrarTurnos
-EXEC [3FG].MigrarRecepciones
 EXEC [3FG].MigrarCompras
 EXEC [3FG].MigrarBonos
+EXEC [3FG].MigrarRecepciones
 EXEC [3FG].EsteblecerUsuarioYContraseñaPorDefault
 execute [3FG].asginarValoresALosAfiliados
 GO

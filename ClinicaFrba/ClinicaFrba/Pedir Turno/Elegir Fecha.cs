@@ -110,6 +110,7 @@ namespace ClinicaFrba.Pedir_Turno
             }
             else
             {
+                // Como la clinica no atiende los domingos, me fijo que no este pidiendo un domingo
                 if (dateTimePicker1.Value.DayOfWeek != DayOfWeek.Sunday)
                 {
                     // Me fijo si el profesional elegido atiende ese dia para esa especialidad
@@ -132,7 +133,12 @@ namespace ClinicaFrba.Pedir_Turno
                     }
                     else MessageBox.Show("El profesional elegido no atiende ese día", "Error", MessageBoxButtons.OK);
                 }
-                else MessageBox.Show("La clinica no está abierta los domingos", "Error", MessageBoxButtons.OK);
+                else 
+                {
+                    // Misma explicacion que para lo de arriba
+                    comboBox1.DataSource = null;
+                    MessageBox.Show("La clinica no está abierta los domingos", "Error", MessageBoxButtons.OK);
+                }
             }
         }
 
@@ -216,6 +222,22 @@ namespace ClinicaFrba.Pedir_Turno
         }
 
 
+        // Funcion medio similar a la de comparacion de DateTime pero para TimeSpans, como necesito comparar
+        // tanto primera como ultima hora disponible la hice mas generica aunque un tanto rústica
+        private TimeSpan comparar(TimeSpan ts1, TimeSpan ts2, string criterio)
+        {
+            if (criterio == "Mayor")
+            {
+                if (ts1 > ts2) { return ts1; }
+                else return ts2;
+            }
+            else
+            {
+                if (ts1 > ts2) { return ts2; }
+                else return ts1;
+            }
+        }
+
 
        // Funcion de busqueda de turnos
        private bool busquedaDeTurnos(DateTime fecha)
@@ -225,15 +247,27 @@ namespace ClinicaFrba.Pedir_Turno
 
            // Busco el inicio de la disponibilidad para esa agenda
            SqlCommand queryBuscarMinimo = new SqlCommand("SELECT INICIO_ATENCION FROM [3FG].AGENDA WHERE ID_AGENDA = " + idAgendaTemporaria.ToString(), new ConexionSQL().conectar());
-           TimeSpan horarioMinimo = TimeSpan.Parse(queryBuscarMinimo.ExecuteScalar().ToString());
+           TimeSpan horarioProfMinimo = TimeSpan.Parse(queryBuscarMinimo.ExecuteScalar().ToString());
 
            // Busco el fin de la disponibilidad para esa agenda
            SqlCommand queryBuscarMaximo = new SqlCommand("SELECT FIN_ATENCION FROM [3FG].AGENDA WHERE ID_AGENDA = " + idAgendaTemporaria.ToString(), new ConexionSQL().conectar());
-           TimeSpan horarioMaximo = TimeSpan.Parse(queryBuscarMaximo.ExecuteScalar().ToString());
+           TimeSpan horarioProfMaximo = TimeSpan.Parse(queryBuscarMaximo.ExecuteScalar().ToString());
+
+           // Genero el horario de apertura de clinica dependiendo del dia de la semana
+           TimeSpan horarioAperturaClinica;
+           if (fecha.DayOfWeek == DayOfWeek.Saturday)
+           { horarioAperturaClinica = new TimeSpan(10,00,00);}
+           else horarioAperturaClinica = new TimeSpan(07,00,00);
+
+           // Genero el horario de cierre de clinica dependiendo del dia de la semana
+           TimeSpan horarioCierreClinica;
+           if (fecha.DayOfWeek == DayOfWeek.Saturday)
+           { horarioCierreClinica = new TimeSpan(15,00,00); }
+           else horarioCierreClinica = new TimeSpan(20,00,00);
 
            // Setteo el turno actual (empiezo con el primero posible del dia) y el turno final del dia
-           DateTime ultimoTurno = fecha.Date + horarioMaximo;
-           DateTime actualTurno = fecha.Date + horarioMinimo;
+           DateTime ultimoTurno = fecha.Date + comparar(horarioProfMaximo,horarioCierreClinica,"Menor");
+           DateTime actualTurno = fecha.Date + comparar(horarioProfMinimo,horarioAperturaClinica,"Mayor");
 
            // Voy a retornar este bool para informar que ocurrio con la operacion
            bool encontroTurno = false;
@@ -307,11 +341,6 @@ namespace ClinicaFrba.Pedir_Turno
                label2.Text = "Turno elegido: " + fechaElegida.ToString("yyyy-dd-MM HH:mm");
            }
            else MessageBox.Show("No ha elegido una fecha ni horario valido para un turno", "Error", MessageBoxButtons.OK);
-       }
-
-       private void Elegir_Horario_Load(object sender, EventArgs e)
-       {
-
        }
     
     }

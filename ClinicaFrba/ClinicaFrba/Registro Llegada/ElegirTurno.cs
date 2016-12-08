@@ -13,6 +13,7 @@ namespace ClinicaFrba.Registro_Llegada
 {
     public partial class ElegirTurno : Form
     {
+        //Esta es la query con la que se cargara la tabla. Se buscan todos los turnos del dia en cuestion, para dicho profesional, en dicha especialidad, junto con el afiliado que solicito el turno, excluyendo turnos cancelados, turnos ya concurridos y afiliados inhabilitados.
         private string queryDeBusquedaTurnos = "select T.ID_TURNO, T.FECHA_TURNO, T.ID_AFILIADO,T.ID_AGENDA, U.APELLIDO, U.NOMBRE, AF.RAIZ_AFILIADO, AF.NUMERO_FAMILIA from [3FG].AGENDA A JOIN [3FG].ESPECIALIDAD_PROFESIONAL E ON (A.ID_ESPECIALIDAD = E.ID_ESPECIALIDAD) JOIN [3FG].PROFESIONALES P ON (P.ID_USUARIO = E.ID_USUARIO) JOIN [3FG].TURNOS T ON (A.ID_AGENDA = T.ID_AGENDA) JOIN [3FG].USUARIOS U ON (U.ID_USUARIO = T.ID_AFILIADO) JOIN [3FG].AFILIADOS AF ON (AF.ID_USUARIO = U.ID_USUARIO) WHERE P.ID_USUARIO = @id_Profesional AND E.ID_ESPECIALIDAD = @id_especialidad AND T.ID_TURNO NOT IN (SELECT ID_TURNO FROM [3FG].RECEPCIONES) AND T.ID_TURNO NOT IN (SELECT C.ID_TURNO FROM [3FG].CANCELACIONES C) AND CONVERT(date, T.FECHA_TURNO) = CONVERT(date, @Fecha) AND U.HABILITADO = 1";
         private int id_turno = -1;
         private int id_afiliado;

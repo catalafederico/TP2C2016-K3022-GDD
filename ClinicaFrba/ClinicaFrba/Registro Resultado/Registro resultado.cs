@@ -34,7 +34,7 @@ namespace ClinicaFrba.Registro_Resultado
             this.idProfesional = idP;
 
             // Le agrego a la query que los turnos sean del profesional
-            queryDeAtenciones += " AND A.ID_USUARIO = " + this.idProfesional + " ORDER BY T.FECHA_TURNO";
+            queryDeAtenciones += " AND A.ID_USUARIO = " + this.idProfesional ;
             InitializeComponent();
 
             // Cargo el Datagrid

@@ -45,8 +45,16 @@ namespace ClinicaFrba.Registrar_Agenda_Medico
             string query = "SELECT FIN_DISPONIBILIDAD FROM [3FG].PROFESIONALES WHERE ID_USUARIO = '" + idProfesional + "'";
             DataTable dt = (new ConexionSQL()).cargarTablaSQL(query);
             String finDis = dt.Rows[0][0].ToString();
-            DateTime finDispo = Convert.ToDateTime(finDis);
-            return finDispo;
+            if (String.IsNullOrEmpty(finDis))
+            {
+                string flag = "2000-12-30 18:00:00.000";
+                return Convert.ToDateTime(flag);
+            }
+            else
+            {
+                DateTime finDispo = Convert.ToDateTime(finDis);
+                return finDispo;
+            }
         }
 
      }

@@ -139,7 +139,7 @@ namespace ClinicaFrba.Registrar_Agenda_Medico
                         }
                         else
                         {
-                            if (AgendaDAL.getFinDisponibilidadActual(idPro) > dateTimePickerInicioDisp.Value)
+                            if ((AgendaDAL.getFinDisponibilidadActual(idPro) > Convert.ToDateTime("2000-12-30 18:00:00.000")) && AgendaDAL.getFinDisponibilidadActual(idPro) > dateTimePickerInicioDisp.Value)
                             {
                                 MessageBox.Show("El profesional ya tiene una agenda cargada en en periodo solicitado.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }

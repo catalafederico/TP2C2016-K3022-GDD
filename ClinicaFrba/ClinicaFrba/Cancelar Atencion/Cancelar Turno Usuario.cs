@@ -28,7 +28,6 @@ namespace ClinicaFrba.Cancelar_Atencion
                                   AND (T.ID_AFILIADO = A.ID_USUARIO)
                                   AND (A.ID_USUARIO = U.ID_USUARIO)
                                   AND (T.ID_TURNO NOT IN (SELECT C.ID_TURNO FROM [3FG].CANCELACIONES C))
-                                  AND (T.ID_TURNO NOT IN (SELECT R.ID_TURNO FROM [3FG].RECEPCIONES R))
                                   AND T.FECHA_TURNO > '" + fechaActual.ToString("yyyy-dd-MM HH:mm:ss") + "'";
         
 

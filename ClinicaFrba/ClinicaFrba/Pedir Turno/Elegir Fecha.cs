@@ -142,13 +142,13 @@ namespace ClinicaFrba.Pedir_Turno
         // Busco para que dias tiene agenda el profesional
         private void diasDisponibles() {
             label1.Text = "Los días disponibles del profesional son: [";
-            if (hayAgenda("DOMINGO")) { label1.Text += "Domingo "; };
-            if (hayAgenda("LUNES")) { label1.Text += "| Lunes "; };
-            if (hayAgenda("MARTES")) { label1.Text += "| Martes "; };
-            if (hayAgenda("MIERCOLES")) { label1.Text += "| Miercoles "; };
-            if (hayAgenda("JUEVES")) { label1.Text += "| Jueves "; };
-            if (hayAgenda("VIERNES")) { label1.Text += "| Viernes "; };
-            if (hayAgenda("SABADO")) { label1.Text += "| Sabado"; };
+            if (hayAgenda("DOMINGO")) { label1.Text += "Domingo"; };
+            if (hayAgenda("LUNES")) { label1.Text += "|Lunes"; };
+            if (hayAgenda("MARTES")) { label1.Text += "|Martes"; };
+            if (hayAgenda("MIERCOLES")) { label1.Text += "|Miercoles"; };
+            if (hayAgenda("JUEVES")) { label1.Text += "|Jueves"; };
+            if (hayAgenda("VIERNES")) { label1.Text += "|Viernes"; };
+            if (hayAgenda("SABADO")) { label1.Text += "|Sabado"; };
             label1.Text += "]";
         }
 
@@ -245,7 +245,8 @@ namespace ClinicaFrba.Pedir_Turno
                                                             [3FG].PROFESIONALES P WHERE A.ID_USUARIO = P.ID_USUARIO
                                                             AND P.ID_USUARIO = " + this.idDoctor.ToString() + @") AP
                                                             WHERE T.ID_AGENDA = AP.ID_AGENDA AND
-                                                            T.FECHA_TURNO = '" + actualTurno.ToString("yyyy-dd-MM HH:mm:ss") + "'", new ConexionSQL().conectar());
+                                                            T.FECHA_TURNO = '" + actualTurno.ToString("yyyy-dd-MM HH:mm:ss") + @"'
+                                                            AND (T.ID_TURNO NOT IN (SELECT C.ID_TURNO FROM [3FG].CANCELACIONES C))", new ConexionSQL().conectar());
               
                // Salvo ese valor en una variable
                int turnoPisados = (int)disponibilidad.ExecuteScalar();
@@ -274,7 +275,8 @@ namespace ClinicaFrba.Pedir_Turno
                                                        [3FG].PROFESIONALES P WHERE A.ID_USUARIO = P.ID_USUARIO
                                                        AND P.ID_USUARIO = " + this.idDoctor.ToString() + @") AP
                                                        WHERE T.ID_AGENDA = AP.ID_AGENDA AND
-                                                       T.FECHA_TURNO = '" + actualTurno.ToString("yyyy-dd-MM HH:mm:ss") + "'", new ConexionSQL().conectar());
+                                                       T.FECHA_TURNO = '" + actualTurno.ToString("yyyy-dd-MM HH:mm:ss") + @"'
+                                                       AND (T.ID_TURNO NOT IN (SELECT C.ID_TURNO FROM [3FG].CANCELACIONES C))", new ConexionSQL().conectar());
                        turnoPisados = (int)disponibilidad.ExecuteScalar();
                    }
 

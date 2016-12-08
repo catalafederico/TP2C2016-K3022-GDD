@@ -61,7 +61,10 @@ namespace ClinicaFrba.Registro_Llegada
             if (id_bono != (-1))
             {
                 ConexionSQL unaConexion = new ConexionSQL();
+                DateTime actual = DateTime.Now;
                 DateTime fechaYHora = DateTime.Parse(Program.nuevaFechaSistema());
+                TimeSpan ts = new TimeSpan(actual.Hour,actual.Minute,actual.Second);
+                fechaYHora = fechaYHora.Date + ts;
                 string insertDeRecepcion = "INSERT INTO [3FG].RECEPCIONES (ID_TURNO, ID_BONO,FECHA_RECEPCIONES) VALUES (@Turno,@Bono,@Fecha)";
                 SqlCommand unaLlegada = new SqlCommand(insertDeRecepcion);
                 unaLlegada.Parameters.Add("@Turno", SqlDbType.Int).Value = turno;

@@ -660,50 +660,6 @@ SELECT tablaRol.ID_ROL,tablaFuncionalidad.ID_FUNCIONALIDAD FROM [3FG].ROLES  tab
 WHERE tablaRol.NOMBRE_ROL = 'Administrativo' AND tablaFuncionalidad.NOMBRE IN ('ABM de Rol', 'ABM de Afiliado', 'Comprar Bonos','Registrar Llegadas', 'Listados Estadisticos');
 GO
 
-
-/*
-
-/*procedure para llenar la tabla afiliado*/
-create procedure [3FG].asginarValoresALosAfiliados 
-as
-begin 
-		DECLARE @idAfiliado bigint
-		DECLARE @estadoCivil VARCHAR(20)
-	DECLARE @cant_familiares bigint
-	DECLARE @raizAfiliado bigint
-	declare @numeroFamilia bigint
-	
-
-	DECLARE A1 CURSOR FOR
-
-	SELECT ID_USUARIO,ESTADO_CIVIL,CANT_FAMILIARES,RAIZ_AFILIADO,NUMERO_FAMILIA FROM [3FG].AFILIADOS
-
-	OPEN A1;
-	
-FETCH NEXT FROM A1 INTO @idAfiliado,@estadoCivil,@cant_familiares,@raizAfiliado,@numeroFamilia
-
-WHILE @@FETCH_STATUS = 0
-
-BEGIN
-
-set @estadoCivil='SOLTERO'
-set @cant_familiares=0
-
-set @numeroFamilia=1
-update [3FG].AFILIADOS  set  ESTADO_CIVIL=@estadoCivil,CANT_FAMILIARES=@cant_familiares,RAIZ_AFILIADO=@idAfiliado,NUMERO_FAMILIA=@numeroFamilia
-where ID_USUARIO=@idAfiliado
-
-FETCH NEXT FROM A1 INTO @idAfiliado,@estadoCivil,@cant_familiares,@raizAfiliado,@numeroFamilia
-
-END
-
-CLOSE A1;
-DEALLOCATE A1;
-
-end
-GO
-*/
-
 /*Procedure que agrega los roles a los afilidos y profesionales*/
 CREATE PROCEDURE [3FG].cargarRolesAAfiliadosYProfesionales
 AS
@@ -774,7 +730,6 @@ EXEC [3FG].MigrarCompras
 EXEC [3FG].MigrarBonos
 EXEC [3FG].MigrarRecepciones
 EXEC [3FG].EsteblecerUsuarioYContraseñaPorDefault
---execute [3FG].asginarValoresALosAfiliados
 EXEC [3FG].cargarRolesAAfiliadosYProfesionales
 GO
 
@@ -1048,15 +1003,6 @@ GO
 /*ADMINISTRADOR*/
 INSERT INTO [3FG].ROLES_USUARIO(ID_USUARIO,ID_ROL)
 VALUES(1,1)
-/*
-/*AFILIADO*/
-INSERT INTO [3FG].ROLES_USUARIO(ID_USUARIO,ID_ROL)
-VALUES(7,2)
-
-/*PROFESIONAL*/
-INSERT INTO [3FG].ROLES_USUARIO(ID_USUARIO,ID_ROL)
-VALUES(5575,3)
-*/
 
 		/* DATOS PARA TEST DE CANCELACIONES */
 

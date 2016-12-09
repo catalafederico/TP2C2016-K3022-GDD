@@ -106,7 +106,7 @@ namespace ClinicaFrba.Registro_Llegada
 
                 // Y modifico a la nueva ventana para que al cerrarse cierre esta tambien
                 eh.Closed += (s, args) => this.Close();
-                eh.Show();
+                eh.ShowDialog();
             }
             else MessageBox.Show("No ha seleccionado un profesional", "Error", MessageBoxButtons.OK);
         

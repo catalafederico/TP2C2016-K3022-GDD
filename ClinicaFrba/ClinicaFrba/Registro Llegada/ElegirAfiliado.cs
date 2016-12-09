@@ -15,7 +15,7 @@ namespace ClinicaFrba.Registro_Llegada
     {
         private int id_bono = -1;
         private int turno;
-        private string queryDeBonos = "select B.ID_BONO,B.ID_COMPRA,B.ID_PLAN from [3FG].BONOS B JOIN [3FG].COMPRAS C ON (B.ID_COMPRA = C.ID_COMPRA) JOIN [3FG].AFILIADOS A ON (A.ID_USUARIO = C.ID_USUARIO) WHERE A.RAIZ_AFILIADO = @NumeroAfiliado AND NUMERO_CONSULTA IS NULL AND B.ID_PLAN IN (SELECT A1.ID_PLAN FROM [3FG].AFILIADOS A1 WHERE A1.ID_USUARIO = @Id_Usuario)";
+        private string queryDeBonos = "select B.ID_BONO 'NUMERO DE BONO',B.ID_COMPRA,B.ID_PLAN, C.FECHA_COMPRA, P.DESCRIPCION_PLAN from [3FG].BONOS B JOIN [3FG].COMPRAS C ON (B.ID_COMPRA = C.ID_COMPRA) JOIN [3FG].PLANES P ON (P.ID_PLAN = B.ID_PLAN) JOIN [3FG].AFILIADOS A ON (A.ID_USUARIO = C.ID_USUARIO) WHERE A.RAIZ_AFILIADO = @NumeroAfiliado AND NUMERO_CONSULTA IS NULL AND B.ID_PLAN IN (SELECT A1.ID_PLAN FROM [3FG].AFILIADOS A1 WHERE A1.ID_USUARIO = @Id_Usuario)";
         
         //Se cargan los bonos que puede usar el afiliado seleccionado, que son los que adquirio él o algun miembro de su familia, siemprey cuando, sea con el mismo plan que posee.
         public ElegirAfiliado(int id_Turno, int id_afiliado, int raizAfiliado, string apellido, string nombre)
@@ -27,6 +27,8 @@ namespace ClinicaFrba.Registro_Llegada
             comandoBonos.Parameters.Add("@Id_Usuario", SqlDbType.Int).Value = id_afiliado;
             ConexionSQL.loadDataGridConSqlCommand(comandoBonos, dataGridView2);
             label1.Text = "Afiliado seleccionado: " + apellido.ToString() + ", " + nombre.ToString();
+            dataGridView2.Columns[1].Visible = false;
+            dataGridView2.Columns[2].Visible = false;
         }
 
 
@@ -46,6 +48,8 @@ namespace ClinicaFrba.Registro_Llegada
                 object bono = dataGridView2.Rows[e.RowIndex].Cells[0].Value;
                 object compra = dataGridView2.Rows[e.RowIndex].Cells[1].Value;
                 object plan = dataGridView2.Rows[e.RowIndex].Cells[2].Value;
+                object fecha = dataGridView2.Rows[e.RowIndex].Cells[3].Value;
+                object descripcion = dataGridView2.Rows[e.RowIndex].Cells[4].Value;
 
                 // Setteo las variables
                 id_bono = int.Parse(bono.ToString());
@@ -81,7 +85,7 @@ namespace ClinicaFrba.Registro_Llegada
 
                 // La cierro y abro una nueva ventana de RegistroLlegada
                 eh.Closed += (s, args) => this.Close();
-                eh.Show();
+                eh.ShowDialog();
             }
             else MessageBox.Show("No ha seleccionado un Bono", "Error", MessageBoxButtons.OK);
         }

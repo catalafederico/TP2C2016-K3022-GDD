@@ -49,7 +49,7 @@ namespace ClinicaFrba.Compra_Bono
                     EfectivizarCompra compra = new EfectivizarCompra(numeroDeUsuario);
                     this.Hide();
                     compra.Closed += (s, args) => this.Close();
-                    compra.Show();
+                    compra.ShowDialog();
                 }
             }
         }

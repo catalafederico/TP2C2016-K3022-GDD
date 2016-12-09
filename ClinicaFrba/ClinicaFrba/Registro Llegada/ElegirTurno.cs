@@ -14,7 +14,7 @@ namespace ClinicaFrba.Registro_Llegada
     public partial class ElegirTurno : Form
     {
         //Esta es la query con la que se cargara la tabla. Se buscan todos los turnos del dia en cuestion, para dicho profesional, en dicha especialidad, junto con el afiliado que solicito el turno, excluyendo turnos cancelados, turnos ya concurridos y afiliados inhabilitados.
-        private string queryDeBusquedaTurnos = "select T.ID_TURNO, T.FECHA_TURNO, T.ID_AFILIADO,T.ID_AGENDA, U.APELLIDO, U.NOMBRE, AF.RAIZ_AFILIADO, AF.NUMERO_FAMILIA from [3FG].AGENDA A JOIN [3FG].ESPECIALIDAD_PROFESIONAL E ON (A.ID_ESPECIALIDAD = E.ID_ESPECIALIDAD) JOIN [3FG].PROFESIONALES P ON (P.ID_USUARIO = E.ID_USUARIO) JOIN [3FG].TURNOS T ON (A.ID_AGENDA = T.ID_AGENDA) JOIN [3FG].USUARIOS U ON (U.ID_USUARIO = T.ID_AFILIADO) JOIN [3FG].AFILIADOS AF ON (AF.ID_USUARIO = U.ID_USUARIO) WHERE P.ID_USUARIO = @id_Profesional AND E.ID_ESPECIALIDAD = @id_especialidad AND T.ID_TURNO NOT IN (SELECT ID_TURNO FROM [3FG].RECEPCIONES) AND T.ID_TURNO NOT IN (SELECT C.ID_TURNO FROM [3FG].CANCELACIONES C) AND CONVERT(date, T.FECHA_TURNO) = CONVERT(date, @Fecha) AND U.HABILITADO = 1";
+        private string queryDeBusquedaTurnos = "select T.ID_TURNO, T.FECHA_TURNO, T.ID_AFILIADO, U.APELLIDO, U.NOMBRE, U.NUMERO_DOCUMENTO, AF.RAIZ_AFILIADO, CONVERT(VARCHAR,AF.RAIZ_AFILIADO) + CONVERT(VARCHAR,AF.NUMERO_FAMILIA) NUMERO_DE_AFILIADO from [3FG].AGENDA A JOIN [3FG].ESPECIALIDAD_PROFESIONAL E ON (A.ID_ESPECIALIDAD = E.ID_ESPECIALIDAD) JOIN [3FG].PROFESIONALES P ON (P.ID_USUARIO = E.ID_USUARIO) JOIN [3FG].TURNOS T ON (A.ID_AGENDA = T.ID_AGENDA) JOIN [3FG].USUARIOS U ON (U.ID_USUARIO = T.ID_AFILIADO) JOIN [3FG].AFILIADOS AF ON (AF.ID_USUARIO = U.ID_USUARIO) WHERE P.ID_USUARIO = @id_Profesional AND E.ID_ESPECIALIDAD = @id_especialidad AND T.ID_TURNO NOT IN (SELECT ID_TURNO FROM [3FG].RECEPCIONES) AND T.ID_TURNO NOT IN (SELECT C.ID_TURNO FROM [3FG].CANCELACIONES C) AND CONVERT(date, T.FECHA_TURNO) = CONVERT(date, @Fecha) AND U.HABILITADO = 1";
         private int id_turno = -1;
         private int id_afiliado;
         private int raizAfiliado;
@@ -32,6 +32,9 @@ namespace ClinicaFrba.Registro_Llegada
             comando.Parameters.Add("@id_especialidad", SqlDbType.Int).Value = id_especilidad;
             comando.Parameters.Add("@Fecha", SqlDbType.DateTime, 8).Value = fechaYHora;
             ConexionSQL.loadDataGridConSqlCommand(comando, dataGridView1);
+            dataGridView1.Columns[0].Visible = false;
+            dataGridView1.Columns[2].Visible = false;
+            dataGridView1.Columns[6].Visible = false;
         }
 
         private void ElegirTurno_Load(object sender, EventArgs e)
@@ -53,7 +56,7 @@ namespace ClinicaFrba.Registro_Llegada
 
                 // Y modifico a la nueva ventana para que al cerrarse cierre esta tambien
                 eh.Closed += (s, args) => this.Close();
-                eh.Show();
+                eh.ShowDialog();
             }
             else MessageBox.Show("No ha seleccionado un Turno", "Error", MessageBoxButtons.OK);
         }
@@ -69,11 +72,11 @@ namespace ClinicaFrba.Registro_Llegada
                 object turno = dataGridView1.Rows[e.RowIndex].Cells[0].Value;
                 object fecha = dataGridView1.Rows[e.RowIndex].Cells[1].Value;
                 object afiliado = dataGridView1.Rows[e.RowIndex].Cells[2].Value;
-                object agenda = dataGridView1.Rows[e.RowIndex].Cells[3].Value;
-                object apellido = dataGridView1.Rows[e.RowIndex].Cells[4].Value;
-                object nombre = dataGridView1.Rows[e.RowIndex].Cells[5].Value;
+                object apellido = dataGridView1.Rows[e.RowIndex].Cells[3].Value;
+                object nombre = dataGridView1.Rows[e.RowIndex].Cells[4].Value;
+                object numeroDoc = dataGridView1.Rows[e.RowIndex].Cells[5].Value;
                 object raiz = dataGridView1.Rows[e.RowIndex].Cells[6].Value;
-                object nroFamilia = dataGridView1.Rows[e.RowIndex].Cells[7].Value;
+                object numeroAfiliado = dataGridView1.Rows[e.RowIndex].Cells[7].Value;
 
                 // Setteo las variables
                 id_turno = int.Parse(turno.ToString());
@@ -83,9 +86,10 @@ namespace ClinicaFrba.Registro_Llegada
                 nombreDeAfiliado = nombre.ToString();
 
                 // Modifico la ventana para reflejar la eleccion del usuario
-                label1.Text = "Turno Elegido: " + id_turno.ToString();
+                label1.Text = "Turno Elegido: " + fecha.ToString();
                 label3.Text = "Apellido del Afiliado: " + apellido.ToString();
                 label4.Text = "Nombre del Afiliado: " + nombre.ToString();
+                label5.Text = "Numero de Documento: " + numeroDoc.ToString();
             }
         }
     }
